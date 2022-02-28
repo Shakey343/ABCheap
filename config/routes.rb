@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
-  resources :parameters, only: [:create, :show,]
+  resources :parameters, only: [:create, :show]
 end
