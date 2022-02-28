@@ -1,3 +1,3 @@
 class Option < ApplicationRecord
-  belongs_to :paramter
+  belongs_to :parameter
 end
