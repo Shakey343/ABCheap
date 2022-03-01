@@ -1,0 +1,15 @@
+.abc-btn {
+  border: 0.1rem solid;
+  border-radius: 0.1rem;
+  font-weight: 700;
+  padding: 0.625em 2em;
+  transition: color 125ms, background-color 125ms, border-color 125ms;
+  color: hsla(0, 0%, 100%, 1);;
+  background-color: $red;
+  border-color: $red;
+  &:hover {
+    color: hsla(0, 0%, 100%, 1);
+    background-color: $red;
+    border-color: $red;
+  }
+}
