@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_01_122214) do
+ActiveRecord::Schema.define(version: 2022_03_01_150407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fake_data", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.float "cost"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "duration"
+    t.string "mode"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "options", force: :cascade do |t|
     t.string "origin"
@@ -21,7 +33,7 @@ ActiveRecord::Schema.define(version: 2022_03_01_122214) do
     t.float "cost"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.time "duration"
+    t.integer "duration"
     t.bigint "parameter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
