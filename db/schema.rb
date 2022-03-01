@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_28_162501) do
+ActiveRecord::Schema.define(version: 2022_03_01_122214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "options", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.float "cost"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.time "duration"
+    t.bigint "parameter_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parameter_id"], name: "index_options_on_parameter_id"
+  end
+
+  create_table "parameters", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.datetime "preferred_start"
+    t.datetime "earliest_start"
+    t.datetime "latest_finish"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_parameters_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +52,6 @@ ActiveRecord::Schema.define(version: 2022_02_28_162501) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "options", "parameters"
+  add_foreign_key "parameters", "users"
 end
