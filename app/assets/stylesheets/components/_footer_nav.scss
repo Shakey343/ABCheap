@@ -1,0 +1,23 @@
+.footer {
+  background-color: #FF2840;
+  position: fixed;
+  height: 100px;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 20px;
+  align-items: center;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+
+}
+
+.icons {
+  list-style: none;
+  display:inline-block;
+
+  li {
+    display: inline-block;
+    margin: 1rem;
+    width: 80px
+  }
+}
