@@ -3,8 +3,8 @@
 
 // Define fonts for body and headers
 
+$header-font: "FrancisNico", "sans-serif";
 $body-font: 'Heebo', 'sans-serif';
-
 
 // To use a font file (.woff) uncomment following lines
 // @font-face {
@@ -15,3 +15,8 @@ $body-font: 'Heebo', 'sans-serif';
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+@font-face {
+  font-family: "FrancisNico";
+  src: url(FrancisNicoV02-85WA.ttf) format('truetype');
+}
