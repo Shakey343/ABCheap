@@ -3,10 +3,10 @@ class CreateParameters < ActiveRecord::Migration[6.1]
     create_table :parameters do |t|
       t.string :origin
       t.string :destination
-      t.references :user_id, null: false, foreign_key: true
-      t.datetime :prefered_start
+      t.datetime :preferred_start
       t.datetime :earliest_start
       t.datetime :latest_finish
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
