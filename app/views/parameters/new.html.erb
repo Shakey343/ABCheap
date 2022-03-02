@@ -1,6 +1,9 @@
 <div class="newplanet">
   <div class="title" style="text-align:center">
-    <h1>Create a Planet</h1>
+    <div style="width: 100%; height: 200px;"
+  data-controller="mapbox"
+  data-mapbox-markers-value="<%= @markers.to_json %>"
+  data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
   </div>
   <div class="rounded">
       <%= simple_form_for @parameter do |f| %>
