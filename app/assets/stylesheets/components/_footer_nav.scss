@@ -1,0 +1,25 @@
+.abc-footer {
+  background-color: $abc-red;
+  position: fixed;
+  height: 100px;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 30px;
+  align-items: center;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.icons {
+  color: white;
+  list-style: none;
+  display:inline-block;
+  li {
+    display: inline-block;
+    margin: 0.5rem;
+    width: 80px
+  }
+  a {
+    color: white;
+  }
+}
