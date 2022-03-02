@@ -1,7 +1,11 @@
 <div class="abc-footer text-center pt-5">
   <div class="icons-nav">
     <ul class="icons d-flex flex-row">
-      <li id="searchicon"><i class="fa fa-lg fa-search" aria-hidden="true"></i></li>
+      <li>
+        <%= link_to root_path, :class => 'searchicon' do %>
+        <span id="searchicon"><i class="fa fa-lg fa-search" aria-hidden="true"></i>
+        <% end %>
+      </li>
       <li id="ticketicon"><i class="fas fa-lg fa-ticket-alt" aria-hidden="true"></i></li>
       <li id="usericon"><i class="fa fa-lg fa-user" aria-hidden="true"></i></li>
     </ul>
