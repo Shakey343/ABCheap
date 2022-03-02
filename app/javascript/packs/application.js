@@ -14,3 +14,7 @@ ActiveStorage.start()
 
 import "controllers"
 import "bootstrap"
+
+// Flatpickr - a nice looking calendar
+import { initFlatpickr } from "../plugins/flatpickr";
+initFlatpickr();
