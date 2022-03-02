@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_01_150407) do
+ActiveRecord::Schema.define(version: 2022_03_02_111051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "option_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["option_id"], name: "index_bookings_on_option_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
 
   create_table "fake_data", force: :cascade do |t|
     t.string "origin"
@@ -46,10 +55,8 @@ ActiveRecord::Schema.define(version: 2022_03_01_150407) do
     t.datetime "preferred_start"
     t.datetime "earliest_start"
     t.datetime "latest_finish"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_parameters_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,6 +71,7 @@ ActiveRecord::Schema.define(version: 2022_03_01_150407) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "options"
+  add_foreign_key "bookings", "users"
   add_foreign_key "options", "parameters"
-  add_foreign_key "parameters", "users"
 end
