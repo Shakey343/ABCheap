@@ -6,7 +6,7 @@
       <%= simple_form_for @parameter do |f| %>
       <%= f.input :origin %>
       <%= f.input :destination %>
-      <%= f.input :preferred_start, as: :date, html5: true %>
+      <%= f.input :preferred_start %>
       <%= f.input :earliest_start %>
       <%= f.input :latest_finish %>
       <%= f.submit class: 'btn btn-block', value: 'New Parameter' %>
