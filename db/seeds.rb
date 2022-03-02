@@ -184,3 +184,13 @@ FakeData.create!(
   mode: "car"
 )
 puts "data added"
+
+# Parameter.create!(
+#   origin: "London",
+#   destination: "Edinburgh",
+#   preferred_start: DateTime.new(2018,3,18,12,0,0),
+#   earliest_start: DateTime.new(2018,3,18,8,6,0),
+#   latest_finish: DateTime.new(2018,3,18,23,55,0),
+# )
+
+# puts "parameter created"

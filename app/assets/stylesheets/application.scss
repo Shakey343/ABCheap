@@ -7,10 +7,13 @@
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import "mapbox-gl/dist/mapbox-gl";
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+// @import "flatpickr/dist/flatpickr";
+@import "flatpickr/dist/themes/material_red";
 
 
 h1, h2, h3 ,h4 ,h5 {
