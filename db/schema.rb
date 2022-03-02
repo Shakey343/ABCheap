@@ -55,8 +55,10 @@ ActiveRecord::Schema.define(version: 2022_03_02_111051) do
     t.datetime "preferred_start"
     t.datetime "earliest_start"
     t.datetime "latest_finish"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_parameters_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,4 +76,5 @@ ActiveRecord::Schema.define(version: 2022_03_02_111051) do
   add_foreign_key "bookings", "options"
   add_foreign_key "bookings", "users"
   add_foreign_key "options", "parameters"
+  add_foreign_key "parameters", "users"
 end
