@@ -1,9 +1,11 @@
 // Import Google fonts
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
 // Define fonts for body and headers
 
-$headers-font: "Francis", "sans-serif";
+$headers-font: 'Luckiest Guy', 'cursive';
+// $headers-font: "Francis", "sans-serif";
 $body-font: 'Heebo', 'sans-serif';
 
 // To use a font file (.woff) uncomment following lines
@@ -16,7 +18,7 @@ $body-font: 'Heebo', 'sans-serif';
 // }
 // $my-font: "Font Name";
 
-@font-face {
-  font-family: "Francis";
-  src: font-url('francis-font/FrancisNicoV02-85WA.ttf') format('truetype');
-}
+// @font-face {
+//   font-family: "Francis";
+//   src: font-url('francis-font/FrancisNicoV02-85WA.ttf') format('truetype');
+// }

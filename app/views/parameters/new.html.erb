@@ -1,0 +1,15 @@
+<div class="newplanet">
+  <div class="title" style="text-align:center">
+    <h1>Create a Planet</h1>
+  </div>
+  <div class="rounded">
+      <%= simple_form_for @parameter do |f| %>
+      <%= f.input :origin %>
+      <%= f.input :destination %>
+      <%= f.input :preferred_start, as: :date, html5: true %>
+      <%= f.input :earliest_start %>
+      <%= f.input :latest_finish %>
+      <%= f.submit class: 'btn btn-block', value: 'New Parameter' %>
+      <% end %>
+  </div>
+</div>
