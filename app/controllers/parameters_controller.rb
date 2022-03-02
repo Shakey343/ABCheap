@@ -6,12 +6,13 @@ class ParametersController < ApplicationController
     data = FakeData.where("origin ILIKE '%#{parameter.origin}%'").where("destination ILIKE '%#{parameter.destination}%'").where("start_time >= '#{parameter.earliest_start}'").where("end_time <= '#{parameter.latest_finish}'")
     fastest = data.min_by(&:duration)
     cheapest = data.min_by(&:cost)
+    recommended = recommended(data)
   end
 
-  def recommended(data)
+  def recommended(data, preffered_leave)
     total_cost = {}
     data.each do |trip|
-      deviation = (trip.start_time.to_time - parameter.to_time) / 3600
+      deviation = (trip.start_time.to_time - preffered_leave.to_time) / 3600
       total_cost[trip.id] = (trip.cost + ((trip.duration / 60) * 7) + (deviation.abs * 2))
     end
     total_cost.min_by { |_, v| v }
