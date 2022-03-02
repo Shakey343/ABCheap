@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2022_03_01_150407) do
     t.float "cost"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.time "duration"
+    t.integer "duration"
     t.bigint "parameter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
