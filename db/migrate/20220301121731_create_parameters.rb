@@ -6,6 +6,7 @@ class CreateParameters < ActiveRecord::Migration[6.1]
       t.datetime :preferred_start
       t.datetime :earliest_start
       t.datetime :latest_finish
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -1,0 +1,13 @@
+.login-page {
+  background-color: $abc-yellow;
+  height: 555px;
+}
+
+.login-image {
+  width: auto;
+  height: 360px;
+  background-image: url('ABCheap.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 10;
+}

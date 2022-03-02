@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_02_111051) do
+ActiveRecord::Schema.define(version: 2022_03_02_123115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "option_id", null: false
+    t.bigint "fake_data_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["option_id"], name: "index_bookings_on_option_id"
+    t.index ["fake_data_id"], name: "index_bookings_on_fake_data_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -36,27 +36,18 @@ ActiveRecord::Schema.define(version: 2022_03_02_111051) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "options", force: :cascade do |t|
-    t.string "origin"
-    t.string "destination"
-    t.float "cost"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer "duration"
-    t.bigint "parameter_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["parameter_id"], name: "index_options_on_parameter_id"
-  end
-
   create_table "parameters", force: :cascade do |t|
     t.string "origin"
     t.string "destination"
     t.datetime "preferred_start"
     t.datetime "earliest_start"
     t.datetime "latest_finish"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.index ["user_id"], name: "index_parameters_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,7 +62,7 @@ ActiveRecord::Schema.define(version: 2022_03_02_111051) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bookings", "options"
+  add_foreign_key "bookings", "fake_data", column: "fake_data_id"
   add_foreign_key "bookings", "users"
-  add_foreign_key "options", "parameters"
+  add_foreign_key "parameters", "users"
 end
