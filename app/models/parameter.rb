@@ -1,3 +1,3 @@
 class Parameter < ApplicationRecord
-  has_many :options
+  belongs_to :user, optional: true
 end
