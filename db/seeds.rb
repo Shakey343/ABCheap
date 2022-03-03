@@ -5,7 +5,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,9,5,0),
   end_time: DateTime.new(2022,3,18,19,10,0),
   duration: 605,
-  mode: "nation express bus"
+  mode: "bus"
 )
 puts "data added"
 
@@ -16,7 +16,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,17,55,0),
   end_time: DateTime.new(2022,3,19,7,40,0),
   duration: 825,
-  mode: "nation express bus"
+  mode: "bus"
 )
 puts "data added"
 
@@ -27,7 +27,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,18,45,0),
   end_time: DateTime.new(2022,3,19,8,5,0),
   duration: 800,
-  mode: "nation express bus"
+  mode: "bus"
 )
 puts "data added"
 
@@ -38,7 +38,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,9,55,0),
   end_time: DateTime.new(2022,3,18,19,0,0),
   duration: 545,
-  mode: "mega bus bus"
+  mode: "bus"
 )
 puts "data added"
 
@@ -49,7 +49,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,22,25,0),
   end_time: DateTime.new(2022,3,18,7,0,0),
   duration: 515,
-  mode: "mega bus bus"
+  mode: "bus"
 )
 puts "data added"
 
@@ -60,7 +60,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,10,45,0),
   end_time: DateTime.new(2022,3,18,15,17,0),
   duration: 286,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -71,7 +71,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,10,0,0),
   end_time: DateTime.new(2022,3,18,14,21,0),
   duration: 261,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -82,7 +82,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,11,0,0),
   end_time: DateTime.new(2022,3,18,15,22,0),
   duration: 262,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -93,7 +93,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,11,30,0),
   end_time: DateTime.new(2022,3,18,16,15,0),
   duration: 285,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -104,7 +104,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,12,0,0),
   end_time: DateTime.new(2022,3,18,16,42,0),
   duration: 262,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -115,7 +115,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,12,18,0),
   end_time: DateTime.new(2022,3,18,16,41,0),
   duration: 263,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -126,7 +126,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,12,43,0),
   end_time: DateTime.new(2022,3,18,18,21,0),
   duration: 338,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -137,7 +137,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,13,0,0),
   end_time: DateTime.new(2022,3,18,17,23,0),
   duration: 263,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -148,7 +148,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,13,30,0),
   end_time: DateTime.new(2022,3,18,18,16,0),
   duration: 286,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -159,7 +159,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,14,36,0),
   end_time: DateTime.new(2022,3,18,19,15,0),
   duration: 279,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 
@@ -170,7 +170,7 @@ FakeData.create!(
   start_time: DateTime.new(2022,3,18,18,0,0),
   end_time: DateTime.new(2022,3,18,22,19,0),
   duration: 259,
-  mode: "National Rail"
+  mode: "train"
 )
 puts "data added"
 

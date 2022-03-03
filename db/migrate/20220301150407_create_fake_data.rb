@@ -1,6 +1,6 @@
-class CreateFakeData < ActiveRecord::Migration[6.1]
+class CreateFakeDatas < ActiveRecord::Migration[6.1]
   def change
-    create_table :fake_data do |t|
+    create_table :fake_datas do |t|
       t.string :origin
       t.string :destination
       t.float :cost

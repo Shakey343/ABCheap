@@ -1,0 +1,132 @@
+.a-to-b-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  padding: 20px 10px;
+  background-color: #F4F4F4;
+}
+
+.a-to-b-info h4 {
+  margin: 0px;
+  color: rgb(52, 52, 52);
+}
+
+.a-to-b-info i {
+  margin: 0px 30px;
+}
+
+.travel-options {
+  color: #343434;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.15);
+  padding-bottom: 50px;
+  background-color: #F4F4F4;
+  margin-bottom: -43px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.options-card-container {
+  margin-top: 15px;
+}
+
+.options-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.option-headers {
+  margin-bottom: 0px;
+  color: #F4F4F4;
+  width: 150px;
+  text-align: center;
+  border-radius: 10px 10px 0px 0px;
+}
+
+#fastest-header {
+  background-color: #FE293F;
+}
+
+#cheapest-header {
+  background-color: #FADF0F
+}
+
+#recommended-header {
+  background-color: #35E5EC;
+}
+
+.option-headers h6 {
+  font-family: $body-font;
+  margin: 0px;
+}
+
+.travel-timings {
+  font-family: $body-font;
+  text-align: end;
+  margin: 0px 10px;
+}
+
+.travel-info {
+  font-family: $body-font;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin: 0px 10px;
+}
+
+
+.travel-options h6 {
+  font-family: $body-font;
+  margin: 0px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.modal-content {
+  border-radius: 15px;
+}
+
+.modal-header {
+  border-radius: 15px 15px 0px 0px;
+}
+
+.modal-title {
+  text-align: center;
+  font-family: $body-font;
+  color: #F4F4F4;
+}
+
+.modal-footer {
+  background-color: black;
+  color: #F4F4F4;
+  justify-content: center;
+  border-radius:  0px 0px 15px 15px;
+}
+
+.modal-footer h6 {
+  font-family: $body-font;
+}
+
+.travel-cost {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.journey-leg {
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+}
+
+.travel-mode {
+  text-align: center;
+  font-size: 30px;
+}
