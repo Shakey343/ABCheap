@@ -1,3 +1,4 @@
+
 FakeData.create!(
   origin: "London Golders Green",
   destination: "Edinburgh",
@@ -30,6 +31,7 @@ FakeData.create!(
   mode: "bus"
 )
 puts "data added"
+
 
 FakeData.create!(
   origin: "London Finchley Road",
@@ -187,10 +189,20 @@ puts "data added"
 
 # Parameter.create!(
 #   origin: "London",
-#   destination: "Edinburgh",
-#   preferred_start: DateTime.new(2018,3,18,12,0,0),
-#   earliest_start: DateTime.new(2018,3,18,8,6,0),
-#   latest_finish: DateTime.new(2018,3,18,23,55,0),
+#   destination: "Nottingham",
+#   preferred_start: DateTime.new(2022,3,18,12,0,0),
+#   earliest_start: DateTime.new(2022,3,18,8,6,0),
+#   latest_finish: DateTime.new(2022,3,18,23,55,0),
 # )
 
 # puts "parameter created"
+
+Parameter.create!(
+  origin: "Birmingham",
+  destination: "Edinburgh",
+  preferred_start: DateTime.new(2022,3,8,9,0,0),
+  earliest_start: DateTime.new(2022,3,8,7,30,0),
+  latest_finish: DateTime.new(2022,3,8,23,0,0),
+)
+
+puts "parameter created"

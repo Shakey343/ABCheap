@@ -1,29 +1,32 @@
 .abc-footer {
   background-color: $abc-red;
   position: fixed;
-  height: 100px;
+  height: 70px;
   bottom: 0;
   width: 100%;
-  padding: 1rem 30px;
+  // padding: 1rem 30px;
   align-items: center;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  // border-top-left-radius: 8px;
+  // border-top-right-radius: 8px;
   box-shadow: 0 0 50px rgba(102, 95, 95, 0.8)
+  // Make this only display if there's a scoll?
 }
 
 .icons {
   color: white;
   list-style: none;
-  display:inline-block;
-  justify-content: stretch;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0;
+  align-items: flex-start;
   li {
-    display: inline-block;
+    // display: inline-block;
     margin: 0.5rem;
-    margin-top: -1rem;
+    margin-top: -1.6rem;
     width: 80px
   }
   i {
-    display: inline-block;
+    // display: inline-block;
     margin-right: 20px;
     margin-left: 10px;
     margin-inline-end: 10px;

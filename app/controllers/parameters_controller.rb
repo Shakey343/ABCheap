@@ -15,7 +15,23 @@ class ParametersController < ApplicationController
     )
     @fastest = data.min_by(&:duration)
     @cheapest = data.min_by(&:cost)
+
     @recommended = FakeData.find(recommended(data, @parameter.preferred_start).first)
+
+    @markers = []
+
+    origin = {lat: Geocoder.search(parameter.origin).first.data["lat"], lng: Geocoder.search(parameter.origin).first.data["lon"] }
+    @markers << origin
+
+    destination = {lat: Geocoder.search(parameter.destination).first.data["lat"], lng: Geocoder.search(parameter.destination).first.data["lon"] }
+    @markers << destination
+
+    @markers.each do |marker|
+      {
+        lat: marker[:lat],
+        lng: marker[:lng]
+      }
+    end
   end
 
   def recommended(data, preferred_start)
