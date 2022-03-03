@@ -19,7 +19,7 @@ class ParametersController < ApplicationController
   end
 
   def new
-    @paramter = Parameter.new
+    @parameter = Parameter.new
   end
 
   def create
