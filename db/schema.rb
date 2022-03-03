@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_03_02_123115) do
     t.datetime "preferred_start"
     t.datetime "earliest_start"
     t.datetime "latest_finish"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
