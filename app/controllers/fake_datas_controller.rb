@@ -1,12 +1,12 @@
 class FakeDatasController < ApplicationController
   def create
-  if current_user
-    @parameter = Parameter.find_by(user_id: current_user.id)
-  else
+  # if current_user
+  #   @parameter = Parameter.find_by(user_id: current_user.id)
+  # else
     @parameter = Parameter.last
-  end
+  # end
 
-  cities = {
+  bus_cities = {
     birmingham: 8,
     bristol: 13,
     cardiff: 20,
@@ -25,8 +25,41 @@ class FakeDatasController < ApplicationController
     swansea: 97
   }
 
-    origin_id = cities[@parameter.origin.downcase.to_sym]
-    destination_id = cities[@parameter.destination.downcase.to_sym]
+  train_cities = {
+    birmingham: "Birmingham",
+    bristol: "Bristol",
+    cardiff: "Cardiff",
+    coventry: "COV",
+    edinburgh: "EDB",
+    exeter: "Exeter",
+    glasgow: "Glasgow",
+    leeds: "LDS",
+    leicester: "LEI",
+    livepool: "Liverpool",
+    london: "London",
+    manchester: "Manchester",
+    newcastle: "NCL",
+    nottingham: "NOT",
+    sheffield: "SHF",
+    swansea: "SWA"
+  }
+
+    origin_ids = [bus_cities[@parameter.origin.downcase.to_sym], train_cities[@parameter.origin.downcase.to_sym]]
+    destination_ids = [bus_cities[@parameter.destination.downcase.to_sym], train_cities[@parameter.destination.downcase.to_sym]]
+
+    if @parameter.preferred_start.time.hour < 10
+      preferred_start_hour = "0#{@parameter.preferred_start.time.hour}"
+    else
+      preferred_start_hour = "#{@parameter.preferred_start.time.hour}"
+    end
+
+    if @parameter.preferred_start.time.min < 10
+      preferred_start_min = "0#{@parameter.preferred_start.time.min}"
+    else
+      preferred_start_min = "#{@parameter.preferred_start.time.min}"
+    end
+
+    preferred_start_time = "#{preferred_start_hour}#{preferred_start_min}"
 
     if @parameter.preferred_start.month < 10
       preferred_start_month = "0#{@parameter.preferred_start.month}"
@@ -40,14 +73,53 @@ class FakeDatasController < ApplicationController
       preferred_start_day = @parameter.preferred_start.day.to_s
     end
 
-    preferred_start_date = "#{@parameter.preferred_start.year}-#{preferred_start_month}-#{preferred_start_day}"
+    preferred_start_year_train = @parameter.preferred_start.year.to_s[2..-1]
 
-    url = "https://uk.megabus.com/journey-planner/journeys?days=1&concessionCount=0&departureDate=#{preferred_start_date}&destinationId=#{destination_id}&inboundOtherDisabilityCount=0&inboundPcaCount=0&inboundWheelchairSeated=0&nusCount=0&originId=#{origin_id}&otherDisabilityCount=0&pcaCount=0&totalPassengers=1&wheelchairSeated=0"
-    html_file = URI.open(url).read
-    html_doc = Nokogiri::HTML(html_file, nil, "uft-8")
+    preferred_start_date_bus = "#{@parameter.preferred_start.year}-#{preferred_start_month}-#{preferred_start_day}"
+    preferred_start_date_train = "#{preferred_start_day}#{preferred_start_month}#{preferred_start_year_train}"
 
-    document_json = JSON.parse(html_doc.search("script").last.text.scan(/{.*}/)[0])
-    journeys = document_json["journeys"].map { |journey| [journey["departureDateTime"], journey["arrivalDateTime"], journey["duration"], journey["price"]] }
+    url_bus = "https://uk.megabus.com/journey-planner/journeys?days=1&concessionCount=0&departureDate=#{preferred_start_date_bus}&destinationId=#{destination_ids[0]}&inboundOtherDisabilityCount=0&inboundPcaCount=0&inboundWheelchairSeated=0&nusCount=0&originId=#{origin_ids[0]}&otherDisabilityCount=0&pcaCount=0&totalPassengers=1&wheelchairSeated=0"
+    url_train = "https://ojp.nationalrail.co.uk/service/timesandfares/#{origin_ids[1]}/#{destination_ids[1]}/#{preferred_start_date_train}/#{preferred_start_time}/dep"
+
+    html_file_bus = URI.open(url_bus).read
+    html_file_train = URI.open(url_train).read
+    html_doc_bus = Nokogiri::HTML(html_file_bus, nil, "uft-8")
+    html_doc_train = Nokogiri::HTML(html_file_train, nil, "uft-8")
+    document_json_bus = JSON.parse(html_doc_bus.search("script").last.text.scan(/{.*}/)[0])
+    # document_json_train = JSON.parse(html_doc_train.search("script").last.text.scan(/{.*}/)[0])
+
+    origin_stations_train = []
+    destination_stations_train = []
+    origin_stations_train = html_doc_train.css(".result-station").each_with_index do |station, index|
+      if index.odd?
+        destination_stations_train << station.text
+      else
+        origin_stations_train << station.text
+      end
+    end
+
+    departures_train = []
+    arrivals_train = []
+    durations_train = []
+    prices_train = []
+
+    html_doc_train.css("td .dep").each do |departure|
+      departures_train << departure.text.gsub("\n", '').gsub("\t", '')
+    end
+
+    html_doc_train.css("td .arr").each do |arrival|
+      arrivals_train << arrival.text.gsub("\n", '').gsub("\t", '')
+    end
+
+    html_doc_train.css("td .dur").each do |duration|
+      durations_train << duration.text.gsub("\n", '').gsub("\t", '')
+    end
+
+    html_doc_train.css("td .opsingle").each do |price|
+      prices_train << price.text.gsub("\n", '').gsub("\t", '')
+    end
+
+    journeys = document_json_bus["journeys"].map { |journey| [journey["departureDateTime"], journey["arrivalDateTime"], journey["duration"], journey["price"]] }
 
     journeys.each do |journey|
       start_year = journey[0].split('T').first.split('-')[0].to_i
@@ -76,15 +148,22 @@ class FakeDatasController < ApplicationController
         duration: duration_mins,
         mode: "coach"
       )
+      puts "created Bus Journey"
+    end
+    for i in 1..departures_train.length
+      FakeData.create!(
+        origin: origin_stations_train[i-1],
+        destination: destination_stations_train[i-1],
+        cost: prices_train[i-1].gsub('£', '').to_f,
+        start_time: DateTime.new(@parameter.preferred_start.year, preferred_start_month.to_i, preferred_start_day.to_i, departures_train[i-1].split(':')[0].to_i, departures_train[i-1].split(':')[1].to_i, 0),
+        end_time: DateTime.new(@parameter.preferred_start.year, preferred_start_month.to_i, preferred_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
+        duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
+        mode: "train"
+      )
+      puts "created Train Journey"
     end
   end
 end
-
-    # if @parameter.preferred_start.time.hour < 10
-    #   preferred_start_time = "0#{@parameter.preferred_start.time.hour}#{@parameter.preferred_start.time.min}"
-    # else
-    #   preferred_start_time = "#{@parameter.preferred_start.time.hour}#{@parameter.preferred_start.time.min}"
-    # end
 
     # def split_start_time(i, j)
     #   split_start = @start_times[i].split(":")
