@@ -3,13 +3,51 @@
   border-radius: 0.1rem;
   font-weight: 700;
   padding: 0.625em 2em;
+  margin: .5em 0;
   transition: color 125ms, background-color 125ms, border-color 125ms;
   color: hsla(0, 0%, 100%, 1);;
-  background-color: $red;
-  border-color: $red;
+  background-color: $abc-red;
+  border-color: $abc-red;
   &:hover {
     color: hsla(0, 0%, 100%, 1);
-    background-color: $red;
-    border-color: $red;
+    background-color: $abc-red;
+    border-color: $abc-red;
+    opacity: 0.8;
+  }
+}
+
+.abc-btn-blue {
+  border: 0.1rem solid;
+  border-radius: 0.1rem;
+  font-weight: 700;
+  padding: 0.625em 2em;
+  margin: .5em 0;
+  transition: color 125ms, background-color 125ms, border-color 125ms;
+  color: hsla(0, 0%, 100%, 1);;
+  background-color: $abc-blue;
+  border-color: $abc-blue;
+  &:hover {
+    color: hsla(0, 0%, 100%, 1);
+    background-color: $abc-blue;
+    border-color: $abc-blue;
+    opacity: 0.8;
+  }
+}
+
+.abc-btn-yellow {
+  border: 0.1rem solid;
+  border-radius: 0.1rem;
+  font-weight: 700;
+  padding: 0.625em 2em;
+  margin: .5em 0;
+  transition: color 125ms, background-color 125ms, border-color 125ms;
+  color: $black;
+  background-color: $abc-yellow;
+  border-color: $abc-yellow;
+  &:hover {
+    color: hsla(0, 0, 0, 1);
+    background-color: $abc-yellow;
+    border-color: $abc-yellow;
+    opacity: 0.8;
   }
 }
