@@ -3,22 +3,22 @@
     <ul class="icons d-flex flex-row">
       <li>
         <%= link_to root_path, :class => 'searchicon' do %>
-        <span id="searchicon"><i class="fas fa-3x fa-search-location" aria-hidden="true"></i>
+        <span id="searchicon"><i class="fas fa-2x fa-search-location" aria-hidden="true"></i>
         <% end %>
       </li>
       <li>
         <%= link_to  booking_index_path, :class => 'ticketicon' do %>
-        <span id="ticketicon"><i class="fas fa-3x fa-ticket-alt" aria-hidden="true"></i>
+        <span id="ticketicon"><i class="fas fa-2x fa-ticket-alt" aria-hidden="true"></i>
         <% end %>
       </li>
       <li>
         <% unless current_user.nil? %>
           <%= link_to user_path(current_user), :class => 'usericon' do %>
-          <span id="usericon"><i class="fas fa-3x fa-user" aria-hidden="true"></i>
+          <span id="usericon"><i class="fas fa-2x fa-user" aria-hidden="true"></i>
           <% end %>
           <% else %>
           <%= link_to new_user_session_path, :class => 'usericon' do %>
-          <span id="usericon"><i class="fas fa-3x fa-user" aria-hidden="true"></i>
+          <span id="usericon"><i class="fas fa-2x fa-user" aria-hidden="true"></i>
           <% end %>
         <% end %>
       </li>
