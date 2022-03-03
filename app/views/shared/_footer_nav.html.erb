@@ -6,8 +6,16 @@
         <span id="searchicon"><i class="fas fa-3x fa-search-location" aria-hidden="true"></i>
         <% end %>
       </li>
-      <li id="ticketicon"><i class="fas fa-3x fa-ticket-alt" aria-hidden="true"></i></li>
-      <li id="usericon"><i class="fas fa-3x fa-user" aria-hidden="true"></i></li>
+      <li>
+        <%= link_to  booking_index_path, :class => 'ticketicon' do %>
+        <span id="ticketicon"><i class="fas fa-3x fa-ticket-alt" aria-hidden="true"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to user_session_path, :class => 'usericon' do %>
+        <span id="usericon"><i class="fas fa-3x fa-user" aria-hidden="true"></i>
+        <% end %>
+      </li>
     </ul>
-   </div>
+  </div>
 </div>
