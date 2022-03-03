@@ -3,19 +3,20 @@ class ParametersController < ApplicationController
   before_action :set_params, only: [:create]
 
   def show
-    parameter = Parameter.find(params[:id])
+    @parameter = Parameter.find(params[:id])
     data = FakeData.where(
-      "origin ILIKE '%#{parameter.origin}%'"
+      "origin ILIKE '%#{@parameter.origin}%'"
     ).where(
-      "destination ILIKE '%#{parameter.destination}%'"
+      "destination ILIKE '%#{@parameter.destination}%'"
     ).where(
-      "start_time >= '#{parameter.earliest_start}'"
+      "start_time >= '#{@parameter.earliest_start}'"
     ).where(
-      "end_time <= '#{parameter.latest_finish}'"
+      "end_time <= '#{@parameter.latest_finish}'"
     )
     @fastest = data.min_by(&:duration)
     @cheapest = data.min_by(&:cost)
-    @recommended = FakeData.find(recommended(data, parameter.preferred_start).first)
+
+    @recommended = FakeData.find(recommended(data, @parameter.preferred_start).first)
 
     @markers = []
 
