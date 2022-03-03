@@ -90,11 +90,11 @@ class FakeDatasController < ApplicationController
 
     origin_stations_train = []
     destination_stations_train = []
-    origin_stations_train = html_doc_train.css(".result-station").each_with_index do |station, index|
-      if index.odd?
-        destination_stations_train << station.text
-      else
+    html_doc_train.css(".result-station").each_with_index do |station, index|
+      if index.even?
         origin_stations_train << station.text
+      else
+        destination_stations_train << station.text
       end
     end
 
@@ -119,7 +119,7 @@ class FakeDatasController < ApplicationController
       prices_train << price.text.gsub("\n", '').gsub("\t", '')
     end
 
-    journeys = document_json_bus["journeys"].map { |journey| [journey["departureDateTime"], journey["arrivalDateTime"], journey["duration"], journey["price"]] }
+    journeys = document_json_bus["journeys"].map { |journey| [journey["departureDateTime"], journey["arrivalDateTime"], journey["duration"], journey["price"], journey["origin"]["cityName"], journey["origin"]["stopName"], journey["destination"]["cityName"], journey["destination"]["stopName"]] }
 
     journeys.each do |journey|
       start_year = journey[0].split('T').first.split('-')[0].to_i
@@ -140,8 +140,8 @@ class FakeDatasController < ApplicationController
       duration_mins = (duration_array[0].to_i * 60) + (duration_array[1].to_i)
 
       FakeData.create!(
-        origin: @parameter.origin,
-        destination: @parameter.destination,
+        origin: "#{journey[4]} #{journey[5]}",
+        destination: "#{journey[6]} #{journey[7]}",
         cost: journey[3],
         start_time: DateTime.new(start_year, start_month, start_day, start_hour, start_minute, start_second),
         end_time: DateTime.new(end_year, end_month, end_day, end_hour, end_minute, end_second),
