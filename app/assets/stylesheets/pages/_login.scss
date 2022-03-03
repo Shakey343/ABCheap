@@ -1,6 +1,6 @@
 .login-page {
   background-color: $abc-yellow;
-  height: 555px;
+  height: 915px;
 }
 
 .login-image {
@@ -10,4 +10,8 @@
   background-size: cover;
   background-position: center;
   z-index: 10;
+}
+
+.login-btn {
+  width: 100%;
 }

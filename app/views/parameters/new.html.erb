@@ -6,16 +6,20 @@
       data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
   </div>
-    <div class="rounded container abc-search">
+    <div class="rounded container abc-form pt-5">
       <%= simple_form_for @parameter do |f| %>
-      <%= f.input :origin %>
-      <%= f.input :destination %>
+      <div class="flex-items">
+        <%= f.input :origin, placeholder: 'Origin', class: 'flex-item', label: false %>
+        <%= f.input :destination, placeholder: 'Destination', class: 'flex-item', label: false %>
+      </div>
       <%#= f.input :preferred_start, as: :date, html5: true %>
-      <%= f.input :preferred_start, as: :string, required: false, input_html: {class: "datepicker"} %>
-      <%= f.input :earliest_start, as: :string, required: false, input_html: {class: "datepicker"}  %>
-      <%= f.input :latest_finish, as: :string, required: false, input_html: {class: "datepicker"}  %>
+      <!--div class="flex-items"-->
+        <%= f.input :earliest_start, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Start Date', label: false %>
+        <%= f.input :latest_finish, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date', label: false %>
+      <!--/div-->
+      <%= f.input :preferred_start, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Preferred Start Time' %>
       <div class="form-actions text-center p-3">
-        <%= f.submit class: 'btn btn-block abc-btn', value: 'GO!' %>
+      <%= f.submit class: 'btn btn-block abc-btn', value: 'Take me there!' %>
         <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
       </div>
       <% end %>

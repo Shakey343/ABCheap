@@ -5,19 +5,19 @@
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs">
       <%= f.input :email,
-                  placeholder: 'e.g. john@gmail.com...',
+                  placeholder: 'e.g. bob@gmail.com',
                   required: false,
                   autofocus: true,
                   input_html: { autocomplete: "email" } %>
       <%= f.input :password,
-                  placeholder: 'Password',
+                  placeholder: "••••••",
                   required: false,
                   input_html: { autocomplete: "current-password" } %>
       <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
     </div>
 
     <div class="form-actions text-center p-3">
-      <%= f.button :submit, "Log in", class: 'btn abc-btn' %>
+      <%= f.button :submit, "Log in", class: 'btn abc-btn login-btn' %>
     </div>
   <% end %>
   <div class="text-center p-4">

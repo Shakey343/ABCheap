@@ -15,7 +15,10 @@
 // @import "flatpickr/dist/flatpickr";
 @import "flatpickr/dist/themes/material_red";
 
+body {
+  background-color: $abc-grey;
+}
 
-h1, h2, h3 ,h4 ,h5 {
+h1, h2 {
   font-family: $headers-font;
 }
