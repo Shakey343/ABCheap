@@ -12,8 +12,14 @@
         <% end %>
       </li>
       <li>
-        <%= link_to user_session_path, :class => 'usericon' do %>
-        <span id="usericon"><i class="fas fa-3x fa-user" aria-hidden="true"></i>
+        <% unless current_user.nil? %>
+          <%= link_to user_path(current_user), :class => 'usericon' do %>
+          <span id="usericon"><i class="fas fa-3x fa-user" aria-hidden="true"></i>
+          <% end %>
+          <% else %>
+          <%= link_to new_user_session_path, :class => 'usericon' do %>
+          <span id="usericon"><i class="fas fa-3x fa-user" aria-hidden="true"></i>
+          <% end %>
         <% end %>
       </li>
     </ul>
