@@ -3,6 +3,7 @@ class ParametersController < ApplicationController
   before_action :set_params, only: [:create]
 
   def show
+    @booking = Booking.new
     @parameter = Parameter.find(params[:id])
     data = FakeData.where(
       "origin ILIKE '%#{@parameter.origin}%'"
