@@ -119,7 +119,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <h6>Payment</h6>
+        <%= simple_form_for [@parameter, @booking] do |f|%>
+          <%= f.input :fake_data_id, as: :hidden, value: @fastest.id %>
+          <%= f.submit "Book" %>
+        <%= end %>
       </div>
     </div>
   </div>
@@ -152,7 +155,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <h6>Payment</h6>
+         <%= simple_form_for [@parameter, @booking] do |f|%>
+            <%= f.input :fake_data_id, as: :hidden, value: @cheapest.id %>
+          <%= f.submit "Book" %>
+        <%= end %>
       </div>
     </div>
   </div>
@@ -185,11 +191,11 @@
         </div>
       </div>
       <div class="modal-footer">
-        <h6>Payment</h6>
+        <%= simple_form_for [@parameter, @booking] do |f|%>
+          <%= f.input :fake_data_id, as: :hidden, value: @recommended.id %>
+          <%= f.submit "Book" %>
+        <%= end %>
       </div>
     </div>
   </div>
 </div>
-
-
-
