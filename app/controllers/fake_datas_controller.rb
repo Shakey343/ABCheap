@@ -112,7 +112,7 @@ class FakeDatasController < ApplicationController
         earliest_start_hour = "#{@parameter.earliest_start.time.hour}"
       end
 
-      if @parameter.earliest_start.time.min < 10
+      if @parameter.earliest_start.time.min < 4
         earliest_start_min = "0#{@parameter.earliest_start.time.min + 6}"
       elsif @parameter.earliest_start.time.min > 53
         earliest_start_min = "#{@parameter.earliest_start.time.min}"
@@ -186,6 +186,7 @@ class FakeDatasController < ApplicationController
           duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
           mode: "train"
         )
+        puts "created train journey"
       end
       Parameter.create(
         origin: @parameter.origin,
