@@ -1,11 +1,15 @@
 class BookingsController < ApplicationController
+  def index
+    @bookings = Booking.where(user_id: current_user)
+  end
+
   def create
     @booking = Booking.new(params[:booking])
     @booking.save
   end
 
   def show
-    @booking = Booking.find(params[:id])
+    @booking = Booking.find(params[:user_id])
   end
 
   def destroy

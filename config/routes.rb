@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, skip: [:session]
   resources :parameters, only: [:create, :show, :new, :delete]
   resources :options, only: [:index, :show, :create]
-  resources :booking, only: [:create, :show, :delete]
+  resources :booking, only: [:index, :create, :show, :delete]
   resources :users, only: [:show]
 
 
