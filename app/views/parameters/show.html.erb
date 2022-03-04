@@ -17,7 +17,7 @@
         </button>
         <div class="travel-options fastest">
           <div class="travel-timings">
-            <p><%= @fastest.start_time.strftime("%R") %> - <%=@fastest.start_time.strftime("%R") %> </p>
+            <p><%= @fastest.start_time.strftime("%R") %> - <%=@fastest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
             <p id="travel-info-cost">£<%=@fastest.cost%></p>
@@ -39,7 +39,7 @@
         </button>
         <div class="travel-options cheapest">
           <div class="travel-timings">
-            <p><%= @cheapest.start_time.strftime("%R") %> - <%=@cheapest.start_time.strftime("%R") %> </p>
+            <p><%= @cheapest.start_time.strftime("%R") %> - <%=@cheapest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
             <p id="travel-info-cost">£<%=@cheapest.cost%></p>
@@ -62,7 +62,7 @@
       </button>
       <div class="travel-options recommended">
         <div class="travel-timings">
-          <p><%= @recommended.start_time.strftime("%R") %> - <%=@recommended.start_time.strftime("%R") %> </p>
+          <p><%= @recommended.start_time.strftime("%R") %> - <%=@recommended.end_time.strftime("%R") %> </p>
         </div>
         <div class="travel-info">
           <p id="travel-info-cost">£<%=@recommended.cost%></p>
