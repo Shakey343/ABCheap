@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 2022_03_03_153406) do
     t.string "mode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "latitude"
-    t.float "longitude"
   end
 
   create_table "parameters", force: :cascade do |t|
