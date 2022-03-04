@@ -3,7 +3,7 @@ class ParametersController < ApplicationController
   before_action :set_params, only: [:create]
 
   def show
-    FakeData.destroy_all
+    # FakeData.destroy_all
     @booking = Booking.new
     @parameter = Parameter.find(params[:id])
     FakeData.generate_results(@parameter)
