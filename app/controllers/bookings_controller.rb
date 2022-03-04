@@ -1,5 +1,7 @@
 class BookingsController < ApplicationController
+
   before_action :set_booking, only: [:show, :destroy]
+
   def create
     @trip = FakeData.find(booking_params[:fake_data_id])
     @parameter = Parameter.find(params[:parameter_id])

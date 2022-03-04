@@ -17,9 +17,10 @@
 
 body {
   background-color: $abc-grey;
+  font-family: $body-font;
 }
 
 
 h1, h2 {
-  font-family: $headers-font;
+  font-family: $abc-headers-font;
 }
