@@ -41,5 +41,32 @@ export default class extends Controller {
         .setLngLat([ marker.lng, marker.lat ])
         .addTo(this.map)
     });
+
+    // var route = {
+    //   'type': 'FeatureCollection',
+    //     'features': [ {
+    //   'type': 'Feature',
+    //   'geometry': {
+    //   'type': 'LineString',
+    //   'coordinates': [origin, destination]
+    // }}]};
   }
+
+  // map.on('load', function () {
+  //   // Add a source and layer displaying a point which will be animated in a circle.
+  //   map.addSource('route', {
+  //   'type': 'geojson',
+  //   'data': route
+  //   });
+  // }
+
+  // map.addLayer({
+  //   'id': 'route',
+  //   'source': 'route',
+  //   'type': 'line',
+  //   'paint': {
+  //   'line-width': 2,
+  //   'line-color': '#007cbf'
+  //   }
+  // });
 }
