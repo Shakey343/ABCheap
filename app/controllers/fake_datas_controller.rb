@@ -1,7 +1,5 @@
 class FakeDatasController < ApplicationController
-  def create
-
-    @parameter = Parameter.last
+  def create(parameter)
 
     bus_cities = {
       birmingham: 8,
@@ -22,22 +20,22 @@ class FakeDatasController < ApplicationController
       swansea: 97
     }
 
-    origin_ids = bus_cities[@parameter.origin.downcase.to_sym]
-    destination_ids = bus_cities[@parameter.destination.downcase.to_sym]
+    origin_ids = bus_cities[parameter.origin.downcase.to_sym]
+    destination_ids = bus_cities[parameter.destination.downcase.to_sym]
 
-    if @parameter.earliest_start.month < 10
-      earliest_start_month = "0#{@parameter.earliest_start.month}"
+    if parameter.earliest_start.month < 10
+      earliest_start_month = "0#{parameter.earliest_start.month}"
     else
-      earliest_start_month = @parameter.earliest_start.month.to_s
+      earliest_start_month = parameter.earliest_start.month.to_s
     end
 
-    if @parameter.earliest_start.day < 10
-      earliest_start_day = "0#{@parameter.earliest_start.day}"
+    if parameter.earliest_start.day < 10
+      earliest_start_day = "0#{parameter.earliest_start.day}"
     else
-      earliest_start_day = @parameter.earliest_start.day.to_s
+      earliest_start_day = parameter.earliest_start.day.to_s
     end
 
-    earliest_start_date_bus = "#{@parameter.earliest_start.year}-#{earliest_start_month}-#{earliest_start_day}"
+    earliest_start_date_bus = "#{parameter.earliest_start.year}-#{earliest_start_month}-#{earliest_start_day}"
 
     url_bus = "https://uk.megabus.com/journey-planner/journeys?days=1&concessionCount=0&departureDate=#{earliest_start_date_bus}&destinationId=#{destination_ids}&inboundOtherDisabilityCount=0&inboundPcaCount=0&inboundWheelchairSeated=0&nusCount=0&originId=#{origin_ids}&otherDisabilityCount=0&pcaCount=0&totalPassengers=1&wheelchairSeated=0"
     html_file_bus = URI.open(url_bus).read
@@ -80,9 +78,9 @@ class FakeDatasController < ApplicationController
       puts "created Bus Journey"
     end
 
-    until FakeData.last.end_time > @parameter.latest_finish
+    until FakeData.last.end_time > parameter.latest_finish
 
-      @parameter = Parameter.last
+      parameter = Parameter.last
 
       train_cities = {
         birmingham: "Birmingham",
@@ -103,38 +101,38 @@ class FakeDatasController < ApplicationController
         swansea: "SWA"
       }
 
-      origin_ids = train_cities[@parameter.origin.downcase.to_sym]
-      destination_ids = train_cities[@parameter.destination.downcase.to_sym]
+      origin_ids = train_cities[parameter.origin.downcase.to_sym]
+      destination_ids = train_cities[parameter.destination.downcase.to_sym]
 
-      if @parameter.earliest_start.time.hour < 10
-        earliest_start_hour = "0#{@parameter.earliest_start.time.hour}"
+      if parameter.earliest_start.time.hour < 10
+        earliest_start_hour = "0#{parameter.earliest_start.time.hour}"
       else
-        earliest_start_hour = "#{@parameter.earliest_start.time.hour}"
+        earliest_start_hour = "#{parameter.earliest_start.time.hour}"
       end
 
-      if @parameter.earliest_start.time.min < 4
-        earliest_start_min = "0#{@parameter.earliest_start.time.min + 6}"
-      elsif @parameter.earliest_start.time.min > 53
-        earliest_start_min = "#{@parameter.earliest_start.time.min}"
+      if parameter.earliest_start.time.min < 4
+        earliest_start_min = "0#{parameter.earliest_start.time.min + 6}"
+      elsif parameter.earliest_start.time.min > 53
+        earliest_start_min = "#{parameter.earliest_start.time.min}"
       else
-        earliest_start_min = "#{@parameter.earliest_start.time.min + 6}"
+        earliest_start_min = "#{parameter.earliest_start.time.min + 6}"
       end
 
       earliest_start_time = "#{earliest_start_hour}#{earliest_start_min}"
 
-      if @parameter.earliest_start.month < 10
-        earliest_start_month = "0#{@parameter.earliest_start.month}"
+      if parameter.earliest_start.month < 10
+        earliest_start_month = "0#{parameter.earliest_start.month}"
       else
-        earliest_start_month = @parameter.earliest_start.month.to_s
+        earliest_start_month = parameter.earliest_start.month.to_s
       end
 
-      if @parameter.earliest_start.day < 10
-        earliest_start_day = "0#{@parameter.earliest_start.day}"
+      if parameter.earliest_start.day < 10
+        earliest_start_day = "0#{parameter.earliest_start.day}"
       else
-        earliest_start_day = @parameter.earliest_start.day.to_s
+        earliest_start_day = parameter.earliest_start.day.to_s
       end
 
-      earliest_start_year_train = @parameter.earliest_start.year.to_s[2..-1]
+      earliest_start_year_train = parameter.earliest_start.year.to_s[2..-1]
 
       earliest_start_date_train = "#{earliest_start_day}#{earliest_start_month}#{earliest_start_year_train}"
 
@@ -181,19 +179,19 @@ class FakeDatasController < ApplicationController
           origin: origin_stations_train[i-1],
           destination: destination_stations_train[i-1],
           cost: prices_train[i-1].gsub('£', '').to_f,
-          start_time: DateTime.new(@parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, departures_train[i-1].split(':')[0].to_i, departures_train[i-1].split(':')[1].to_i, 0),
-          end_time: DateTime.new(@parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
+          start_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, departures_train[i-1].split(':')[0].to_i, departures_train[i-1].split(':')[1].to_i, 0),
+          end_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
           duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
           mode: "train"
         )
         puts "created train journey"
       end
       Parameter.create(
-        origin: @parameter.origin,
-        destination: @parameter.destination,
-        preferred_start: @parameter.preferred_start,
+        origin: parameter.origin,
+        destination: parameter.destination,
+        preferred_start: parameter.preferred_start,
         earliest_start: FakeData.last.start_time,
-        latest_finish: @parameter.latest_finish,
+        latest_finish: parameter.latest_finish,
       )
     end
   end

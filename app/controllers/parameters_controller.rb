@@ -3,21 +3,14 @@ class ParametersController < ApplicationController
   before_action :set_params, only: [:create]
 
   def show
+    FakeData.destroy_all
     @booking = Booking.new
     @parameter = Parameter.find(params[:id])
-    data = FakeData.where(
-      "origin ILIKE '%#{@parameter.origin}%'"
-    ).where(
-      "destination ILIKE '%#{@parameter.destination}%'"
-    ).where(
-      "start_time >= '#{@parameter.earliest_start}'"
-    ).where(
-      "end_time <= '#{@parameter.latest_finish}'"
-    )
-    @fastest = data.min_by(&:duration)
-    @cheapest = data.min_by(&:cost)
+    FakeData.generate_results(@parameter)
+    @fastest = FakeData.all.min_by(&:duration)
+    @cheapest = FakeData.all.min_by(&:cost)
 
-    @recommended = FakeData.find(recommended(data, @parameter.preferred_start).first)
+    @recommended = FakeData.find(recommended(FakeData.all, @parameter.preferred_start).first)
 
     @markers = []
 
@@ -50,7 +43,6 @@ class ParametersController < ApplicationController
 
   def create
     @parameter = Parameter.new(set_params)
-    @parameter.user = current_user
     if @parameter.save
       redirect_to parameter_path(@parameter)
     else
