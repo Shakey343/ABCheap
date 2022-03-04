@@ -1,9 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :destroy]
 
-  def new
-  end
-
   def create
     @booking = Booking.new(booking_params)
     # @parameter = Parameter.find(params[:parameter_id])
