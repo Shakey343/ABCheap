@@ -46,6 +46,7 @@ class ParametersController < ApplicationController
 
   def new
     @parameter = Parameter.new
+    @markers = []
   end
 
   def create

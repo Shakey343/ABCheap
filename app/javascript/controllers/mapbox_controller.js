@@ -19,7 +19,7 @@ export default class extends Controller {
     })
 
     if (this.element.id === "map") {
-      this.#currentLocation();
+      // this.#currentLocation();
       this.#addCurrentLocationToMap();
     }
 
@@ -50,25 +50,57 @@ export default class extends Controller {
       .addTo(this.map)
     });
   }
-  #currentLocation() {
-    function success(event) {
-      const currentLocation = [{ lat: event.coords.latitude, lng: event.coords.longitude }];
-      console.log(currentLocation);
+  // #currentLocation() {
+  //   function success(event) {
+  //     const currentLocation = [{ lat: event.coords.latitude, lng: event.coords.longitude }];
+  //     console.log(currentLocation);
 
-    }
-    console.log("reading...")
+  //   }
+  //   console.log("reading...")
 
-    navigator.geolocation.getCurrentPosition(success);
-  }
+  //   navigator.geolocation.getCurrentPosition(success);
+  // }
 
   #addCurrentLocationToMap() {
-    this.markersValue = [{lat: -4.045050, lng: 54.663169} ];
-    this.markersValue.forEach((marker) => {
-      //console.log(marker);
-      new mapboxgl.Marker()
-        .setLngLat([ marker.lat, marker.lng ])
-        .addTo(this.map)
-    });
+    // this.markersValue = [{lat: -4.045050, lng: 54.663169} ];
+
+    // const success = (event) => {
+    //   console.log(event.coords.latitude);
+    //   console.log(event.coords.longitude);
+
+    //   const currentLocation = [{ lat: event.coords.latitude, lng: event.coords.longitude }];
+    //   console.log(currentLocation);
+
+    // };
+
+    //       console.log(navigator.geolocation.getCurrentPosition(success));
+    //       this.markersValue.push(success);
+    //       console.log(this.markersValue);
+
+    //         // this.markersValue.push(navigator.geolocation.getCurrentPosition(success));
+
+    //         this.markersValue.forEach((marker) => {
+    //           //console.log(marker);
+    //           new mapboxgl.Marker()
+    //             .setLngLat([ marker.lat, marker.lng ])
+    //             .addTo(this.map)
+    //         });
+
+
+
+    this.map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+        showUserHeading: true
+      })
+    );
+
+
+
+
   }
 
 
