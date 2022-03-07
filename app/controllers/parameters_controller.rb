@@ -1,16 +1,38 @@
 class ParametersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:new, :create, :show]
   before_action :set_params, only: [:create]
 
   def show
+    FakeData.where('booked != true').destroy_all
+    Parameter.where('id != ?', params[:id]).destroy_all
     # FakeData.destroy_all
     @booking = Booking.new
     @parameter = Parameter.find(params[:id])
     FakeData.generate_results(@parameter)
-    @fastest = FakeData.all.min_by(&:duration)
-    @cheapest = FakeData.all.min_by(&:cost)
 
-    @recommended = FakeData.find(recommended(FakeData.all, @parameter.preferred_start).first)
+    valid_data = FakeData.where("cost != 0 AND booked != true AND end_time < ? AND start_time > ?", @parameter.latest_finish, @parameter.earliest_start)
+
+    if valid_data.all.count.zero?
+      @fastest = @cheapest = @recommended = FakeData.create!(
+        origin: "No Journeys Found",
+        destination: "",
+        cost: 69,
+        start_time: DateTime.new(2069,4,20,4,20,0),
+        end_time: DateTime.new(2069,4,20,16,20,0),
+        duration: 69,
+        mode: "train"
+      )
+    else
+      @fastest = valid_data.min_by(&:duration)
+      @cheapest = valid_data.min_by(&:cost)
+      if valid_data.where(cost: @cheapest.cost).length >= 1
+        @cheapest = valid_data.find(recommended(valid_data.where(cost: @cheapest.cost), @parameter.preferred_start).first)
+      end
+      if valid_data.where(duration: @fastest.duration).length >= 1
+        @fastest = valid_data.find(recommended(valid_data.where(duration: @fastest.duration), @parameter.preferred_start).first)
+      end
+      @recommended = valid_data.find(recommended(valid_data.all, @parameter.preferred_start).first)
+    end
 
     @markers = []
 

@@ -1,7 +1,9 @@
 class FakeData < ApplicationRecord
-  has_many :bookings
+  has_many :bookings, dependent: :destroy
 
   def self.generate_results(parameter)
+
+    # parameter = Parameter.last # testing
 
     bus_cities = {
       birmingham: 8,
@@ -80,12 +82,15 @@ class FakeData < ApplicationRecord
         duration: duration_mins,
         mode: "bus"
       )
-      puts "created Bus Journey"
     end
 
-    while FakeData.last.nil? || (FakeData.last.end_time < parameter.latest_finish)
+    if parameter.earliest_start.time.min < 10
+      earliest_start_min = "0#{parameter.earliest_start.time.min}"
+    else
+      earliest_start_min = "#{parameter.earliest_start.time.min}"
+    end
 
-      parameter = Parameter.last
+    while FakeData.all.count.zero? || (FakeData.last.end_time < parameter.latest_finish) || FakeData.last.mode == 'bus'
 
       train_cities = {
         birmingham: "Birmingham",
@@ -113,14 +118,6 @@ class FakeData < ApplicationRecord
         earliest_start_hour = "0#{parameter.earliest_start.time.hour}"
       else
         earliest_start_hour = "#{parameter.earliest_start.time.hour}"
-      end
-
-      if parameter.earliest_start.time.min < 4
-        earliest_start_min = "0#{parameter.earliest_start.time.min + 6}"
-      elsif parameter.earliest_start.time.min > 53
-        earliest_start_min = "#{parameter.earliest_start.time.min}"
-      else
-        earliest_start_min = "#{parameter.earliest_start.time.min + 6}"
       end
 
       earliest_start_time = "#{earliest_start_hour}#{earliest_start_min}"
@@ -174,16 +171,18 @@ class FakeData < ApplicationRecord
       end
 
       html_doc_train.css("td .opsingle").each do |price|
-        prices_train << price.text.gsub("\n", '').gsub("\t", '')
+        prices_train << price.text.gsub("\n", '').gsub("\t", '').gsub('£', '').to_f
       end
 
+      break if departures_train.length == 0
+
       for i in 1..departures_train.length
-        earliest_start_day = (earliest_start_day.to_i + 1).to_s if (arrivals_train[i-1].split(':')[0].to_i < FakeData.last.end_time.hour && FakeData.last.mode != "coach")
+        earliest_start_day = (earliest_start_day.to_i + 1).to_s if (FakeData.all.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < FakeData.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - FakeData.last.end_time.hour).abs > 10) && (FakeData.last.mode != "bus")
 
         FakeData.create!(
           origin: origin_stations_train[i-1],
           destination: destination_stations_train[i-1],
-          cost: prices_train[i-1].gsub('£', '').to_f,
+          cost: prices_train[i-1],
           start_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, departures_train[i-1].split(':')[0].to_i, departures_train[i-1].split(':')[1].to_i, 0),
           end_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
           duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
@@ -199,6 +198,16 @@ class FakeData < ApplicationRecord
         earliest_start: FakeData.last.start_time,
         latest_finish: parameter.latest_finish
       )
+
+      parameter = Parameter.last
+
+      if parameter.earliest_start.time.min < 4
+        earliest_start_min = "0#{parameter.earliest_start.time.min + 6}"
+      elsif parameter.earliest_start.time.min > 53
+        earliest_start_min = "#{parameter.earliest_start.time.min}"
+      else
+        earliest_start_min = "#{parameter.earliest_start.time.min + 6}"
+      end
     end
   end
 end
