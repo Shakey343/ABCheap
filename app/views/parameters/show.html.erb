@@ -8,9 +8,9 @@
 <div class="rounded container pt-5">
   <div class="container travel-container">
     <div class="a-to-b-info">
-      <h4 id="travel-info-cost"><%=@parameter.origin.capitalize %></h4> <i class="fas fa-long-arrow-alt-right"></i> <h4><%=@parameter.destination.capitalize%></h4>
+      <h4><%=@parameter.origin.capitalize %></h4> <i class="fas fa-long-arrow-alt-right"></i> <h4><%=@parameter.destination.capitalize%></h4>
     </div>
-    <div class="options-card-container">
+    <div class="options-card-container top-options-card">
       <div class="options-card">
         <button id="fastest-header" type="button" class="btn option-headers" data-bs-toggle="modal" data-bs-target="#fastestModal">
           <h6>Fastest</h6>
@@ -74,6 +74,9 @@
           <% else %>
             <p> <%=@recommended.duration%>mins </p>
           <% end %>
+        </div>
+        <div class="button-container">
+          <button class="quick-book" type="button">Quick Book</button>
         </div>
       </div>
     </div>

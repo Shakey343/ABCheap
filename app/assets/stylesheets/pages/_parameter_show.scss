@@ -1,6 +1,9 @@
+.travel-container {
+  padding-bottom: 150px;
+}
+
 .a-to-b-info {
   display: flex;
-  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   border-radius: 15px;
@@ -9,20 +12,18 @@
   background-color: #F4F4F4;
 }
 
-.a-to-b-info i {
-  font-size: 25px;
-}
-
 
 .a-to-b-info h4 {
-  width: 110px;
-  text-align: end;
+  width: 140px;
+  text-align: center;
   margin: 0px;
   color: rgb(52, 52, 52);
 }
 
 .a-to-b-info i {
-  margin: 0px 30px;
+  width: auto;
+  margin: 0px 10px;
+  font-size: 25px;
 }
 
 .travel-options {
@@ -31,13 +32,21 @@
   box-sizing: border-box;
   border-radius: 15px;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.15);
-  padding: 0px 25px 50px 25px;
+  padding-left: 25px;
+  padding-right: 25px;
   background-color: #F4F4F4;
-  margin-bottom: -43px;
   display: flex;
   flex-direction: column;
 }
 
+.cheapest, .fastest {
+  padding-bottom: 70px;
+  margin-bottom: -60px;
+}
+
+.recommended {
+  padding-bottom: 20px;
+}
 
 .options-card-container {
   margin-top: 15px;
@@ -57,7 +66,21 @@
   border-color: none;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
 
+.quick-book {
+  font-size: 20px;
+  margin: 20px 0px;
+  background-color: #35E5EC;
+  color: #000000;
+  width: 150px;
+  border-radius: 10px;
+  border: none;
+  align-items: center;
+}
 
 #fastest-header {
   background-color: #FE293F;
@@ -157,7 +180,7 @@
 
 .arrow-down {
   text-align: center;
-  font-size: 40px;
+  font-size: 35px;
   margin: 15px 0px;
 }
 
@@ -165,20 +188,29 @@
 .journey-leg {
   display: flex;
   justify-content: space-between;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .travel-mode {
   text-align: center;
-  font-size: 30px;
-  margin: 20px 0px  ;
+  font-size: 25px;
+  margin: 15px 0px  ;
 }
 
 .origin-destination {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .modal-travel-info {
   text-align: end;
-  font-size: 25px;
+  font-size: 20px;
+}
+
+.modal-footer input {
+  width: 300px;
+  color:#F4F4F4;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: #000000;
+  border-color: #000000;
 }
