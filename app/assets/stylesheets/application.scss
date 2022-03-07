@@ -23,4 +23,23 @@ body {
 
 h1, h2 {
   font-family: $abc-headers-font;
+  font-size: 40px;
+  color: white;
+  text-shadow:
+    -3px -3px 0 #000,
+     0   -3px 0 #000,
+     3px -3px 0 #000,
+     3px  0   0 #000,
+     3px  3px 0 #000,
+     0    3px 0 #000,
+    -3px  3px 0 #000,
+    -3px  0   0 #000;
+}
+
+h1::first-letter {
+  color: $abc-blue
+}
+
+.first_letter {
+  color: $abc-red;
 }

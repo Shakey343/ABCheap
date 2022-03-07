@@ -1,5 +1,7 @@
 <div class="container p-5">
-  <h1>Hello <%= current_user.first_name %></h1>
+  <div style="display: flex;">
+    <h2 class="first_letter">A</h2><h1 class = "other-letters">ccount <%= current_user.first_name %></h1>
+  </div>
   <div class="journeys">
     <h3>Favorite Journeys</h3>
     <%= @favourites %>
