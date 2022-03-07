@@ -32,7 +32,7 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 15px;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.15);
   padding-left: 25px;
   padding-right: 25px;
   background-color: #F4F4F4;
@@ -65,6 +65,8 @@
   text-align: center;
   border-radius: 10px 10px 0px 0px;
   border-color: none;
+  box-shadow: 0px -1px 5px 1px rgba(0, 0, 0, 0.15);
+
 }
 
 .button-container {
@@ -81,6 +83,7 @@
   border: none;
   align-items: center;
   margin: 15px 0px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.15);
 }
 
 #fastest-header {
