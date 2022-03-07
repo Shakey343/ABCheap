@@ -1,6 +1,10 @@
+.travel-container {
+  padding-bottom: 150px;
+  font-family: $body-font;
+}
+
 .a-to-b-info {
   display: flex;
-  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   border-radius: 15px;
@@ -9,20 +13,18 @@
   background-color: #F4F4F4;
 }
 
-.a-to-b-info i {
-  font-size: 25px;
-}
-
 
 .a-to-b-info h4 {
-  width: 110px;
-  text-align: end;
+  width: 140px;
+  text-align: center;
   margin: 0px;
   color: rgb(52, 52, 52);
 }
 
 .a-to-b-info i {
-  margin: 0px 30px;
+  width: auto;
+  margin: 0px 10px;
+  font-size: 25px;
 }
 
 .travel-options {
@@ -30,14 +32,22 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 15px;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.15);
-  padding: 0px 25px 50px 25px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.15);
+  padding-left: 25px;
+  padding-right: 25px;
   background-color: #F4F4F4;
-  margin-bottom: -43px;
   display: flex;
   flex-direction: column;
 }
 
+.cheapest, .fastest {
+  padding-bottom: 70px;
+  margin-bottom: -70px;
+}
+
+.recommended {
+  padding-bottom: 20px;
+}
 
 .options-card-container {
   margin-top: 15px;
@@ -55,24 +65,79 @@
   text-align: center;
   border-radius: 10px 10px 0px 0px;
   border-color: none;
+  box-shadow: 0px -1px 5px 1px rgba(0, 0, 0, 0.15);
+
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
 
+.button-container input {
+  font-size: 20px;
+  background-color: #35E5EC;
+  color: #000000;
+  width: 130px;
+  border-radius: 10px;
+  border: none;
+  align-items: center;
+  margin: 15px 0px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.15);
+}
 
 #fastest-header {
   background-color: #FE293F;
+  position: relative;
+  border-radius: 15px 15px 0px 0px;
+  padding: 10px 0px;
+}
+
+#fastest-header h5 {
+  text-align: center;
+}
+
+#fastest-header button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 
 #cheapest-header {
-  background-color: #FADF0F
+  background-color: #FADF0F;
+  position: relative;
+  border-radius: 15px 15px 0px 0px;
+  padding: 10px 0px;
+}
+
+#cheapest-header h5 {
+  text-align: center;
+}
+
+#cheapest-header button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 
 #recommended-header {
   background-color: #35E5EC;
+  position: relative;
+  border-radius: 15px 15px 0px 0px;
+  padding: 10px 0px;
+}
+
+#recommended-header h5 {
+  text-align: center;
+}
+
+#recommended-header button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 
 .option-headers h6 {
-  font-family: $body-font;
   font-size: 20px;
   font-weight: 600;
   margin: 0px;
@@ -82,13 +147,11 @@
 .travel-timings {
   padding: 10px 5px;
   font-size: 18px;
-  font-family: $body-font;
   text-align: end;
   margin: 0px 10px;
 }
 
 .travel-info {
-  font-family: $body-font;
   display: flex;
   justify-content: space-between;
   font-size: 20px;
@@ -109,7 +172,6 @@
 }
 
 .travel-options h6 {
-  font-family: $body-font;
   margin: 0px;
   text-align: center;
   font-weight: 700;
@@ -126,7 +188,6 @@
 
 .modal-title {
   font-size: 30px;
-  font-family: $body-font;
   font-weight: 600;
   color: #000000;
 
@@ -137,10 +198,6 @@
   color: #F4F4F4;
   justify-content: center;
   border-radius:  0px 0px 15px 15px;
-}
-
-.modal-footer h6 {
-  font-family: $body-font;
 }
 
 .travel-cost {
@@ -157,7 +214,7 @@
 
 .arrow-down {
   text-align: center;
-  font-size: 40px;
+  font-size: 35px;
   margin: 15px 0px;
 }
 
@@ -165,20 +222,29 @@
 .journey-leg {
   display: flex;
   justify-content: space-between;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .travel-mode {
   text-align: center;
-  font-size: 30px;
-  margin: 20px 0px  ;
+  font-size: 25px;
+  margin: 15px 0px  ;
 }
 
 .origin-destination {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .modal-travel-info {
   text-align: end;
-  font-size: 25px;
+  font-size: 20px;
+}
+
+.modal-footer input {
+  width: 200px;
+  color:#F4F4F4;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: #000000;
+  border-color: #000000;
 }
