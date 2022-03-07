@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root to: 'parameters#new'
+  root to: 'pages#home'
   # devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, skip: [:session]
 
-  resources :parameters, only: [:create, :show, :new, :delete] do
-    resources :bookings, only: :create
-  end
-  resources :bookings, only: [:index, :show, :delete]
+  resources :parameters, only: [:create, :show, :new, :delete]
+  resources :bookings, only: [:create, :index, :show, :delete]
+  # post 'booking', to: "bookings#create", as: :create_booking
   resources :users, only: [:show]
 
   # , :skip => [:sessions, :registrations]

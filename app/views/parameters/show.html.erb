@@ -8,19 +8,19 @@
 <div class="rounded container pt-5">
   <div class="container travel-container">
     <div class="a-to-b-info">
-      <h4><%=@parameter.origin.capitalize %> <i class="fas fa-long-arrow-alt-right"></i> <%=@parameter.destination.capitalize%></h4>
+      <h4><%=@parameter.origin.capitalize %></h4> <i class="fas fa-long-arrow-alt-right"></i> <h4><%=@parameter.destination.capitalize%></h4>
     </div>
-    <div class="options-card-container">
+    <div class="options-card-container top-options-card">
       <div class="options-card">
-        <button id="fastest-header" type="button" class="btn btn-primary option-headers" data-bs-toggle="modal" data-bs-target="#fastestModal">
+        <button id="fastest-header" type="button" class="btn option-headers" data-bs-toggle="modal" data-bs-target="#fastestModal">
           <h6>Fastest</h6>
         </button>
         <div class="travel-options fastest">
           <div class="travel-timings">
-            <p><%= @fastest.start_time.strftime("%R") %> - <%=@fastest.start_time.strftime("%R") %> </p>
+            <p><%= @fastest.start_time.strftime("%R") %> - <%=@fastest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
-            <p>£<%=@fastest.cost%></p>
+            <p id="travel-info-cost">£<%=@fastest.cost%></p>
             <i class="fas fa-<%=@fastest.mode%>"></i>
             <% if @fastest.duration > 60 %>
               <% hours = (@fastest.duration / 60).to_i %>
@@ -34,15 +34,15 @@
       </div>
 
       <div class="options-card">
-        <button id="cheapest-header" type="button" class="btn btn-primary option-headers" data-bs-toggle="modal" data-bs-target="#cheapestModal">
+        <button id="cheapest-header" type="button" class="btn option-headers" data-bs-toggle="modal" data-bs-target="#cheapestModal">
           <h6>Cheapest</h6>
         </button>
         <div class="travel-options cheapest">
           <div class="travel-timings">
-            <p><%= @cheapest.start_time.strftime("%R") %> - <%=@cheapest.start_time.strftime("%R") %> </p>
+            <p><%= @cheapest.start_time.strftime("%R") %> - <%=@cheapest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
-            <p>£<%=@cheapest.cost%></p>
+            <p id="travel-info-cost">£<%=@cheapest.cost%></p>
             <i class="fas fa-<%=@cheapest.mode%>"></i>
             <% if @cheapest.duration > 60 %>
               <% hours = (@cheapest.duration / 60).to_i %>
@@ -57,15 +57,15 @@
     </div>
 
     <div class="options-card">
-      <button id="recommended-header" type="button" class="btn btn-primary option-headers" data-bs-toggle="modal" data-bs-target="#recommendedModal">
+      <button id="recommended-header" type="button" class="btn option-headers" data-bs-toggle="modal" data-bs-target="#recommendedModal">
           <h6>Recommended</h6>
       </button>
       <div class="travel-options recommended">
         <div class="travel-timings">
-          <p><%= @recommended.start_time.strftime("%R") %> - <%=@recommended.start_time.strftime("%R") %> </p>
+          <p><%= @recommended.start_time.strftime("%R") %> - <%=@recommended.end_time.strftime("%R") %> </p>
         </div>
         <div class="travel-info">
-          <p>£<%=@recommended.cost%></p>
+          <p id="travel-info-cost">£<%=@recommended.cost%></p>
           <i class="fas fa-<%=@recommended.mode%>"></i>
           <% if @recommended.duration > 60 %>
             <% hours = (@recommended.duration / 60).to_i %>
@@ -73,6 +73,12 @@
             <p> <%=hours%>hr<%=mins%> </p>
           <% else %>
             <p> <%=@recommended.duration%>mins </p>
+          <% end %>
+        </div>
+        <div class="button-container">
+          <%= simple_form_for @booking do |f|%>
+            <%= f.input_field :fake_data_id, as: :hidden, value: @recommended.id %>
+            <%= f.submit "Quick Book" %>
           <% end %>
         </div>
       </div>
@@ -85,7 +91,7 @@
 <div class="modal fade" id="fastestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div id="fastest-header" class="modal-header">
+      <div id="fastest-header">
         <h5 class="modal-title" id="exampleModalLabel">Fastest</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -100,9 +106,15 @@
             <p>Departure: </p>
             <p><%= @fastest.start_time.strftime("%-d %^b")%>  <%= @fastest.start_time.strftime("%R") %></p>
           </div>
-          <p class="origin"><%= @fastest.origin%></p>
+          <p class="origin-destination"><%= @fastest.origin%></p>
+          <i class="fas fa-long-arrow-alt-down arrow-down"></i>
+          <div class="journey-leg">
+            <p>Arrival: </p>
+            <p><%= @fastest.end_time.strftime("%-d %^b")%>  <%= @fastest.end_time.strftime("%R") %></p>
+          </div>
+          <p class="origin-destination"><%= @fastest.destination%></p>
         </div>
-        <div class="travel-info">
+        <div class="modal-travel-info">
 
           <% if @fastest.duration > 60 %>
             <% hours = (@fastest.duration / 60).to_i %>
@@ -115,10 +127,11 @@
         <div class="travel-cost">
           <p>£<%=@fastest.cost%></p>
         </div>
+
       </div>
       <div class="modal-footer">
-        <%= simple_form_for [@parameter, @booking] do |f|%>
-          <%= f.input :fake_data_id, as: :hidden, value: @fastest.id %>
+        <%= simple_form_for @booking do |f|%>
+          <%= f.input_field :fake_data_id, as: :hidden, value: @fastest.id %>
           <%= f.submit "Book" %>
         <% end %>
       </div>
@@ -129,17 +142,31 @@
 <div class="modal fade" id="cheapestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div id="cheapest-header" class="modal-header">
+      <div id="cheapest-header">
         <h5 class="modal-title" id="exampleModalLabel">Cheapest</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="modal-travel-timings">
-          <p><%= @cheapest.start_time.strftime("%R") %> - <%=@cheapest.start_time.strftime("%R") %> </p>
-        </div>
-        <div class="travel-info">
-          <p>£<%=@cheapest.cost%></p>
+        <div class="travel-mode">
           <i class="fas fa-<%=@cheapest.mode%>"></i>
+          <%=@cheapest.mode.capitalize%>
+        </div>
+
+        <div class="modal-travel-timings">
+          <div class="journey-leg">
+            <p>Departure: </p>
+            <p><%= @cheapest.start_time.strftime("%-d %^b")%>  <%= @cheapest.start_time.strftime("%R") %></p>
+          </div>
+          <p class="origin-destination"><%= @cheapest.origin%></p>
+          <i class="fas fa-long-arrow-alt-down arrow-down"></i>
+          <div class="journey-leg">
+            <p>Arrival: </p>
+            <p><%= @cheapest.end_time.strftime("%-d %^b")%>  <%= @cheapest.end_time.strftime("%R") %></p>
+          </div>
+          <p class="origin-destination"><%= @cheapest.destination%></p>
+        </div>
+        <div class="modal-travel-info">
+
           <% if @cheapest.duration > 60 %>
             <% hours = (@cheapest.duration / 60).to_i %>
             <% mins =  @cheapest.duration - (hours * 60)%>
@@ -153,8 +180,8 @@
         </div>
       </div>
       <div class="modal-footer">
-         <%= simple_form_for [@parameter, @booking] do |f|%>
-            <%= f.input :fake_data_id, as: :hidden, value: @cheapest.id %>
+        <%= simple_form_for @booking do |f|%>
+          <%= f.input_field :fake_data_id, as: :hidden, value: @cheapest.id %>
           <%= f.submit "Book" %>
         <% end %>
       </div>
@@ -165,17 +192,31 @@
 <div class="modal fade" id="recommendedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div id="recommended-header" class="modal-header">
+      <div id="recommended-header">
         <h5 class="modal-title" id="exampleModalLabel">Recommended</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="modal-travel-timings">
-          <p><%= @recommended.start_time.strftime("%R") %> - <%=@recommended.start_time.strftime("%R") %> </p>
-        </div>
-        <div class="travel-info">
-          <p>£<%=@recommended.cost%></p>
+        <div class="travel-mode">
           <i class="fas fa-<%=@recommended.mode%>"></i>
+          <%=@recommended.mode.capitalize%>
+        </div>
+
+        <div class="modal-travel-timings">
+          <div class="journey-leg">
+            <p>Departure: </p>
+            <p><%= @recommended.start_time.strftime("%-d %^b")%>  <%= @recommended.start_time.strftime("%R") %></p>
+          </div>
+          <p class="origin-destination"><%= @recommended.origin%></p>
+          <i class="fas fa-long-arrow-alt-down arrow-down"></i>
+          <div class="journey-leg">
+            <p>Arrival: </p>
+            <p><%= @recommended.end_time.strftime("%-d %^b")%>  <%= @recommended.end_time.strftime("%R") %></p>
+          </div>
+          <p class="origin-destination"><%= @recommended.destination%></p>
+        </div>
+        <div class="modal-travel-info">
+
           <% if @recommended.duration > 60 %>
             <% hours = (@recommended.duration / 60).to_i %>
             <% mins =  @recommended.duration - (hours * 60)%>
@@ -189,8 +230,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <%= simple_form_for [@parameter, @booking] do |f|%>
-          <%= f.input :fake_data_id, as: :hidden, value: @recommended.id %>
+        <%= simple_form_for @booking do |f|%>
+          <%= f.input_field :fake_data_id, as: :hidden, value: @recommended.id %>
           <%= f.submit "Book" %>
         <% end %>
       </div>

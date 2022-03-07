@@ -1,0 +1,48 @@
+<div class="abc-banner">
+  <h2>Confirmation</h2>
+</div>
+
+<div class="confirmation-container">
+  <div class="container text-center confirmation-info">
+    <div class="confirmation-item confirm">
+      <p>You're going to <%= @booking.fake_data.destination.split.first %>!</p>
+    </div>
+    <div class="confirmation-item">
+      <h5>Booking Reference:</h5>
+      <%= (('A'..'Z').to_a.sample(4)+(1..9).to_a.sample(4)).join %>
+    </div>
+    <div class="confirmation-item">
+      <h5>A confirmation email has been sent to:</h5>
+      <p><%= current_user.email %></p>
+    </div>
+    <div class="confirmation-item calendar">
+      <a href=""><h5>Add Journey to Calendar?</h5></a>
+    </div>
+    <div class="confirmation-item wallet">
+      <img src="https://images.squarespace-cdn.com/content/v1/542b217de4b0bea213bc8af1/1450732657789-3BU8CDEOH41KNQY6CH1M/image-asset.png?format=1500w" alt="Add to Apple Wallet">
+    </div>
+    <div class="confirmation-item">
+      <h5>City Directions?</h5>
+    </div>
+    <div class="confirmation-item">
+      <h5>Your Journey Breakdown</h5>
+      <div class="confirmation-start-end">
+        <p class="start-end-header">Depart from:</p>
+        <div class="departure">
+          <%= @booking.fake_data.origin %>
+          <p><%= @booking.fake_data.start_time.strftime("%-d %^b")%>  <%= @booking.fake_data.start_time.strftime("%R") %></p>
+        </div>
+      </div>
+      <div class="confirmation-start-end">
+        <p class="start-end-header">Arrive at:</p>
+        <div class="arrival">
+          <%= @booking.fake_data.destination %>
+          <p><%= @booking.fake_data.end_time.strftime("%-d %^b")%>  <%= @booking.fake_data.end_time.strftime("%R") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# CityMapper Deep Link Example %>
+<%# https://citymapper.com/directions?startcoord=<lat>,<lon>&startname=<name>&startaddress=<address>&endcoord=<lat>,<lon>&endname=<name>&endaddress=<address> %>
