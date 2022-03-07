@@ -1,5 +1,6 @@
 .travel-container {
   padding-bottom: 150px;
+  font-family: $body-font;
 }
 
 .a-to-b-info {
@@ -79,22 +80,61 @@
   border-radius: 10px;
   border: none;
   align-items: center;
+  margin: 15px 0px;
 }
 
 #fastest-header {
   background-color: #FE293F;
+  position: relative;
+  border-radius: 15px 15px 0px 0px;
+  padding: 10px 0px;
+}
+
+#fastest-header h5 {
+  text-align: center;
+}
+
+#fastest-header button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 
 #cheapest-header {
-  background-color: #FADF0F
+  background-color: #FADF0F;
+  position: relative;
+  border-radius: 15px 15px 0px 0px;
+  padding: 10px 0px;
+}
+
+#cheapest-header h5 {
+  text-align: center;
+}
+
+#cheapest-header button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 
 #recommended-header {
   background-color: #35E5EC;
+  position: relative;
+  border-radius: 15px 15px 0px 0px;
+  padding: 10px 0px;
+}
+
+#recommended-header h5 {
+  text-align: center;
+}
+
+#recommended-header button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 
 .option-headers h6 {
-  font-family: $body-font;
   font-size: 20px;
   font-weight: 600;
   margin: 0px;
@@ -104,13 +144,11 @@
 .travel-timings {
   padding: 10px 5px;
   font-size: 18px;
-  font-family: $body-font;
   text-align: end;
   margin: 0px 10px;
 }
 
 .travel-info {
-  font-family: $body-font;
   display: flex;
   justify-content: space-between;
   font-size: 20px;
@@ -131,7 +169,6 @@
 }
 
 .travel-options h6 {
-  font-family: $body-font;
   margin: 0px;
   text-align: center;
   font-weight: 700;
@@ -148,7 +185,6 @@
 
 .modal-title {
   font-size: 30px;
-  font-family: $body-font;
   font-weight: 600;
   color: #000000;
 
@@ -159,10 +195,6 @@
   color: #F4F4F4;
   justify-content: center;
   border-radius:  0px 0px 15px 15px;
-}
-
-.modal-footer h6 {
-  font-family: $body-font;
 }
 
 .travel-cost {
@@ -206,7 +238,7 @@
 }
 
 .modal-footer input {
-  width: 00px;
+  width: 200px;
   color:#F4F4F4;
   font-size: 20px;
   font-weight: 700;
