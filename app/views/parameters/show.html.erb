@@ -78,7 +78,7 @@
         <div class="button-container">
           <%= simple_form_for @booking do |f|%>
             <%= f.input_field :fake_data_id, as: :hidden, value: @recommended.id %>
-            <%= f.submit "Quick Book" %>
+            <%= f.submit "Quick Book", class: "abc-btn" %>
           <% end %>
         </div>
       </div>
