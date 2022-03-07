@@ -1,28 +1,28 @@
-<div class="newplanet">
-  <div class="title" style="text-align:center">
-    <div style="width: 100%; height: 200px;"
+<div class="newsearch">
+  <div class="map-container">
+    <div class="abc-map"
       data-controller="mapbox"
       data-mapbox-markers-value="<%= @markers.to_json %>"
       data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
   </div>
-    <div class="rounded container abc-form pt-5">
-      <%= simple_form_for @parameter do |f| %>
-      <div class="flex-items">
-        <%= f.input :origin, placeholder: 'Origin', class: 'flex-item', label: false %>
-        <%= f.input :destination, placeholder: 'Destination', class: 'flex-item', label: false %>
-      </div>
-      <%#= f.input :preferred_start, as: :date, html5: true %>
-      <!--div class="flex-items"-->
-        <%= f.input :preferred_start, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Preferred Start Time' %>
-        <%= f.input :earliest_start, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Start Date' %>
-        <%= f.input :latest_finish, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date' %>
-      <!--/div-->
+  <div class="rounded container abc-form pt-4">
+    <%= simple_form_for @parameter do |f| %>
+    <div class="flex-items">
+      <%= f.input :origin, placeholder: 'Origin', class: 'flex-item', label: false %>
+      <%= f.input :destination, placeholder: 'Destination', class: 'flex-item', label: false %>
+    </div>
+    <%#= f.input :preferred_start, as: :date, html5: true %>
+    <!--div class="flex-items"-->
+    <%= f.input :preferred_start, as: :string, required: false, input_html: {class: "datepicker"}, label: 'Preferred Start Time' %>
+    <%= f.input :earliest_start, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Start Date' %>
+    <%= f.input :latest_finish, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date' %>
+    <!--/div-->
 
-      <div class="form-actions text-center p-3">
-      <%= f.submit class: 'btn btn-block abc-btn', value: 'Take me there!' %>
-        <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
-      </div>
-      <% end %>
+    <div class="form-actions text-center p-3">
+      <%= f.submit class: 'btn btn-block abc-btn', value: 'Take me there!', data: { disable_with: 'ABCheaping...' }%>
+      <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
+    </div>
+    <% end %>
   </div>
 </div>

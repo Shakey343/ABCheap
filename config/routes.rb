@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :parameters, only: [:create, :show, :new, :delete]
   resources :bookings, only: [:create, :index, :show, :delete]
+  # post 'booking', to: "bookings#create", as: :create_booking
   resources :users, only: [:show]
 
   # , :skip => [:sessions, :registrations]
