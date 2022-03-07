@@ -1,15 +1,20 @@
+// .landing-page {
+//   background-image: url('assets/ABCheap');
+//   background-size: contain;
+//   background-position: center;
+//   height: 667px;
+// }
+
+.landing-img {
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
 .flex-items {
   display: flex;
 }
-
-// .abc-form-input {
-//   box-sizing: border-box;
-//   border-radius: 10px;
-//   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-//   padding: 10px;
-// }
-// .flex-item {
-// }
 
 input[type=text] {
   box-sizing: border-box;

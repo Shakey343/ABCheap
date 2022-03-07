@@ -17,7 +17,9 @@
 
   <body>
     <%= yield %>
-    <%= render 'shared/footer_nav' %>
+    <% unless controller_name == 'pages' %>
+      <%= render 'shared/footer_nav' %>
+    <% end %>
     <%= render 'shared/flashes' %>
   </body>
 </html>
