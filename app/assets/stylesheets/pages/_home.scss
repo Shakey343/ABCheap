@@ -1,7 +1,8 @@
-.map-contianer {
-  display: flex;
-  justify-content: center;
-  position: relative;
+.landing-img {
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
 }
 
 .abc-map {
