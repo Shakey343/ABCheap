@@ -45,7 +45,8 @@ class ParametersController < ApplicationController
     @markers.each do |marker|
       {
         lat: marker[:lat],
-        lng: marker[:lng]
+        lng: marker[:lng],
+        image_url: helpers.asset_url("marker_destination")
       }
     end
   end
