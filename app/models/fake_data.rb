@@ -46,42 +46,44 @@ class FakeData < ApplicationRecord
     html_doc_bus = Nokogiri::HTML(html_file_bus, nil, "uft-8")
     document_json_bus = JSON.parse(html_doc_bus.search("script").last.text.scan(/{.*}/)[0])
 
-    journeys = document_json_bus["journeys"].map { |journey| [journey["departureDateTime"], journey["arrivalDateTime"], journey["duration"], journey["price"], journey["origin"]["cityName"], journey["origin"]["stopName"], journey["destination"]["cityName"], journey["destination"]["stopName"]] }
+    if document_json_bus["journeys"] != nil
+      journeys = document_json_bus["journeys"].map { |journey| [journey["departureDateTime"], journey["arrivalDateTime"], journey["duration"], journey["price"], journey["origin"]["cityName"], journey["origin"]["stopName"], journey["destination"]["cityName"], journey["destination"]["stopName"]] }
 
-    journeys.reverse_each do |journey|
-      start_year = journey[0].split('T').first.split('-')[0].to_i
-      start_month = journey[0].split('T').first.split('-')[1].to_i
-      start_day = journey[0].split('T').first.split('-')[2].to_i
-      start_hour = journey[0].split('T').last.split(':')[0].to_i
-      start_minute = journey[0].split('T').last.split(':')[1].to_i
-      start_second = journey[0].split('T').last.split(':')[2].to_i
+      journeys.reverse_each do |journey|
+        start_year = journey[0].split('T').first.split('-')[0].to_i
+        start_month = journey[0].split('T').first.split('-')[1].to_i
+        start_day = journey[0].split('T').first.split('-')[2].to_i
+        start_hour = journey[0].split('T').last.split(':')[0].to_i
+        start_minute = journey[0].split('T').last.split(':')[1].to_i
+        start_second = journey[0].split('T').last.split(':')[2].to_i
 
-      end_year = journey[1].split('T').first.split('-')[0].to_i
-      end_month = journey[1].split('T').first.split('-')[1].to_i
-      end_day = journey[1].split('T').first.split('-')[2].to_i
-      end_hour = journey[1].split('T').last.split(':')[0].to_i
-      end_minute = journey[1].split('T').last.split(':')[1].to_i
-      end_second = journey[1].split('T').last.split(':')[2].to_i
+        end_year = journey[1].split('T').first.split('-')[0].to_i
+        end_month = journey[1].split('T').first.split('-')[1].to_i
+        end_day = journey[1].split('T').first.split('-')[2].to_i
+        end_hour = journey[1].split('T').last.split(':')[0].to_i
+        end_minute = journey[1].split('T').last.split(':')[1].to_i
+        end_second = journey[1].split('T').last.split(':')[2].to_i
 
-      if journey[2].scan(/\d{1,2}H\d{1,2}/)[0]
-        duration_array = journey[2].scan(/\d{1,2}H\d{1,2}/)[0].split('H')
-        duration_mins = (duration_array[0].to_i * 60) + (duration_array[1].to_i)
-      elsif journey[2].scan(/PT\d{1,2}M/)[0]
-        duration_mins = journey[2].scan(/PT\d{1,2}M/)[0][2..-1].to_i
-      else
-        duration_array = journey[2].scan(/\d{1,2}H/)[0][0..-2]
-        duration_mins = (duration_array.to_i * 60)
+        if journey[2].scan(/\d{1,2}H\d{1,2}/)[0]
+          duration_array = journey[2].scan(/\d{1,2}H\d{1,2}/)[0].split('H')
+          duration_mins = (duration_array[0].to_i * 60) + (duration_array[1].to_i)
+        elsif journey[2].scan(/PT\d{1,2}M/)[0]
+          duration_mins = journey[2].scan(/PT\d{1,2}M/)[0][2..-1].to_i
+        else
+          duration_array = journey[2].scan(/\d{1,2}H/)[0][0..-2]
+          duration_mins = (duration_array.to_i * 60)
+        end
+
+        FakeData.create!(
+          origin: "#{journey[4]} #{journey[5]}",
+          destination: "#{journey[6]} #{journey[7]}",
+          cost: journey[3],
+          start_time: DateTime.new(start_year, start_month, start_day, start_hour, start_minute, start_second),
+          end_time: DateTime.new(end_year, end_month, end_day, end_hour, end_minute, end_second),
+          duration: duration_mins,
+          mode: "bus"
+        )
       end
-
-      FakeData.create!(
-        origin: "#{journey[4]} #{journey[5]}",
-        destination: "#{journey[6]} #{journey[7]}",
-        cost: journey[3],
-        start_time: DateTime.new(start_year, start_month, start_day, start_hour, start_minute, start_second),
-        end_time: DateTime.new(end_year, end_month, end_day, end_hour, end_minute, end_second),
-        duration: duration_mins,
-        mode: "bus"
-      )
     end
 
     if parameter.earliest_start.time.min < 10
@@ -145,52 +147,53 @@ class FakeData < ApplicationRecord
 
       origin_stations_train = []
       destination_stations_train = []
-      html_doc_train.css(".result-station").each_with_index do |station, index|
-        if index.even?
-          origin_stations_train << station.text
-        else
-          destination_stations_train << station.text
+      if html_doc_train.css(".result-station") != nil
+        html_doc_train.css(".result-station").each_with_index do |station, index|
+          if index.even?
+            origin_stations_train << station.text
+          else
+            destination_stations_train << station.text
+          end
+        end
+
+        departures_train = []
+        arrivals_train = []
+        durations_train = []
+        prices_train = []
+
+        html_doc_train.css("td .dep").each do |departure|
+          departures_train << departure.text.gsub("\n", '').gsub("\t", '')
+        end
+
+        html_doc_train.css("td .arr").each do |arrival|
+          arrivals_train << arrival.text.gsub("\n", '').gsub("\t", '')
+        end
+
+        html_doc_train.css("td .dur").each do |duration|
+          durations_train << duration.text.gsub("\n", '').gsub("\t", '')
+        end
+
+        html_doc_train.css("td .opsingle").each do |price|
+          prices_train << price.text.gsub("\n", '').gsub("\t", '').gsub('£', '').to_f
+        end
+
+        break if departures_train.length == 0
+
+        for i in 1..departures_train.length
+          earliest_start_day = (earliest_start_day.to_i + 1).to_s if (FakeData.all.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < FakeData.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - FakeData.last.end_time.hour).abs > 10) && (FakeData.last.mode != "bus")
+
+          FakeData.create!(
+            origin: origin_stations_train[i-1],
+            destination: destination_stations_train[i-1],
+            cost: prices_train[i-1],
+            start_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, departures_train[i-1].split(':')[0].to_i, departures_train[i-1].split(':')[1].to_i, 0),
+            end_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
+            duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
+            mode: "train"
+          )
+          puts "created train journey"
         end
       end
-
-      departures_train = []
-      arrivals_train = []
-      durations_train = []
-      prices_train = []
-
-      html_doc_train.css("td .dep").each do |departure|
-        departures_train << departure.text.gsub("\n", '').gsub("\t", '')
-      end
-
-      html_doc_train.css("td .arr").each do |arrival|
-        arrivals_train << arrival.text.gsub("\n", '').gsub("\t", '')
-      end
-
-      html_doc_train.css("td .dur").each do |duration|
-        durations_train << duration.text.gsub("\n", '').gsub("\t", '')
-      end
-
-      html_doc_train.css("td .opsingle").each do |price|
-        prices_train << price.text.gsub("\n", '').gsub("\t", '').gsub('£', '').to_f
-      end
-
-      break if departures_train.length == 0
-
-      for i in 1..departures_train.length
-        earliest_start_day = (earliest_start_day.to_i + 1).to_s if (FakeData.all.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < FakeData.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - FakeData.last.end_time.hour).abs > 10) && (FakeData.last.mode != "bus")
-
-        FakeData.create!(
-          origin: origin_stations_train[i-1],
-          destination: destination_stations_train[i-1],
-          cost: prices_train[i-1],
-          start_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, departures_train[i-1].split(':')[0].to_i, departures_train[i-1].split(':')[1].to_i, 0),
-          end_time: DateTime.new(parameter.earliest_start.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
-          duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
-          mode: "train"
-        )
-        puts "created train journey"
-      end
-
       Parameter.create(
         origin: parameter.origin,
         destination: parameter.destination,
