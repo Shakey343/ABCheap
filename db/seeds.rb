@@ -197,12 +197,12 @@
 
 # puts "parameter created"
 
-# Parameter.create!(
-#   origin: "Bristol",
-#   destination: "Swansea",
-#   preferred_start: DateTime.new(2022,3,14,11,20,0),
-#   earliest_start: DateTime.new(2022,3,14,9,12,0),
-#   latest_finish: DateTime.new(2022,3,14,19,5,0),
-# )
+Parameter.create!(
+  origin: "Bristol",
+  destination: "Swansea",
+  preferred_start: DateTime.new(2022,3,14,11,20,0),
+  earliest_start: nil,
+  latest_finish: nil,
+)
 
-# puts "parameter created"
+puts "parameter created"
