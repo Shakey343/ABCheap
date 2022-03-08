@@ -38,8 +38,8 @@ class ParametersController < ApplicationController
     else
       @fastest = valid_data.min_by(&:duration)
       @cheapest = valid_data.min_by(&:price_cents)
-      if valid_data.where(price_cents: @cheapest.price).length >= 1
-        @cheapest = valid_data.find(recommended(valid_data.where(price_cents: @cheapest.price), @parameter.preferred_start).first)
+      if valid_data.where(price_cents: @cheapest.price_cents).length >= 1
+        @cheapest = valid_data.find(recommended(valid_data.where(price_cents: @cheapest.price_cents), @parameter.preferred_start).first)
       end
       if valid_data.where(duration: @fastest.duration).length >= 1
         @fastest = valid_data.find(recommended(valid_data.where(duration: @fastest.duration), @parameter.preferred_start).first)
@@ -71,7 +71,7 @@ class ParametersController < ApplicationController
     total_cost = {}
     data.each do |trip|
       deviation = ((trip.start_time.to_time - preferred_start.to_time) / 3600).abs
-      total_cost[trip.id] = ((trip.price.to_f / 100) + ((trip.duration / 60) * 7) + (deviation * 2))
+      total_cost[trip.id] = (trip.price.to_f + ((trip.duration / 60) * 7) + (deviation * 2))
     end
     total_cost.min_by { |_, v| v }
   end
