@@ -1,3 +1,89 @@
 <div class="abc-banner">
   <h2>My Trips</h2>
 </div>
+
+<div class="container pt-7">
+  <div class="my-trips-container">
+    <h5>Upcoming trips:</h5>
+    <% if @bookings.empty?%>
+      <h6>You have no upcoming trips</h6>
+    <% else %>
+      <% @bookings.each do |booking| %>
+        <% if booking.fake_data.start_time > DateTime.now %>
+          <button class="trip-item btn" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
+            <div class="trip-box">
+              <h6>To:</h6><%=booking.fake_data.destination%>
+              <h6>On:</h6><%=booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %>
+            </div>
+            <% if (((booking.fake_data.start_time - DateTime.now) / 86400).floor) > 1 %>
+              <h6>Only <%= ((booking.fake_data.start_time - DateTime.now) / 86400).floor%> sleeps!</h6>
+            <% else %>
+              <h6>It's today!</h6>
+            <% end %>
+          </button>
+        <% end %>
+
+      <% end %>
+    <% end %>
+    <h5>Past trips:</h5>
+      <% if @bookings.empty?%>
+      <h6>You have no past trips</h6>
+      <% else %>
+        <% @bookings.each do |booking| %>
+          <% if booking.fake_data.start_time > DateTime.now %>
+            <button class="trip-item btn" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
+              <div class="trip-box">
+                <h6>To:</h6><%=booking.fake_data.destination%>
+                <h6>On:</h6><%=booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %>
+              </div>
+              <h6>That was fun!</h6>
+            </button>
+          <% end %>
+        <% end %>
+      <% end %>
+  </div>
+
+  <%# Modals for travel info %>
+  <% @bookings.each do |booking| %>
+    <div class="modal fade" id="id<%=booking.id%>modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="travel-mode">
+              <i class="fas fa-<%=booking.fake_data.mode%>"></i>
+              <%=booking.fake_data.mode.capitalize%>
+            </div>
+            <div class="modal-travel-timings">
+              <div class="journey-leg">
+                <p>Departure: </p>
+                <p><%= booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %></p>
+              </div>
+              <p class="origin-destination"><%= booking.fake_data.origin%></p>
+              <i class="fas fa-long-arrow-alt-down arrow-down"></i>
+              <div class="journey-leg">
+                <p>Arrival: </p>
+                <p><%= booking.fake_data.end_time.strftime("%-d %^b")%>  <%= booking.fake_data.end_time.strftime("%R") %></p>
+              </div>
+              <p class="origin-destination"><%= booking.fake_data.destination%></p>
+            </div>
+            <div class="modal-travel-info">
+
+              <% if booking.fake_data.duration > 60 %>
+                <% hours = (booking.fake_data.duration / 60).to_i %>
+                <% mins =  booking.fake_data.duration - (hours * 60)%>
+                <p> <%=hours%>hr<%=mins%> </p>
+              <% else %>
+                <p> <%=@fastest.duration%>mins </p>
+              <% end %>
+            </div>
+            <div class="travel-cost">
+              <p>£<%=booking.fake_data.cost%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>
