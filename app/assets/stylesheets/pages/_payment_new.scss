@@ -1,0 +1,35 @@
+.trip-payment-container {
+  padding: 20px 0px 80px 0px;
+}
+
+.payment-info {
+  width: 100%;
+  border: 3px solid black;
+  border-radius: 15px;
+  background-color: white;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.payment-info i {
+  padding: 10px;
+  font-size: 30px;
+  margin: 0px;
+}
+
+.payment-info h6 {
+  font-size: 30px;
+}
+
+.payment-info h5 {
+  margin-top: 15px;
+}
+
+.payment-info p {
+  font-size: 20px;
+  margin: 0px;
+}
