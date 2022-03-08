@@ -1,8 +1,15 @@
-.landing-img {
-  height: 400px;
-  object-fit: cover;
-  object-position: center;
+.landing-page {
+  height: 667px;
+  background-blend-mode: overlay;
+  background-image: url("assets/yellow-map"), linear-gradient(to top, rgba(250, 223, 15, 0), $abc-yellow);
+  background-size: cover;
+  position: relative;
+}
+
+.abc-img {
+  height: 250px;
   width: 100%;
+  object-fit: cover;
 }
 
 .abc-map {
