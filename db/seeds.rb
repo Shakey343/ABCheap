@@ -187,13 +187,13 @@
 # )
 # puts "data added"
 
-# Parameter.create!(
-#   origin: "London",
-#   destination: "Nottingham",
-#   preferred_start: DateTime.new(2022,3,18,12,0,0),
-#   earliest_start: DateTime.new(2022,3,18,8,6,0),
-#   latest_finish: DateTime.new(2022,3,18,23,55,0),
-# )
+Parameter.create!(
+  origin: "London",
+  destination: "Nottingham",
+  preferred_start: DateTime.new(2022,3,8,16,0,0),
+  earliest_start: nil,
+  latest_finish: nil,
+)
 
 # puts "parameter created"
 
