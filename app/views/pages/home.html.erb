@@ -1,9 +1,8 @@
-<div class="landing-page">
-  <img src="assets/ABCheap" alt="" class="landing-img">
-  <%# <img src="https://images.pexels.com/photos/3050833/pexels-photo-3050833.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" class="landing-img "> %>
-  <div class="container p-5 text-center login-page">
-    <h1>Making afordable travel easy!</h1>
-    <br>
-    <%= link_to "Let's Go!", new_parameter_path, class: "abc-btn" %>
-  </div>
+
+<div class="container p-5 text-center landing-page">
+  <%= image_tag 'ABCheap no background', class: 'abc-img landing-item' %>
+  <h1 class="landing-item">Making afordable travel easy!</h1>
+  <br>
+  <br>
+  <%= link_to "Let's Go!", new_parameter_path, class: "abc-btn landing-item" %>
 </div>
