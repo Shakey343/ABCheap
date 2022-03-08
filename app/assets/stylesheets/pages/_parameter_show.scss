@@ -1,20 +1,32 @@
 .travel-container {
-  padding-bottom: 150px;
+  margin-bottom: 80px;
   font-family: $body-font;
+
+}
+
+a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapboxgl-compact {
+  width: 0px;
+  height: 0px;
+  background-color: transparent;
 }
 
 .a-to-b-info {
+  margin-top: -20px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   border-radius: 15px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  padding: 20px 10px;
+  padding: 14px 5px;
   background-color: #F4F4F4;
 }
 
 
+
+
 .a-to-b-info h4 {
+  font-size: 20px;
+  font-weight: 400;
   width: 140px;
   text-align: center;
   margin: 0px;
@@ -24,7 +36,7 @@
 .a-to-b-info i {
   width: auto;
   margin: 0px 10px;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .travel-options {
@@ -32,7 +44,7 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 15px;
-  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
   padding-left: 25px;
   padding-right: 25px;
   background-color: #F4F4F4;
@@ -65,7 +77,7 @@
   text-align: center;
   border-radius: 10px 10px 0px 0px;
   border-color: none;
-  box-shadow: 0px -1px 5px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px -3px 8px 0px rgba(0, 0, 0, 0.15);
 
 }
 
@@ -86,10 +98,11 @@
 }
 
 #fastest-header {
-  background-color: #FE293F;
+  // background-color: #FE293F;
+  background-color: #FADF0F;
   position: relative;
   border-radius: 15px 15px 0px 0px;
-  padding: 10px 0px;
+  padding: 5px 0px;
 }
 
 #fastest-header h5 {
@@ -106,7 +119,7 @@
   background-color: #FADF0F;
   position: relative;
   border-radius: 15px 15px 0px 0px;
-  padding: 10px 0px;
+  padding: 5px 0px;
 }
 
 #cheapest-header h5 {
@@ -123,7 +136,7 @@
   background-color: #35E5EC;
   position: relative;
   border-radius: 15px 15px 0px 0px;
-  padding: 10px 0px;
+  padding: 5px 0px;
 }
 
 #recommended-header h5 {
