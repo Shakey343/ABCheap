@@ -13,7 +13,7 @@ class ParametersController < ApplicationController
     if @parameter.earliest_start.nil?
       earliest_start_date = @parameter.preferred_start - 14400
     else
-      earliest_start_date = parameter.earliest_start
+      earliest_start_date = @parameter.earliest_start
     end
 
     if @parameter.latest_finish.nil?
