@@ -34,7 +34,7 @@ input[type=text] {
   text-align: center;
 }
 
-input[type=datetime-local] {
+input[type=datetime-local], input[type=email], input[type=password] {
   box-sizing: border-box;
   border-radius: 12px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
