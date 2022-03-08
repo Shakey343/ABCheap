@@ -12,10 +12,8 @@ export default class extends Controller {
     mapboxgl.accessToken = this.apiKeyValue
 
     this.map = new mapboxgl.Map({
-      container: 'map', // container ID
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-4.045050, 54.663169], // starting position
-      zoom: 3 // starting zoom
+      container: this.element,
+      style: 'mapbox://styles/mapbox/streets-v10'
     })
 
     if (this.element.id === "map") {
@@ -27,7 +25,7 @@ export default class extends Controller {
 
     if (this.element.id === "map-routes") {
       this.#addMarkersToMap();
-      this.#addLineToMap();
+      // this.#addLineToMap();
     }
   }
 
@@ -41,53 +39,23 @@ export default class extends Controller {
     this.map.fitBounds(bounds, { padding: 70, maxZoom: 3.1, duration: 0 })
   }
 
-
-
   #addMarkersToMap() {
     this.markersValue.forEach((marker) => {
-      new mapboxgl.Marker()
+      // Create a HTML element for your custom marker
+      const customMarker = document.createElement("div")
+      customMarker.className = "marker"
+      customMarker.style.backgroundImage = `url('${marker.image_url}')`
+      customMarker.style.backgroundSize = "contain"
+      customMarker.style.width = "50px"
+      customMarker.style.height = "30px"
+
+      new mapboxgl.Marker(customMarker)
       .setLngLat([ marker.lng, marker.lat ])
       .addTo(this.map)
     });
   }
-  // #currentLocation() {
-  //   function success(event) {
-  //     const currentLocation = [{ lat: event.coords.latitude, lng: event.coords.longitude }];
-  //     console.log(currentLocation);
-
-  //   }
-  //   console.log("reading...")
-
-  //   navigator.geolocation.getCurrentPosition(success);
-  // }
 
   #addCurrentLocationToMap() {
-    // this.markersValue = [{lat: -4.045050, lng: 54.663169} ];
-
-    // const success = (event) => {
-    //   console.log(event.coords.latitude);
-    //   console.log(event.coords.longitude);
-
-    //   const currentLocation = [{ lat: event.coords.latitude, lng: event.coords.longitude }];
-    //   console.log(currentLocation);
-
-    // };
-
-    //       console.log(navigator.geolocation.getCurrentPosition(success));
-    //       this.markersValue.push(success);
-    //       console.log(this.markersValue);
-
-    //         // this.markersValue.push(navigator.geolocation.getCurrentPosition(success));
-
-    //         this.markersValue.forEach((marker) => {
-    //           //console.log(marker);
-    //           new mapboxgl.Marker()
-    //             .setLngLat([ marker.lat, marker.lng ])
-    //             .addTo(this.map)
-    //         });
-
-
-
     this.map.addControl(
       new mapboxgl.GeolocateControl({
         positionOptions: {
@@ -97,10 +65,6 @@ export default class extends Controller {
         showUserHeading: true
       })
     );
-
-
-
-
   }
 
 
