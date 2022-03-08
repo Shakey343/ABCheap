@@ -16,17 +16,29 @@
       <!--div class="flex-items"-->
         <%= f.input :preferred_start, label: "Preferred Departure", as: :string, required: false, input_html: {class: "datepicker"}, label_html: {class: "text-center w-100"}, placeholder: 'Preferred Departure' %>
       <!--/div-->
+            <div class="collapse" id="collapseExample">
+              <div class="text-center d-flex justify-content-center mb-0 pb-0">
+                    <%= f.input :earliest_start, label: "Earliest Departure", as: :string, required: false, input_html: {class: "datepicker flex-it"}, placeholder: 'Start Date' %>
+                    <%= f.input :latest_finish, label: "Latest Arrival", as: :string, required: false, input_html: {class: "datepicker flex-it"}, placeholder: 'End Date' %>
+              </div>
+            </div>
             <p>
-        <button class="btn btn-primary w-100 center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          Flexible?
-        </button>
+            <div class="d-flex justify-content-center">
+              <p style="width: 100px; height: 25px;" class="text-center mb-0">Car?</p>
+              <input type="checkbox" id="toggle1" />
+              <label for="toggle1" class="toggleWrapper">
+                <div class="toggle"></div>
+              </label>
+              <button class="btn btn-primary w-25 pt-0" style="height: 25px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Flexibility
+              </button>
+               <p style="width: 100px; height: 25px;" class="text-center mb-0">Railcard?</p>
+               <input type="checkbox" id="toggle2" />
+               <label for="toggle2" class="toggleWrapper">
+                 <div class="toggle"></div>
+               </label>
+            </div>
       </p>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-              <%= f.input :earliest_start, label: "Earliest Departure", as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Start Date' %>
-              <%= f.input :latest_finish, label: "Latest Arrival", as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date' %>
-        </div>
-      </div>
       <div class="form-actions text-center p-3">
       <%= f.submit class: 'btn btn-block abc-btn shift-up', value: 'Take me there!', data: { disable_with: 'ABCheaping...' } %>
         <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
