@@ -36,10 +36,14 @@ class ParametersController < ApplicationController
 
     @markers = []
 
-    origin = { lat: Geocoder.search(@parameter.origin).first.data["lat"], lng: Geocoder.search(@parameter.origin).first.data["lon"] }
+    origin = { lat: Geocoder.search(@parameter.origin).first.data["lat"], lng: Geocoder.search(@parameter.origin).first.data["lon"],
+      image_url: helpers.asset_url("origin.png")
+    }
     @markers << origin
 
-    destination = { lat: Geocoder.search(@parameter.destination).first.data["lat"], lng: Geocoder.search(@parameter.destination).first.data["lon"] }
+    destination = { lat: Geocoder.search(@parameter.destination).first.data["lat"], lng: Geocoder.search(@parameter.destination).first.data["lon"],
+      image_url: helpers.asset_url("destination.png")
+    }
     @markers << destination
 
     @markers.each do |marker|
