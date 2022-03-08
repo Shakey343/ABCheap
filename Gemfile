@@ -25,6 +25,7 @@ gem 'redis', '~> 4.0'
 #Geocoding
 gem "geocoder"
 
+
 gem 'money-rails'
 gem 'stripe'
 # Use Active Storage variant

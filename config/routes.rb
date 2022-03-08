@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   end
   # post 'booking', to: "bookings#create", as: :create_booking
   resources :users, only: [:show]
-  match "/404", to: "errors#not_found", via: :all
-  match "/500", to: "errors#internal_server_error", via: :all
+  # match "/404", to: "errors#not_found", via: :all
+  # match "/500", to: "errors#internal_server_error", via: :all
 
   # , :skip => [:sessions, :registrations]
 
