@@ -1,7 +1,7 @@
 .landing-page {
   height: 667px;
   background-blend-mode: overlay;
-  background-image: url("assets/yellow-map.png"), linear-gradient(to top, rgba(250, 223, 15, 0), $abc-yellow);
+  background-image: url("yellow-map.png"), linear-gradient(to top, rgba(250, 223, 15, 0), $abc-yellow);
   background-size: cover;
   position: relative;
 }
