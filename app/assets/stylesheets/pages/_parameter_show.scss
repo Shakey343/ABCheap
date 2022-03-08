@@ -19,6 +19,7 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 }
 
 .a-to-b-info {
+  margin-top: -20px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -83,7 +84,6 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   width: 175px;
   text-align: center;
   border-radius: 10px 10px 0px 0px;
-  // border-color: none;
   box-shadow: 0px -3px 8px 0px rgba(0, 0, 0, 0.15);
   border-top: 3px solid black;
   border-left: 3px solid black;
@@ -109,11 +109,11 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 }
 
 #fastest-header {
-  background-color: #FE293F;
+  // background-color: #FE293F;
+  background-color: #FADF0F;
   position: relative;
   border-radius: 15px 15px 0px 0px;
   padding: 5px 0px;
-
 }
 
 #fastest-header h5 {
@@ -150,7 +150,6 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   position: relative;
   border-radius: 15px 15px 0px 0px;
   padding: 5px 0px;
-
 }
 
 #recommended-header h5 {
