@@ -189,8 +189,13 @@
 
 Parameter.create!(
   origin: "London",
+<<<<<<< HEAD
   destination: "Leeds",
   preferred_start: DateTime.new(2022,3,18,12,0,0),
+=======
+  destination: "Nottingham",
+  preferred_start: DateTime.new(2022,3,8,16,0,0),
+>>>>>>> c50ad0580d270a632cd33225852b4f872c00eff5
   earliest_start: nil,
   latest_finish: nil,
 )

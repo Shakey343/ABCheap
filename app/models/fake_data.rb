@@ -86,27 +86,20 @@ class FakeData < ApplicationRecord
     end
 
     if parameter.earliest_start.nil?
-      earliest_start_date_train = parameter.preferred_start - 14400
+      if parameter.preferred_start - 14400 < DateTime.now
+        earliest_start_date_train = DateTime.now
+      else
+        earliest_start_date_train = parameter.preferred_start - 14400
+      end
     else
       earliest_start_date_train = parameter.earliest_start
     end
 
-    if parameter.latest_finish.nil?
-      latest_finish_date_train = parameter.preferred_start + 28800
-    else
-      latest_finish_date_train = parameter.latest_finish
-    end
+    latest_finish_date_train = 0
 
     # parameter = Parameter.last # testing
 
-    if earliest_start_date_train.time.min < 10
-      earliest_start_min = "0#{earliest_start_date_train.time.min}"
-    else
-      earliest_start_min = "#{earliest_start_date_train.time.min}"
-    end
-
-    while FakeData.all.count.zero? || (FakeData.last.end_time < latest_finish_date_train) || FakeData.last.mode == 'bus'
-
+    while FakeData.all.count.zero? || (parameter.latest_finish != nil) && (FakeData.last.end_time < parameter.latest_finish) || FakeData.last.mode == 'bus' || latest_finish_date_train == 0
 
       train_cities = {
         birmingham: "Birmingham",
@@ -130,10 +123,16 @@ class FakeData < ApplicationRecord
       origin_ids = train_cities[parameter.origin.downcase.to_sym]
       destination_ids = train_cities[parameter.destination.downcase.to_sym]
 
-      if earliest_start_date_train.time.hour < 10
-        earliest_start_hour = "0#{earliest_start_date_train.time.hour}"
+      if earliest_start_date_train.hour < 10
+        earliest_start_hour = "0#{earliest_start_date_train.hour}"
       else
-        earliest_start_hour = "#{earliest_start_date_train.time.hour}"
+        earliest_start_hour = "#{earliest_start_date_train.hour}"
+      end
+
+      if earliest_start_date_train.min < 10
+        earliest_start_min = "0#{earliest_start_date_train.min}"
+      else
+        earliest_start_min = "#{earliest_start_date_train.min}"
       end
 
       earliest_start_time = "#{earliest_start_hour}#{earliest_start_min}"
@@ -170,13 +169,13 @@ class FakeData < ApplicationRecord
           end
         end
 
-        departures_train = []
+        @departures_train = []
         arrivals_train = []
         durations_train = []
         prices_train = []
 
         html_doc_train.css("td .dep").each do |departure|
-          departures_train << departure.text.gsub("\n", '').gsub("\t", '')
+          @departures_train << departure.text.gsub("\n", '').gsub("\t", '')
         end
 
         html_doc_train.css("td .arr").each do |arrival|
@@ -191,16 +190,16 @@ class FakeData < ApplicationRecord
           prices_train << price.text.gsub("\n", '').gsub("\t", '').gsub('£', '').to_f
         end
 
-        break if departures_train.length == 0
+        break if @departures_train.length.zero?
 
-        for i in 1..departures_train.length
+        for i in 1..@departures_train.length
           earliest_start_day = (earliest_start_day.to_i + 1).to_s if (FakeData.all.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < FakeData.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - FakeData.last.end_time.hour).abs > 10) && (FakeData.last.mode != "bus")
 
           FakeData.create!(
             origin: origin_stations_train[i-1],
             destination: destination_stations_train[i-1],
             cost: prices_train[i-1],
-            start_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, departures_train[i-1].split(':')[0].to_i, departures_train[i-1].split(':')[1].to_i, 0),
+            start_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, @departures_train[i-1].split(':')[0].to_i, @departures_train[i-1].split(':')[1].to_i, 0),
             end_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
             duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
             mode: "train"
@@ -208,6 +207,15 @@ class FakeData < ApplicationRecord
           puts "created train journey"
         end
       end
+
+      break if @departures_train.length.zero?
+
+      if parameter.latest_finish.nil?
+        latest_finish_date_train = parameter.preferred_start + (120 * FakeData.last.duration) + 3600
+      else
+        latest_finish_date_train = parameter.latest_finish
+      end
+
       Parameter.create(
         origin: parameter.origin,
         destination: parameter.destination,

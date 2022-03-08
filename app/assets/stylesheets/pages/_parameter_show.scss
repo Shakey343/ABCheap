@@ -24,7 +24,6 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   align-items: center;
   box-sizing: border-box;
   border-radius: 15px;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   padding: 14px 5px;
   background-color: #F4F4F4;
   border: 3px solid black;
@@ -109,8 +108,7 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 }
 
 #fastest-header {
-  // background-color: #FE293F;
-  background-color: #FADF0F;
+  background-color: $abc-red;
   position: relative;
   border-radius: 15px 15px 0px 0px;
   padding: 5px 0px;
@@ -212,7 +210,7 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 .modal-header {
   border-radius: 15px 15px 0px 0px;
   border-bottom: 3px solid black;
-  display: block;
+  // display: block;
 }
 
 .modal-title {
