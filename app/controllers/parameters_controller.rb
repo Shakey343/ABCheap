@@ -11,13 +11,23 @@ class ParametersController < ApplicationController
     FakeData.generate_results(@parameter)
 
     if @parameter.earliest_start.nil?
-      earliest_start_date = @parameter.preferred_start - 14400
+      if @parameter.preferred_start - 14400 < DateTime.now
+        earliest_start_date = DateTime.now
+      else
+        earliest_start_date = @parameter.preferred_start - 14400
+      end
     else
-      earliest_start_date = parameter.earliest_start
+      earliest_start_date = @parameter.earliest_start
     end
 
     if @parameter.latest_finish.nil?
-      latest_finish_date = @parameter.preferred_start + 28800
+      if FakeData.all.count != 0 && FakeData.last.mode != "bus"
+        latest_finish_date = @parameter.preferred_start + (120 * FakeData.last.duration) + 7200
+      elsif FakeData.all.count != 0 && FakeData.last.mode == "bus"
+        latest_finish_date = @parameter.preferred_start + FakeData.last.duration + 7200
+      else
+        latest_finish_date = DateTime.now
+      end
     else
       latest_finish_date = @parameter.latest_finish
     end
