@@ -1,7 +1,6 @@
-<div class="login-image">
-</div>
+<%= image_tag 'ABCheap', class: 'login-image' %>
 
-<div class="container login-page p-5">
+<div class="container login-page pt-4 p-5">
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs">
       <%= f.input :email,

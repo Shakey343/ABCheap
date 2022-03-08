@@ -3,7 +3,6 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    # @parameter = Parameter.find(params[:parameter_id])
     trip = FakeData.find(params[:booking][:fake_data_id])
     @booking.user = current_user
     @booking.fake_data = trip

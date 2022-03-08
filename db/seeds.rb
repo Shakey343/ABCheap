@@ -197,12 +197,29 @@
 
 # puts "parameter created"
 
-Parameter.create!(
-  origin: "Bristol",
-  destination: "Swansea",
-  preferred_start: DateTime.new(2022,3,14,11,20,0),
-  earliest_start: nil,
-  latest_finish: nil,
-)
+# Parameter.create!(
+#   origin: "Bristol",
+#   destination: "Swansea",
+#   preferred_start: DateTime.new(2022,3,14,11,20,0),
+#   earliest_start: DateTime.new(2022,3,14,9,12,0),
+#   latest_finish: DateTime.new(2022,3,14,19,5,0),
+# )
 
-puts "parameter created"
+# puts "parameter created"
+
+# CityMapper API Attempt
+# require 'open-uri'
+# require 'json'
+# url = 'https://api.external.citymapper.com/api'
+# url_serialized = URI.open(url).read
+# top_movies = JSON.parse(url_serialized)
+# i = 0
+# Movie.destroy_all
+# while i < 20
+#   puts 'Creating movie'
+#   movie = Movie.new(title: top_movies['results'][i]['title'])
+#   movie.save
+#   puts movie.title
+#   i += 1
+# end
+# puts 'Finished'
