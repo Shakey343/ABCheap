@@ -10,6 +10,11 @@
   height: 200px;
 }
 
+.abc-slogan {
+  color: $abc-red;
+  text-shadow: 5px 5px 10px 0 #000;
+}
+
 .flex-items {
   display: flex;
 }
