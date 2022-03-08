@@ -2,7 +2,7 @@
   <div class="icons-nav">
     <ul class="icons d-flex flex-row">
       <li>
-        <%= link_to root_path, :class => 'searchicon' do %>
+        <%= link_to new_parameter_path, :class => 'searchicon' do %>
         <span id="searchicon"><i class="fas fa-2x fa-search-location" aria-hidden="true"></i>
         <% end %>
       </li>
@@ -16,7 +16,7 @@
           <%= link_to user_path(current_user), :class => 'usericon' do %>
           <span id="usericon"><i class="fas fa-2x fa-user" aria-hidden="true"></i>
           <% end %>
-          <% else %>
+        <% else %>
           <%= link_to new_user_session_path, :class => 'usericon' do %>
           <span id="usericon"><i class="fas fa-2x fa-user" aria-hidden="true"></i>
           <% end %>

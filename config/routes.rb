@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root to: 'parameters#new'
+  root to: 'pages#home'
   # devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, skip: [:session]
 
   resources :parameters, only: [:create, :show, :new, :delete]
   resources :bookings, only: [:create, :index, :show, :delete]
+  # post 'booking', to: "bookings#create", as: :create_booking
   resources :users, only: [:show]
   match "/404", to: "errors#not_found", via: :all
   match "/500", to: "errors#internal_server_error", via: :all
