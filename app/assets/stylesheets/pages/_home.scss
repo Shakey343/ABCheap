@@ -1,17 +1,15 @@
 .landing-page {
-  background: linear-gradient(to bottom, $abc-yellow, #fadf0f);
   height: 667px;
+  background-blend-mode: overlay;
+  background-image: url("assets/yellow-map"), linear-gradient(to top, rgba(250, 223, 15, 0), $abc-yellow);
+  background-size: cover;
+  position: relative;
 }
 
-.landing-img {
-  height: 100px;
+.abc-img {
+  height: 250px;
   width: 100%;
   object-fit: cover;
-  z-index: 10;
-  // background-blend-mode: overlay;
-  // background-image: url("assets/ABCheap"), linear-gradient(to bottom, #fff184, $abc-yellow);
-  // background-position: bottom;
-  // background-size: cover;
 }
 
 .abc-map {

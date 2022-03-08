@@ -1,9 +1,7 @@
-
-<%# <img src="assets/ABCheap" alt="" class="landing-img"> %>
-<%# <div class="landing-img"></div> %>
 <div class="container p-5 text-center landing-page">
-  <img src="assets/ABCheap no background" alt="" class="landing-img">
-  <h1>Making afordable travel easy!</h1>
+  <%= image_tag 'ABCheap no background', class: 'abc-img landing-item' %>
+  <h1 class="landing-item">Making afordable travel easy!</h1>
   <br>
-  <%= link_to "Let's Go!", new_parameter_path, class: "abc-btn" %>
+  <br>
+  <%= link_to "Let's Go!", new_parameter_path, class: "abc-btn landing-item" %>
 </div>
