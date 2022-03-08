@@ -22,6 +22,7 @@ class ParametersController < ApplicationController
         duration: 69,
         mode: "train"
       )
+      redirect_to errors_no_journeys_error_path
     else
       @fastest = valid_data.min_by(&:duration)
       @cheapest = valid_data.min_by(&:cost)

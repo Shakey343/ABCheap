@@ -64,6 +64,7 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   flex-grow: 1;
   margin-top: -16px;
   z-index: 2;
+  padding-bottom: 100px;
 }
 
 .orig {
@@ -114,12 +115,10 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   border: 3.5px solid black;
 }
 
-.abc-btn {
-  margin-top: 0px;
-  margin-bottom: 100px;
-  border: 3.5px solid black;
-}
-
 .title {
   border-bottom: 3.5px solid black;
+}
+
+.shift-up {
+  margin: -40px;
 }
