@@ -7,6 +7,7 @@ class BookingsController < ApplicationController
     trip = FakeData.find(params[:booking][:fake_data_id])
     @booking.user = current_user
     @booking.fake_data = trip
+    trip.toggle!(:booked)
 
     if @booking.save
       redirect_to booking_path(@booking)
