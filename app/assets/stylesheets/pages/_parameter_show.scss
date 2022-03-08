@@ -97,14 +97,16 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 }
 
 .button-container input {
-  font-size: 16px;
-  background-color: #000;
-  color: #fff;
-  padding: 0.5em 1.2em;
-  border: none;
-  align-items: center;
-  margin: 15px 0px;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.15);
+  // font-size: 16px;
+  // color: #fff;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  // padding: 0.5em 1.2em;
+  // border: none;
+  // align-items: center;
+  // margin: 15px 0px;
+  // box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.15);
 }
 
 #fastest-header {
