@@ -22,13 +22,13 @@ class ParametersController < ApplicationController
       latest_finish_date = @parameter.latest_finish
     end
 
-    valid_data = FakeData.where("cost != 0 AND booked != true AND end_time < ? AND start_time > ?", latest_finish_date, earliest_start_date)
+    valid_data = FakeData.where("price_cents != 0 AND booked != true AND end_time < ? AND start_time > ?", latest_finish_date, earliest_start_date)
 
     if valid_data.all.count.zero?
       # @fastest = @cheapest = @recommended = FakeData.create!(
       #   origin: "No Journeys Found",
       #   destination: "",
-      #   cost: 69,
+      #   price: 69,
       #   start_time: DateTime.new(2069,4,20,4,20,0),
       #   end_time: DateTime.new(2069,4,20,16,20,0),
       #   duration: 69,
@@ -37,9 +37,9 @@ class ParametersController < ApplicationController
       redirect_to errors_no_journeys_error_path
     else
       @fastest = valid_data.min_by(&:duration)
-      @cheapest = valid_data.min_by(&:cost)
-      if valid_data.where(cost: @cheapest.cost).length >= 1
-        @cheapest = valid_data.find(recommended(valid_data.where(cost: @cheapest.cost), @parameter.preferred_start).first)
+      @cheapest = valid_data.min_by(&:price_cents)
+      if valid_data.where(price_cents: @cheapest.price).length >= 1
+        @cheapest = valid_data.find(recommended(valid_data.where(price_cents: @cheapest.price), @parameter.preferred_start).first)
       end
       if valid_data.where(duration: @fastest.duration).length >= 1
         @fastest = valid_data.find(recommended(valid_data.where(duration: @fastest.duration), @parameter.preferred_start).first)
@@ -71,7 +71,7 @@ class ParametersController < ApplicationController
     total_cost = {}
     data.each do |trip|
       deviation = ((trip.start_time.to_time - preferred_start.to_time) / 3600).abs
-      total_cost[trip.id] = (trip.cost + ((trip.duration / 60) * 7) + (deviation * 2))
+      total_cost[trip.id] = ((trip.price.to_f / 100) + ((trip.duration / 60) * 7) + (deviation * 2))
     end
     total_cost.min_by { |_, v| v }
   end
