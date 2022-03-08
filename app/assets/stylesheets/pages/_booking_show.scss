@@ -1,0 +1,51 @@
+.confirmation-container {
+  padding: 15px;
+  margin-bottom: 70px;
+}
+
+.confirmation-info {
+  border-radius: 10px;
+  background-color: white;
+  padding: 20px;
+  font-family: $body-font;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+  border: 3px solid black;
+}
+
+.confirmation-item {
+  margin: 20px 0px;
+}
+
+.confirm p {
+  font-size: 20px
+}
+
+.confirmation-confirm p {
+  font-size: 20px;
+}
+
+.calendar h5 {
+  color: rgb(254, 41, 63);
+}
+
+.calendar a {
+  text-decoration-color: rgb(254, 41, 63);
+}
+
+.wallet img {
+  width: 200px;
+  box-shadow:0 0 6px 2px rgba(0,0,0,0.2);
+  border-radius: 13px;
+}
+
+.confirmation-start-end {
+  margin: 6px 0px;
+}
+
+.confirmation-start-end p {
+  margin: 0px;
+}
+
+.start-end-header {
+  font-weight: 700;
+}

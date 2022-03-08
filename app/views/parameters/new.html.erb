@@ -27,15 +27,15 @@
               <%= f.input :latest_finish, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date' %>
         </div>
       </div>
-
-      <div class="form-actions text-center p-3">
-      <%= f.submit class: 'btn btn-block abc-btn', value: 'Take me there!' %>
-        <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
-      </div>
-      <% end %>
+    <div class="form-actions text-center p-3">
+      <%= f.submit class: 'btn btn-block abc-btn', value: 'Take me there!', data: { disable_with: 'ABCheaping...' }%>
+      <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
+    </div>
+    <% end %>
   </div>
 </div>
 
+<<<<<<< HEAD
 <%# <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
@@ -74,3 +74,6 @@
     </div>
   </div>
 </div> %>
+=======
+<%= render 'shared/footer_nav' %>
+>>>>>>> fc2c5786dda71c533f99336150feed297f7b7618

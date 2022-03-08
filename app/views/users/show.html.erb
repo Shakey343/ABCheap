@@ -1,14 +1,10 @@
+<div class="abc-banner">
+  <h2>Account</h2>
+</div>
+
 <div class="container p-5">
   <h1>Hello <%= current_user.first_name %></h1>
   <div class="journeys">
-    <h3>Favorite Journeys</h3>
-    <%= @favourites %>
-    <%= @user_bookings %>
-    <h3>Recent Journeys</h3>
-    <%= @recents %>
-    <h3>Upcoming Journeys</h3>
-    <%= @upcoming %>
-    <h3>Booking Preferences</h3>
     <u>Payment Methods ></u>
     <h3>Account Preferences</h3>
     <%= link_to "Edit your account >", edit_user_registration_path, class: "text-dark" %>

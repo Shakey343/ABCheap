@@ -1,14 +1,25 @@
 .login-page {
   background-color: $abc-yellow;
-  height: 915px;
+  height: 530px;
+}
+
+.signup-page {
+  background-color: $abc-yellow;
+  height: 750px;
+}
+
+.edit-page {
+  background-color: $abc-yellow;
+  height: 920px;
 }
 
 .login-image {
-  width: auto;
-  height: 360px;
-  background-image: url('ABCheap.jpg');
-  background-size: cover;
-  background-position: center;
+  width: 100%;
+  height: 235px;
+  // background-image: url('ABCheap.jpg');
+  // background-size: cover;
+  // background-position: center;
+  object-fit: cover;
   z-index: 10;
 }
 
