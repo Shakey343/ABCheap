@@ -230,3 +230,5 @@ class FakeData < ApplicationRecord
     end
   end
 end
+
+# comment
