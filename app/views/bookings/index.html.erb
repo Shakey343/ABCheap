@@ -11,7 +11,7 @@
       <h6>You have no upcoming trips.</h6>
     <% else %>
       <% @upcoming_bookings.each do |booking| %>
-        <button class="trip-item btn" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
+        <button class="trip-item btn abc-btn-modal" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
           <div class="trip-box">
             <h6>To:</h6><%=booking.fake_data.destination%>
             <h6>On:</h6><%=booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %>
@@ -29,7 +29,7 @@
       <h6>You have no past trips.</h6>
     <% else %>
       <% @past_bookings.each do |booking| %>
-        <button class="trip-item btn" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
+        <button class="trip-item btn abc-btn-modal" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
           <div class="trip-box">
             <h6>To:</h6><%=booking.fake_data.destination%>
             <h6>On:</h6><%=booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %>
