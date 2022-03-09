@@ -8,6 +8,8 @@ class ParametersController < ApplicationController
     # FakeData.destroy_all
     @booking = Booking.new
     @parameter = Parameter.find(params[:id])
+    @parameter.update(origin: Geocoder.search(@parameter.origin).first.data["address"]["city"])
+    @parameter.update(destination: Geocoder.search(@parameter.destination).first.data["address"]["city"])
     FakeData.generate_results(@parameter)
 
     if @parameter.car
@@ -59,17 +61,7 @@ class ParametersController < ApplicationController
       end
     end
 
-
     if valid_data.all.count.zero?
-      # @fastest = @cheapest = @recommended = FakeData.create!(
-      #   origin: "No Journeys Found",
-      #   destination: "",
-      #   price: 69,
-      #   start_time: DateTime.new(2069,4,20,4,20,0),
-      #   end_time: DateTime.new(2069,4,20,16,20,0),
-      #   duration: 69,
-      #   mode: "train"
-      # )
       redirect_to '/500.html'
     else
       @fastest = valid_data.min_by(&:duration)
@@ -115,7 +107,6 @@ class ParametersController < ApplicationController
       deviation = ((trip.start_time.to_time - preferred_start.to_time) / 3600).abs
       total_cost[trip.id] = (trip.price.to_f + ((trip.duration / 60) * 7) + (deviation * 2))
     end
-    # total_cost.min_by { |_, v| v }
     total_cost.sort_by { |_, v| v }
   end
 
