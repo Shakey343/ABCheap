@@ -34,6 +34,12 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = current_user.bookings
+    @upcoming_bookings = @bookings.select do |booking|
+      booking.fake_data.start_time >= DateTime.now
+    end
+    @past_bookings = @bookings.select do |booking|
+      booking.fake_data.start_time < DateTime.now
+    end
   end
 
   def show
