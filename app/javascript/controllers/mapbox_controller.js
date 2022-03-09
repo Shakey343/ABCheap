@@ -13,7 +13,8 @@ export default class extends Controller {
 
     this.map = new mapboxgl.Map({
       container: this.element,
-      style: 'mapbox://styles/mapbox/streets-v10'
+      style: 'mapbox://styles/mapbox/streets-v10',
+      //zoom: 11.89, // [Starting zoom]
     })
 
     if (this.element.id === "map") {
@@ -25,6 +26,7 @@ export default class extends Controller {
 
     if (this.element.id === "map-routes") {
       this.#addMarkersToMap();
+      this.#fitMapToMarkers();
       // this.#addLineToMap();
     }
   }
@@ -46,8 +48,9 @@ export default class extends Controller {
       customMarker.className = "marker"
       customMarker.style.backgroundImage = `url('${marker.image_url}')`
       customMarker.style.backgroundSize = "contain"
-      customMarker.style.width = "50px"
-      customMarker.style.height = "30px"
+      customMarker.style.width = "100px"
+      customMarker.style.height = "50px"
+      //customMarker.style.maxZoom = "5.1"
 
       new mapboxgl.Marker(customMarker)
       .setLngLat([ marker.lng, marker.lat ])
@@ -66,6 +69,19 @@ export default class extends Controller {
       })
     );
   }
+
+  #fitMapToMarkers() {
+    const bounds = new mapboxgl.LngLatBounds()
+    this.markersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
+    this.map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 0.5 })
+  }
+
+  // #styleZoom() {
+  //   var group = new customMarker.featureGroup([marker1, marker2]);
+  //   map.fitBounds(group.getBounds());
+  //   this.map.markers.getBounds(),
+  //   {padding: L.point(20, 20)};
+  // }
 
 
   #addLineToMap() {
