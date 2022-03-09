@@ -14,7 +14,6 @@ export default class extends Controller {
     this.map = new mapboxgl.Map({
       container: this.element,
       style: 'mapbox://styles/mapbox/streets-v10',
-      //zoom: 11.89, // [Starting zoom]
     })
 
     if (this.element.id === "map") {
@@ -59,15 +58,15 @@ export default class extends Controller {
   }
 
   #addCurrentLocationToMap() {
-    this.map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true,
-        showUserHeading: true
-      })
-    );
+    const geoLocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserHeading: true
+    })
+    this.map.addControl(geoLocate)
+    // console.log(geoLocate)
   }
 
   #fitMapToMarkers() {
@@ -76,93 +75,86 @@ export default class extends Controller {
     this.map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 0.5 })
   }
 
-  // #styleZoom() {
-  //   var group = new customMarker.featureGroup([marker1, marker2]);
-  //   map.fitBounds(group.getBounds());
-  //   this.map.markers.getBounds(),
-  //   {padding: L.point(20, 20)};
+
+  // #addLineToMap() {
+  //   const apiKey = "MAPBOX_API_KEY";
+  //   const basemapEnum = "ArcGIS:Navigation";
+  //   const map = new mapboxgl.Map({
+  //     container: "map-routes", // the id of the div element
+  //     style: `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${basemapEnum}?type=style&token=${apiKey}`,
+  //     zoom: 12, // starting zoom
+
+  //     center: [-4.045050, 54.663169]
+
+  //   });
+
+  //   function addCircleLayers() {
+
+  //     map.addSource("start", {
+  //       type: "geojson",
+  //       data: {
+  //         type: "FeatureCollection",
+  //         features: []
+  //       }
+  //     });
+  //     map.addSource("end", {
+  //       type: "geojson",
+  //       data: {
+  //         type: "FeatureCollection",
+  //         features: []
+  //       }
+  //     });
+  //   }
+
+  //   function addRouteLayer() {
+
+  //     map.addSource("route", {
+  //       type: "geojson",
+  //       data: {
+  //         type: "FeatureCollection",
+  //         features: []
+  //       }
+  //     });
+
+  //     map.addLayer({
+  //       id: "route-line",
+  //       type: "line",
+  //       source: "route",
+
+  //       paint: {
+  //         "line-color": "hsl(205, 100%, 50%)",
+  //         "line-width": 4,
+  //         "line-opacity": 0.6
+  //       }
+  //     });
+
+  //     function updateRoute() {
+
+  //       const authentication = new arcgisRest.ApiKey({
+  //         key: apiKey
+  //       });
+
+  //       arcgisRest
+  //         .solveRoute({
+  //           stops: [startCoords, endCoords],
+  //           endpoint: "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve",
+  //           authentication
+  //         })
+
+  //         .then((response) => {
+  //           map.getSource("route").setData(response.routes.geoJson);
+
+  //         })
+
+  //         .catch((error) => {
+  //           console.error(error);
+  //           alert("There was a problem using the route service. See the console for details.");
+  //         });
+
+  //     }
+
+  //   }
   // }
-
-
-  #addLineToMap() {
-    const apiKey = "MAPBOX_API_KEY";
-    const basemapEnum = "ArcGIS:Navigation";
-    const map = new mapboxgl.Map({
-      container: "map-routes", // the id of the div element
-      style: `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${basemapEnum}?type=style&token=${apiKey}`,
-      zoom: 12, // starting zoom
-
-      center: [-4.045050, 54.663169]
-
-    });
-
-    function addCircleLayers() {
-
-      map.addSource("start", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: []
-        }
-      });
-      map.addSource("end", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: []
-        }
-      });
-    }
-
-    function addRouteLayer() {
-
-      map.addSource("route", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: []
-        }
-      });
-
-      map.addLayer({
-        id: "route-line",
-        type: "line",
-        source: "route",
-
-        paint: {
-          "line-color": "hsl(205, 100%, 50%)",
-          "line-width": 4,
-          "line-opacity": 0.6
-        }
-      });
-
-      function updateRoute() {
-
-        const authentication = new arcgisRest.ApiKey({
-          key: apiKey
-        });
-
-        arcgisRest
-          .solveRoute({
-            stops: [startCoords, endCoords],
-            endpoint: "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve",
-            authentication
-          })
-
-          .then((response) => {
-            map.getSource("route").setData(response.routes.geoJson);
-
-          })
-
-          .catch((error) => {
-            console.error(error);
-            alert("There was a problem using the route service. See the console for details.");
-          });
-
-      }
-
-    }
-  }
 
   //"stroke:rgb(255,0,0);stroke-width:2"
 
