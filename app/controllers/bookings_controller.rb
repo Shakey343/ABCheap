@@ -2,17 +2,34 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :destroy]
 
   def create
-    @booking = Booking.new(booking_params)
     trip = FakeData.find(params[:booking][:fake_data_id])
-    @booking.user = current_user
-    @booking.fake_data = trip
-    trip.toggle!(:booked)
+    @booking = Booking.create!(user: current_user, fake_data: trip, amount: trip.price, state: "pending")
+    # @booking.user = current_user
+    # @booking.fake_data = trip
+    # @booking.amount = trip.price
+    # @booking.state = 'pending'
 
-    if @booking.save
-      redirect_to booking_path(@booking)
-    else
-      redirect_to parameter_path(@parameter)
-    end
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        name: "#{trip.origin} to #{trip.destination} on #{trip.start_time.strftime("%-d %^b")} @ #{trip.start_time.strftime("%R")}",
+        amount: trip.price_cents,
+        currency: 'gbp',
+        quantity: 1
+      }],
+      success_url: booking_url(@booking),
+      cancel_url: booking_url(@booking)
+    )
+
+    trip.toggle!(:booked)
+    @booking.update(checkout_session_id: session.id)
+    redirect_to new_booking_payment_path(@booking)
+
+    # if @booking.save
+    #   redirect_to booking_path(@booking)
+    # else
+    #   redirect_to parameter_path(@parameter)
+    # end
   end
 
   def index
@@ -20,6 +37,7 @@ class BookingsController < ApplicationController
   end
 
   def show
+    @booking = current_user.bookings.find(params[:id])
   end
 
   def destroy

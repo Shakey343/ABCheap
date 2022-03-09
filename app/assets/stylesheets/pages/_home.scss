@@ -1,13 +1,25 @@
-.landing-img {
-  height: 400px;
-  object-fit: cover;
-  object-position: center;
+.landing-page {
+  height: 667px;
+  background-blend-mode: overlay;
+  background-image: url("yellow-map.png"), linear-gradient(to top, rgba(250, 223, 15, 0), $abc-yellow);
+  background-size: cover;
+  position: relative;
+}
+
+.abc-img {
+  height: 250px;
   width: 100%;
+  object-fit: cover;
 }
 
 .abc-map {
   width: 100%;
   height: 200px;
+}
+
+.abc-slogan {
+  color: $abc-red;
+  text-shadow: 5px 5px 10px 0 #000;
 }
 
 .flex-items {
@@ -16,15 +28,97 @@
 
 input[type=text] {
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 12px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  padding: 10px;
+  padding: 14px;
   text-align: center;
 }
 
-input[type=datetime-local] {
+input[type=datetime-local], input[type=email], input[type=password] {
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 12px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   padding: 10px;
+}
+
+.abc-form.pt-5 {
+  position: absolute;
+  bottom: 20px;
+  background-color: $abc-grey;
+  border-radius: 12px !important;
+  padding-top: 1rem !important;
+}
+
+a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapboxgl-compact {
+  width: 0px;
+  height: 0px;
+  background-color: transparent;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-box {
+  flex-grow: 1;
+  margin-top: -16px;
+  z-index: 2;
+  padding-bottom: 100px;
+}
+
+.orig {
+  border-radius: 12px 0px 0px 12px !important;
+  border: none !important;
+  border-left: 3.5px solid black !important;
+  border-bottom: 3.5px solid black !important;
+  border-top: 3.5px solid black !important;
+  border-right: 3.5px solid black !important;
+  box-shadow: none !important;
+  background-color: white !important;
+}
+
+.dest {
+  border-radius: 0px 12px 12px 0px !important;
+  border-right: 3.5px solid black !important;
+  border-bottom: 3.5px solid black !important;
+  border-left: none !important;
+  border-top: 3.5px solid black !important;
+  background-color: white !important;
+  box-shadow: none !important;
+}
+
+.btn-primary {
+  color: $abc-red;
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  margin: 0px;
+}
+
+.btn-primary:hover {
+  color: $abc-red;
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
+.card-body {
+  border-radius: 12px;
+  background-color: $abc-yellow;
+  border: none;
+}
+
+.datepicker {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  border: 3.5px solid black;
+}
+
+.title {
+  border-bottom: 3.5px solid black;
+}
+
+.shift-up {
+  margin: -40px;
 }

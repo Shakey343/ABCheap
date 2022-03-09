@@ -3,7 +3,6 @@ class CreateFakeData < ActiveRecord::Migration[6.1]
     create_table :fake_data do |t|
       t.string :origin
       t.string :destination
-      t.float :cost
       t.datetime :start_time
       t.datetime :end_time
       t.integer :duration

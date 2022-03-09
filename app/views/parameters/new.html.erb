@@ -1,30 +1,76 @@
-<div class="newsearch">
-  <div class="map-container">
-    <div id="map" class="abc-map"
-      data-controller="mapbox"
-      data-mapbox-markers-value="<%= @markers.to_json %>"
-      data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+<div class="page-container">
+    <div class="title"  style="text-align:center">
+      <div style="width: 100%; height: 300px;"
+        data-controller="mapbox"
+        data-mapbox-markers-value="<%= @markers.to_json %>"
+        data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
     </div>
-  </div>
-  <div class="rounded container abc-form pt-4">
-    <%= simple_form_for @parameter do |f| %>
-    <div class="flex-items">
-      <%= f.input :origin, placeholder: 'Origin', class: 'flex-item', label: false %>
-      <%= f.input :destination, placeholder: 'Destination', class: 'flex-item', label: false %>
-    </div>
-    <%#= f.input :preferred_start, as: :date, html5: true %>
-    <!--div class="flex-items"-->
-    <%= f.input :preferred_start, as: :string, required: false, input_html: {class: "datepicker"}, label: 'Preferred Start Time' %>
-    <%= f.input :earliest_start, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Start Date' %>
-    <%= f.input :latest_finish, as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date' %>
-    <!--/div-->
-
-    <div class="form-actions text-center p-3">
-      <%= f.submit class: 'btn btn-block abc-btn', value: 'Take me there!', data: { disable_with: 'ABCheaping...' }%>
-      <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
-    </div>
-    <% end %>
+    <div class="rounded container abc-form info-box">
+      <%= simple_form_for @parameter do |f| %>
+      <div class="flex-items">
+        <%= f.input :origin, placeholder: 'Origin', input_html: { class: 'orig' }, label: false %>
+        <%= f.input :destination, placeholder: 'Destination', input_html: { class: 'dest' }, label: false %>
+      </div>
+      <%#= f.input :preferred_start, as: :date, html5: true %>
+      <!--div class="flex-items"-->
+        <%= f.input :preferred_start, label: "Preferred Departure", as: :string, required: false, input_html: {class: "datepicker"}, label_html: {class: "text-center w-100"}, placeholder: 'Preferred Departure' %>
+      <!--/div-->
+            <p>
+        <button class="btn btn-primary w-100 center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Flexible?
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+              <%= f.input :earliest_start, label: "Earliest Departure", as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Start Date' %>
+              <%= f.input :latest_finish, label: "Latest Arrival", as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date' %>
+        </div>
+      </div>
+      <div class="form-actions text-center p-3">
+      <%= f.submit class: 'btn btn-block abc-btn shift-up', value: 'Take me there!', data: { disable_with: 'ABCheaping...' } %>
+        <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
+      </div>
+      <% end %>
   </div>
 </div>
 
+<%# <div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Accordion Item #1
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Accordion Item #2
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Accordion Item #3
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+</div> %>
 <%= render 'shared/footer_nav' %>
