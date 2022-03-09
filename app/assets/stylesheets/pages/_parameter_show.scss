@@ -264,3 +264,16 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   background-color: #000000;
   border-color: #000000;
 }
+
+.more-options .travel-options {
+  margin-top: 10px;
+}
+
+.more-options .travel-timings {
+  display: flex;
+  justify-content: space-between;
+}
+
+.travel-timings #text {
+  font-size: 30px;
+}
