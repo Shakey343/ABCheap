@@ -10,6 +10,26 @@ class ParametersController < ApplicationController
     @parameter = Parameter.find(params[:id])
     FakeData.generate_results(@parameter)
 
+    if @parameter.car
+      lat_diff = (Geocoder.search(@parameter.origin).first.data["lat"].to_f - Geocoder.search(@parameter.destination).first.data["lat"].to_f).abs
+      lon_diff = (Geocoder.search(@parameter.origin).first.data["lon"].to_f - Geocoder.search(@parameter.destination).first.data["lon"].to_f).abs
+
+
+      distance = (Math.sqrt((lat_diff * lat_diff) + (lon_diff * lon_diff)) * 73).to_f
+      time = ((distance / 54) * 60).to_i
+      price_per_mile = 0.2
+      cost = distance * price_per_mile
+      FakeData.create!(
+        origin: @parameter.origin,
+        destination: @parameter.destination,
+        price_cents: cost.round(2),
+        start_time: @parameter.preferred_start + 100,
+        end_time: @parameter.preferred_start + (time * 60),
+        duration: time,
+        mode: "car"
+      )
+    end
+
     if @parameter.earliest_start.nil?
       if @parameter.preferred_start - 14400 < DateTime.now
         earliest_start_date = DateTime.now
@@ -33,6 +53,12 @@ class ParametersController < ApplicationController
     end
 
     valid_data = FakeData.where("price_cents != 0 AND booked != true AND end_time < ? AND start_time > ?", latest_finish_date, earliest_start_date)
+    if @parameter.railcard
+      valid_data.where("mode = 'train'").each do |result|
+        result.update(price_cents: (result.price_cents * 2 / 3).round(2))
+      end
+    end
+
 
     if valid_data.all.count.zero?
       # @fastest = @cheapest = @recommended = FakeData.create!(
