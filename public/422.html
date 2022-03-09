@@ -73,12 +73,13 @@
 
 <body class="rails-default-error-page">
   <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <div>
-      <h1>The ABChange you wanted was rejected.</h1>
-      <p>Maybe you tried to ABChange something you didn't have access to.</p>
+  <div class="d-flex flex-column container text-center justify-content-center" style="height: 100vh;">
+    <div class="d-flex flex-column justify-content-center">
+      <h2 style="font-size: 30px;">The ABChange you wanted was rejected...</h2>
+      <h2 style="font-size: 25px;">Maybe you tried to change something you didn't have access to.</h2>
+      <h2 style="font-size: 25px;">If you are the application owner check the logs for more information.</h2>
+      <h2 style="font-size: 16px;">Error: 422 (Unprocessable)</h2>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
   </div>
 </body>
 </html>
