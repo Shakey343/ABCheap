@@ -6,7 +6,7 @@
   padding: 0.625em 2em;
   margin: .5em 0;
   transition: color 125ms, background-color 125ms, border-color 125ms;
-  color: hsla(0, 0%, 100%, 1);;
+  color: hsla(0, 0%, 100%, 1);
   background-color: $abc-red;
   text-decoration: none;
   background: lighten($abc-red, 3%);
@@ -29,7 +29,7 @@
   }
 }
 
-.abc-btn-blue {
+.abc-btn-modal {
   border: 0.1rem solid;
   border-radius: 0.1rem;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
@@ -37,32 +37,20 @@
   padding: 0.625em 2em;
   margin: .5em 0;
   transition: color 125ms, background-color 125ms, border-color 125ms;
-  color: hsla(0, 0%, 100%, 1);;
-  background-color: $abc-blue;
-  border-color: $abc-blue;
+  text-decoration: none;
+  border: 1px solid darken($red, 4%);
+  box-shadow: 0px 2px 0 darken($black, 5%), 2px 4px 0px darken($black, 2%);
+  font-weight: 900;
+  letter-spacing: 1px;
+  transition: all 150ms linear;
   &:hover {
-    color: hsla(0, 0%, 100%, 1);
-    background-color: $abc-blue;
-    border-color: $abc-blue;
+    border: 0.1rem solid;
     opacity: 0.8;
-  }
-}
-
-.abc-btn-yellow {
-  border: 0.1rem solid;
-  border-radius: 0.1rem;
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
-  font-weight: 700;
-  padding: 0.625em 2em;
-  margin: .5em 0;
-  transition: color 125ms, background-color 125ms, border-color 125ms;
-  color: $black;
-  background-color: $abc-yellow;
-  border-color: $abc-yellow;
-  &:hover {
-    color: hsla(0, 0, 0, 1);
-    background-color: $abc-yellow;
-    border-color: $abc-yellow;
-    opacity: 0.8;
+    box-shadow: 1px 1px 2px rgba(#fff, .2);
+    text-decoration: none;
+    transition: all 250ms linear;
+    transform: translateX(8px);
+    transform: translateY(8px);
+    padding-bottom: 10px
   }
 }
