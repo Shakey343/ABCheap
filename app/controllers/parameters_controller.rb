@@ -24,7 +24,7 @@ class ParametersController < ApplicationController
       FakeData.create!(
         origin: @parameter.origin,
         destination: @parameter.destination,
-        cost: cost.round(2),
+        price_cents: cost.round(2),
         start_time: @parameter.preferred_start + 100,
         end_time: @parameter.preferred_start + (time * 60),
         duration: time,
@@ -57,7 +57,7 @@ class ParametersController < ApplicationController
     valid_data = FakeData.where("price_cents != 0 AND booked != true AND end_time < ? AND start_time > ?", latest_finish_date, earliest_start_date)
     if @parameter.railcard
       valid_data.where("mode = 'train'").each do |result|
-        result.update(cost: (result.cost * 2 / 3).round(2))
+        result.update(price_cents: (result.price_cents * 2 / 3).round(2))
       end
     end
 
