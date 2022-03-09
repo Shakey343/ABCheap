@@ -16,6 +16,9 @@ ActiveRecord::Schema.define(version: 2022_03_09_122404) do
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
+    t.string "state"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "checkout_session_id"
     t.bigint "user_id", null: false
     t.bigint "fake_data_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -27,7 +30,6 @@ ActiveRecord::Schema.define(version: 2022_03_09_122404) do
   create_table "fake_data", force: :cascade do |t|
     t.string "origin"
     t.string "destination"
-    t.float "cost"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "duration"
@@ -35,6 +37,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_122404) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "booked", default: false
+    t.integer "price_cents", default: 0, null: false
   end
 
   create_table "parameters", force: :cascade do |t|
