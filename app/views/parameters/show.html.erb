@@ -20,7 +20,7 @@
             <p><%= @fastest.start_time.strftime("%R") %> - <%=@fastest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
-            <p id="travel-info-cost">£<%=@fastest.cost%></p>
+            <p id="travel-info-cost">£<%=@fastest.price%></p>
             <i class="fas fa-<%=@fastest.mode%>"></i>
             <% if @fastest.duration > 60 %>
               <% hours = (@fastest.duration / 60).to_i %>
@@ -42,7 +42,7 @@
             <p><%= @cheapest.start_time.strftime("%R") %> - <%=@cheapest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
-            <p id="travel-info-cost">£<%=@cheapest.cost%></p>
+            <p id="travel-info-cost">£<%=@cheapest.price%></p>
             <i class="fas fa-<%=@cheapest.mode%>"></i>
             <% if @cheapest.duration > 60 %>
               <% hours = (@cheapest.duration / 60).to_i %>
@@ -65,7 +65,7 @@
           <p><%= @recommended.start_time.strftime("%R") %> - <%=@recommended.end_time.strftime("%R") %> </p>
         </div>
         <div class="travel-info">
-          <p id="travel-info-cost">£<%=@recommended.cost%></p>
+          <p id="travel-info-cost">£<%=@recommended.price%></p>
           <i class="fas fa-<%=@recommended.mode%>"></i>
           <% if @recommended.duration > 60 %>
             <% hours = (@recommended.duration / 60).to_i %>
@@ -125,7 +125,7 @@
           <% end %>
         </div>
         <div class="travel-cost">
-          <p>£<%=@fastest.cost%></p>
+          <p>£<%=@fastest.price%></p>
         </div>
 
       </div>
@@ -176,7 +176,7 @@
           <% end %>
         </div>
         <div class="travel-cost">
-          <p>£<%=@cheapest.cost%></p>
+          <p>£<%=@cheapest.price%></p>
         </div>
       </div>
       <div class="modal-footer">
@@ -226,7 +226,7 @@
           <% end %>
         </div>
         <div class="travel-cost">
-          <p>£<%=@recommended.cost%></p>
+          <p>£<%=@recommended.price%></p>
         </div>
       </div>
       <div class="modal-footer">

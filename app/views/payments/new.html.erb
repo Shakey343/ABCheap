@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row py-4">
+    <div class="col-md-3"><%= @booking.fake_data.destination%></div>
+    <div class="col">
+      <h1>Checkout summary</h1>
+      <p>Purchase of <strong><%= @booking.fake_data.destination %></strong> for <strong><%= humanized_money_with_symbol @booking.amount %></strong></p>
+      <button id="pay" class="btn btn-primary">Pay</button>
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        const paymentButton = document.getElementById('pay');
+        paymentButton.addEventListener('click', () => {
+          const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+          stripe.redirectToCheckout({
+            sessionId: '<%= @booking.checkout_session_id %>'
+          });
+        });
+      </script> -->
+    </div>
+  </div>
+</div>
