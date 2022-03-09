@@ -26,12 +26,20 @@
   display: flex;
 }
 
+.rightit {
+  margin-left: 12px !important;
+}
+
 input[type=text] {
   box-sizing: border-box;
   border-radius: 12px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   padding: 14px;
   text-align: center;
+}
+
+input[type=checkbox] {
+  margin-top: 5px;
 }
 
 input[type=datetime-local], input[type=email], input[type=password] {
@@ -49,11 +57,11 @@ input[type=datetime-local], input[type=email], input[type=password] {
   padding-top: 1rem !important;
 }
 
-a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapboxgl-compact {
-  width: 0px;
-  height: 0px;
-  background-color: transparent;
-}
+// a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapboxgl-compact {
+//   width: 100px;
+//   height: 100px;
+//   background-color: black;
+// }
 
 .page-container {
   display: flex;
@@ -136,9 +144,21 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   margin: -40px;
 }
 
-input {
-  display: none;
+.leftit {
+  margin-left: -17px;
 }
+
+// input {
+//   // display: none;
+// }
+.optional-below {
+  font-size: 8px;
+  display: flex;
+  justify-content: center;
+  margin-top: -4px;
+  color: $abc-red;
+}
+
 
 .toggleWrapper {
   z-index: 3;
@@ -188,7 +208,7 @@ input:checked {
 
     .toggle {
       width: 0;
-      background-color: black;
+      background-color: $abc-yellow;
       border-color: transparent;
       border-radius: 20px;
       animation: green .7s linear forwards !important;
