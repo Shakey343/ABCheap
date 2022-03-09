@@ -1,0 +1,5 @@
+meta_product_name: "ABCheap"
+meta_title: "ABCheap - Making afordable travel easy!"
+meta_description: "ABCheap is a travel comparison site for getting around the UK! Tired of traversing other travel apps to find the best option? ABCheap it! Feeling flexible? ABCheap offers you a window of flexibility where you can input your preferred start and end times..."
+meta_image: "Meta-ABCheap.png" # should exist in `app/assets/images/`
+# twitter_account: "@product_twitter_account"   # required for Twitter Cards
