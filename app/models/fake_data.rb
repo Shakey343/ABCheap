@@ -1,5 +1,6 @@
 class FakeData < ApplicationRecord
   has_many :bookings, dependent: :destroy
+  monetize :price_cents
 
   def self.generate_results(parameter)
 
@@ -76,7 +77,7 @@ class FakeData < ApplicationRecord
         FakeData.create!(
           origin: "#{journey[4]} #{journey[5]}",
           destination: "#{journey[6]} #{journey[7]}",
-          cost: journey[3],
+          price_cents: (journey[3] * 100),
           start_time: DateTime.new(start_year, start_month, start_day, start_hour, start_minute, start_second),
           end_time: DateTime.new(end_year, end_month, end_day, end_hour, end_minute, end_second),
           duration: duration_mins,
@@ -198,7 +199,7 @@ class FakeData < ApplicationRecord
           FakeData.create!(
             origin: origin_stations_train[i-1],
             destination: destination_stations_train[i-1],
-            cost: prices_train[i-1],
+            price_cents: (prices_train[i-1] * 100),
             start_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, @departures_train[i-1].split(':')[0].to_i, @departures_train[i-1].split(':')[1].to_i, 0),
             end_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
             duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
