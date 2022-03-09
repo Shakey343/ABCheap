@@ -116,11 +116,6 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   padding: 5px 0px;
 }
 
-#fastest-header h5 {
-  text-align: center;
-  color: rgba($color: #000, $alpha: 1.0);
-}
-
 #fastest-header button {
   position: absolute;
   right: 10px;
@@ -134,10 +129,6 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   padding: 5px 0px;
 }
 
-#cheapest-header h5 {
-  text-align: center;
-  color: rgba($color: #000, $alpha: 1.0);
-}
 
 #cheapest-header button {
   position: absolute;
@@ -152,10 +143,6 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   padding: 5px 0px;
 }
 
-#recommended-header h5 {
-  text-align: center;
-  color: rgba($color: #000, $alpha: 1.0);
-}
 
 #recommended-header button {
   position: absolute;
@@ -212,7 +199,8 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 .modal-header {
   border-radius: 15px 15px 0px 0px;
   border-bottom: 3px solid black;
-  // display: block;
+  display: block;
+  text-align: center;
 }
 
 .modal-title {
