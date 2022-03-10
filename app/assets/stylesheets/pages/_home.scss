@@ -22,7 +22,7 @@
   display: flex;
 }
 .rightit {
-  margin-left: 12px !important;
+  text-align: right;
 }
 input[type=text] {
   box-sizing: border-box;
@@ -122,9 +122,9 @@ input[type=datetime-local], input[type=email], input[type=password] {
   margin: -40px;
 }
 
-.leftit {
-  margin-left: -17px;
-}
+// .leftit {
+//   margin-left: -17px;
+// }
 
 // input {
 //   // display: none;
@@ -134,7 +134,7 @@ input[type=datetime-local], input[type=email], input[type=password] {
   font-size: 8px;
   display: flex;
   justify-content: center;
-  margin-top: -4px;
+  margin-top: -21px;
   color: $abc-red;
 }
 

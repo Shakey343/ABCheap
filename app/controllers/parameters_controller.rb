@@ -127,6 +127,6 @@ class ParametersController < ApplicationController
   private
 
   def set_params
-    params.require(:parameter).permit(:origin, :destination, :preferred_start, :earliest_start, :latest_finish)
+    params.require(:parameter).permit(:origin, :destination, :preferred_start, :earliest_start, :latest_finish, :railcard, :car)
   end
 end
