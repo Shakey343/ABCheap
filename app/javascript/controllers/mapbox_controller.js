@@ -51,8 +51,6 @@ export default class extends Controller {
       customMarker.style.backgroundSize = "contain"
       customMarker.style.width = "100px"
       customMarker.style.height = "50px"
-      //customMarker.style.maxZoom = "5.1"
-      map.flyTo({zoom: nextZoom})
 
       new mapboxgl.Marker(customMarker)
       .setLngLat([ marker.lng, marker.lat ])
@@ -75,7 +73,7 @@ export default class extends Controller {
   #fitMapToMarkers() {
     const bounds = new mapboxgl.LngLatBounds()
     this.markersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
-    this.map.fitBounds(bounds, { padding: 50, speed: 0.2, maxZoom: 15, duration: 2 })
+    this.map.fitBounds(bounds, { padding: 50, speed: 3000, maxZoom: 15, duration: 4000 })
   }
 
 
