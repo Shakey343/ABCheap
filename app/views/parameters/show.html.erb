@@ -20,7 +20,12 @@
             <p><%= @fastest.start_time.strftime("%R") %> - <%=@fastest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
-            <p id="travel-info-cost">£<%=@fastest.price%></p>
+            <div class="d-flex flex-column">
+              <% if @fastest.mode == "train" && @parameter.railcard %>
+                <p id="old-price">£<%= @fastest.price * 3 / 2 %></p>
+              <% end %>
+              <p id="travel-info-cost">£<%=@fastest.price%></p>
+            </div>
             <i class="fas fa-<%=@fastest.mode%>"></i>
             <% if @fastest.duration > 60 %>
               <% hours = (@fastest.duration / 60).to_i %>
@@ -42,7 +47,12 @@
             <p><%= @cheapest.start_time.strftime("%R") %> - <%=@cheapest.end_time.strftime("%R") %> </p>
           </div>
           <div class="travel-info">
-            <p id="travel-info-cost">£<%=@cheapest.price%></p>
+            <div class="d-flex flex-column">
+              <% if @cheapest.mode == "train" && @parameter.railcard %>
+                <p id="old-price">£<%= @cheapest.price * 3 / 2 %></p>
+              <% end %>
+              <p id="travel-info-cost">£<%=@cheapest.price%></p>
+            </div>
             <i class="fas fa-<%=@cheapest.mode%>"></i>
             <% if @cheapest.duration > 60 %>
               <% hours = (@cheapest.duration / 60).to_i %>
@@ -65,7 +75,12 @@
           <p><%= @recommended.start_time.strftime("%R") %> - <%=@recommended.end_time.strftime("%R") %> </p>
         </div>
         <div class="travel-info">
-          <p id="travel-info-cost">£<%=@recommended.price%></p>
+          <div class="d-flex flex-column">
+            <% if @recommended.mode == "train" && @parameter.railcard %>
+              <p id="old-price">£<%= @recommended.price * 3 / 2 %></p>
+            <% end %>
+            <p id="travel-info-cost">£<%=@recommended.price%></p>
+          </div>
           <i class="fas fa-<%=@recommended.mode%>"></i>
           <% if @recommended.duration > 60 %>
             <% hours = (@recommended.duration / 60).to_i %>
@@ -97,7 +112,12 @@
                 <p><%= trip.start_time.strftime("%R") %> - <%=trip.end_time.strftime("%R") %> </p>
               </div>
               <div class="travel-info">
+                <div class="d-flex flex-column">
+                  <% if trip.mode == "train" && @parameter.railcard %>
+                    <p id="old-price">£<%= trip.price * 3 / 2 %></p>
+                  <% end %>
                 <p id="travel-info-cost">£<%=trip.price%></p>
+                </div>
                 <i class="fas fa-<%=trip.mode%>"></i>
                 <% if trip.duration > 60 %>
                   <% hours = (trip.duration / 60).to_i %>
@@ -155,6 +175,9 @@
           <% end %>
         </div>
         <div class="travel-cost">
+          <% if @fastest.mode == "train" && @parameter.railcard %>
+              <p id="old-price" class="text-center">£<%= @fastest.price * 3 / 2 %></p>
+            <% end %>
           <p>£<%=@fastest.price%></p>
         </div>
 
@@ -206,6 +229,9 @@
           <% end %>
         </div>
         <div class="travel-cost">
+          <% if @cheapest.mode == "train" && @parameter.railcard %>
+              <p id="old-price" class="text-center">£<%= @cheapest.price * 3 / 2 %></p>
+            <% end %>
           <p>£<%=@cheapest.price%></p>
         </div>
       </div>
@@ -256,6 +282,9 @@
           <% end %>
         </div>
         <div class="travel-cost">
+          <% if @recommended.mode == "train" && @parameter.railcard %>
+              <p id="old-price" class="text-center">£<%= @recommended.price * 3 / 2 %></p>
+            <% end %>
           <p>£<%=@recommended.price%></p>
         </div>
       </div>
