@@ -27,7 +27,7 @@
 }
 
 .rightit {
-  margin-left: 12px !important;
+  margin-left: -5px !important;
 }
 
 input[type=text] {
@@ -40,6 +40,7 @@ input[type=text] {
 
 input[type=checkbox] {
   margin-top: 5px;
+  z-index: 2;
 }
 
 input[type=datetime-local], input[type=email], input[type=password] {
@@ -156,114 +157,6 @@ input[type=datetime-local], input[type=email], input[type=password] {
   display: flex;
   justify-content: center;
   margin-top: -4px;
-  color: $abc-red;
-}
-
-
-.toggleWrapper {
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all .2s;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: $abc-red;
-
-  &:active {
-    width: 18px;
-    height: 18px;
-
-    .toggle {
-      height: 10px;
-      width: 10px;
-    }
-  }
-
-  .toggle {
-    transition: all 0.2s ease-in-out;
-    height: 14px;
-    width: 14px;
-    background-color: transparent;
-    border: 20px solid #fff;
-    border-radius: 50%;
-    cursor: pointer;
-
-    animation: red .7s linear forwards;
-  }
-}
-
-input:checked {
-  & ~ .background {
-    background-color: #f9faf7;
-  }
-  & + .toggleWrapper {
-    background-color: white;
-
-    &:active {
-
-    }
-
-    .toggle {
-      width: 0;
-      background-color: $abc-yellow;
-      border-color: transparent;
-      border-radius: 20px;
-      animation: green .7s linear forwards !important;
-    }
-  }
-}
-
-@keyframes red {
-0% {
-  height: 16px;
-  width: 0;
-  border-width: 4px;
-}
-55% {
-  height: 10px;
-  width: 16px;
-  border-width: 4px;
-}
-
-70% {
-  height: 10px;
-  width: 10px;
-  border-width: 4px;
-}
-
-85% {
-  height: 6px;
-  width: 12px;
-  border-width: 4px;
-}
-
-100% {
-  height: 10px;
-  width: 10px;
-  border-width: 4px;
-}
-}
-
-@keyframes green {
-0% {
-  height: 10px;
-  width: 10px;
-  border-width: 4px;
-}
-25%, 55%, 85% {
-  height: 14px;
-  width: 2px;
-  border-width: 2px;
-}
-
-40%, 70%, 100% {
-  height: 14px;
-  width: 0;
-  border-width: 2px;
-}
 }
 
 .btn-check:active {

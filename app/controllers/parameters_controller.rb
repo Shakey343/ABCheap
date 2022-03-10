@@ -16,6 +16,11 @@ class ParametersController < ApplicationController
       lat_diff = (Geocoder.search(@parameter.origin).first.data["lat"].to_f - Geocoder.search(@parameter.destination).first.data["lat"].to_f).abs
       lon_diff = (Geocoder.search(@parameter.origin).first.data["lon"].to_f - Geocoder.search(@parameter.destination).first.data["lon"].to_f).abs
 
+      if @parameter.passengers.to_i.zero?
+        passengers = 1
+      else
+        passengers = @parameter.passengers.to_f
+      end
 
       distance = (Math.sqrt((lat_diff * lat_diff) + (lon_diff * lon_diff)) * 73).to_f
       time = ((distance / 54) * 60).to_i
@@ -24,7 +29,7 @@ class ParametersController < ApplicationController
       FakeData.create!(
         origin: @parameter.origin,
         destination: @parameter.destination,
-        price_cents: cost.round(2),
+        price_cents: ((cost * 100).round(2) / (passengers ** 0.9)),
         start_time: @parameter.preferred_start + 100,
         end_time: @parameter.preferred_start + (time * 60),
         duration: time,
@@ -33,7 +38,9 @@ class ParametersController < ApplicationController
     end
 
     if @parameter.earliest_start.nil?
-      if @parameter.preferred_start - 14400 < DateTime.now
+      if @parameter.preferred_start < DateTime.now
+        earliest_start_date = @parameter.preferred_start
+      elsif @parameter.preferred_start - 14400 < DateTime.now
         earliest_start_date = DateTime.now
       else
         earliest_start_date = @parameter.preferred_start - 14400
@@ -43,18 +50,19 @@ class ParametersController < ApplicationController
     end
 
     if @parameter.latest_finish.nil?
-      if FakeData.all.count != 0 && FakeData.last.mode != "bus"
+      if FakeData.where('booked != true').count != 0 && FakeData.where('booked != true').last.mode != "bus"
         latest_finish_date = @parameter.preferred_start + (120 * FakeData.last.duration) + 7200
-      elsif FakeData.all.count != 0 && FakeData.last.mode == "bus"
+      elsif FakeData.where('booked != true').count != 0 && FakeData.where('booked != true').last.mode == "bus"
         latest_finish_date = @parameter.preferred_start + (60 * FakeData.last.duration) + 7200
       else
-        latest_finish_date = DateTime.now
+        latest_finish_date = @parameter.preferred_start + 36000
       end
     else
       latest_finish_date = @parameter.latest_finish
     end
 
     valid_data = FakeData.where("price_cents != 0 AND booked != true AND end_time < ? AND start_time > ?", latest_finish_date, earliest_start_date)
+
     if @parameter.railcard
       valid_data.where("mode = 'train'").each do |result|
         result.update(price_cents: (result.price_cents * 2 / 3).round(2))
@@ -62,15 +70,6 @@ class ParametersController < ApplicationController
     end
 
     if valid_data.all.count.zero?
-      # @fastest = @cheapest = @recommended = FakeData.create!(
-      #   origin: "No Journeys Found",
-      #   destination: "",
-      #   price: 69,
-      #   start_time: DateTime.new(2069,4,20,4,20,0),
-      #   end_time: DateTime.new(2069,4,20,16,20,0),
-      #   duration: 69,
-      #   mode: "train"
-      # )
       redirect_to errors_no_journeys_error_path
     else
       @fastest = valid_data.min_by(&:duration)
@@ -83,6 +82,12 @@ class ParametersController < ApplicationController
       end
       @recommended = valid_data.find(recommended(valid_data.all, @parameter.preferred_start).first)
     end
+
+
+
+
+
+
 
     @markers = []
 
@@ -127,29 +132,9 @@ class ParametersController < ApplicationController
     end
   end
 
-
-  # def driving(parameter)
-  #   lat_diff = (Geocoder.search(parameter.origin).first.data["lat"].to_f - Geocoder.search(parameter.destination).first.data["lat"].to_f).abs
-  #   lon_diff = (Geocoder.search(parameter.origin).first.data["lon"].to_f - Geocoder.search(parameter.destination).first.data["lon"].to_f).abs
-
-  #   distance = (Math.sqrt((lat_diff * lat_diff) + (lon_diff * lon_diff)) * 73).to_i
-  #   time = ((distance / 54) * 60).to_i
-  #   price_per_mile = 0.1
-  #   cost = distance * price_per_mile
-  #   FakeData.create!(
-  #     origin: parameter.origin,
-  #     destination: parameter.destination,
-  #     cost: 5,
-  #     start_time: parameter.preferred_start,
-  #     end_time: parameter.preferred_start + time,
-  #     duration: time,
-  #     mode: "car"
-  #   )
-  # end
-
   private
 
   def set_params
-    params.require(:parameter).permit(:origin, :destination, :preferred_start, :earliest_start, :latest_finish, :car, :railcard)
+    params.require(:parameter).permit(:origin, :destination, :preferred_start, :earliest_start, :latest_finish, :car, :railcard, :passengers)
   end
 end
