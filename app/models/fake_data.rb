@@ -37,9 +37,18 @@ class FakeData < ApplicationRecord
       sheffield: 90,
       swansea: 97
     }
+    origin_check = parameter.origin
+    if origin_check == "Newcastle upon Tyne"
+      origin_check = "Newcastle"
+    end
 
-    origin_ids = bus_cities[parameter.origin.downcase.to_sym]
-    destination_ids = bus_cities[parameter.destination.downcase.to_sym]
+    dest_check = parameter.origin
+    if dest_check == "Newcastle upon Tyne"
+      dest_check = "Newcastle"
+    end
+
+    origin_ids = bus_cities[origin_check.downcase.to_sym]
+    destination_ids = bus_cities[dest_check.downcase.to_sym]
 
     url_bus = "https://uk.megabus.com/journey-planner/journeys?days=1&concessionCount=0&departureDate=#{preferred_start_date_bus}&destinationId=#{destination_ids}&inboundOtherDisabilityCount=0&inboundPcaCount=0&inboundWheelchairSeated=0&nusCount=0&originId=#{origin_ids}&otherDisabilityCount=0&pcaCount=0&totalPassengers=1&wheelchairSeated=0"
     html_file_bus = URI.open(url_bus).read
@@ -124,8 +133,18 @@ class FakeData < ApplicationRecord
         swansea: "SWA"
       }
 
-      origin_ids = train_cities[parameter.origin.downcase.to_sym]
-      destination_ids = train_cities[parameter.destination.downcase.to_sym]
+      origin_check = parameter.origin
+      if origin_check == "Newcastle upon Tyne"
+        origin_check = "Newcastle"
+      end
+
+      dest_check = parameter.destination
+      if dest_check == "Newcastle upon Tyne"
+        dest_check = "Newcastle"
+      end
+
+      origin_ids = train_cities[origin_check.downcase.to_sym]
+      destination_ids = train_cities[dest_check.downcase.to_sym]
 
       if earliest_start_date_train.hour < 10
         earliest_start_hour = "0#{earliest_start_date_train.hour}"

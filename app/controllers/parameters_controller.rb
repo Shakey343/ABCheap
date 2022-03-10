@@ -8,8 +8,19 @@ class ParametersController < ApplicationController
     # FakeData.destroy_all
     @booking = Booking.new
     @parameter = Parameter.find(params[:id])
-    @parameter.update(origin: Geocoder.search(@parameter.origin).first.data["address"]["city"])
-    @parameter.update(destination: Geocoder.search(@parameter.destination).first.data["address"]["city"])
+
+    origin_strip = @parameter.origin.strip
+    if @parameter.origin.count("0-9") != 0
+      origin_strip = @parameter.origin.gsub(/\s+/, "").insert(-4, " ")
+    end
+
+    destination_strip = @parameter.destination.strip
+    if @parameter.destination.count("0-9") != 0
+      destination_strip = @parameter.destination.gsub(/\s+/, "").insert(-4, " ")
+    end
+
+    @parameter.update(origin: Geocoder.search(origin_strip).first.data["address"]["city"])
+    @parameter.update(destination: Geocoder.search(destination_strip).first.data["address"]["city"])
     FakeData.generate_results(@parameter)
 
     if @parameter.car
