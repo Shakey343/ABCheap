@@ -86,3 +86,19 @@ FakeData.create!(
   mode: "train"
 )
 puts "data added"
+
+Booking.create!(
+  state: "pending",
+  amount_cents: 2013,
+  checkout_session_id: "cs_test_a16ZnP9OHZJpBgKKekwS0vJ5tNq26F5j48mHHw3ejb6Cap3sZ7e6kuvgM4",
+  user_id: 1,
+  fake_data_id: 8
+)
+
+Booking.create!(
+  state: "pending",
+  amount_cents: 1130,
+  checkout_session_id: "cs_test_a1YZfntJtG0pEGltRdKGTzx6kPKuFzCcUSbfThsCxAj6sf7q77zoIKsENX",
+  user_id: 1,
+  fake_data_id: 7
+)
