@@ -197,9 +197,9 @@ class FakeData < ApplicationRecord
           earliest_start_day = (earliest_start_day.to_i + 1).to_s if (FakeData.all.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < FakeData.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - FakeData.last.end_time.hour).abs > 10) && (FakeData.last.mode != "bus")
 
           FakeData.create!(
-            origin: origin_stations_train[i-1],
-            destination: destination_stations_train[i-1],
-            price_cents: (prices_train[i-1] * 100),
+            origin: origin_stations_train[i - 1],
+            destination: destination_stations_train[i - 1],
+            price_cents: ((prices_train[i - 1].to_f) * 100).to_i,
             start_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, @departures_train[i-1].split(':')[0].to_i, @departures_train[i-1].split(':')[1].to_i, 0),
             end_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
             duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
