@@ -52,6 +52,7 @@ export default class extends Controller {
       customMarker.style.width = "100px"
       customMarker.style.height = "50px"
       //customMarker.style.maxZoom = "5.1"
+      map.flyTo({zoom: nextZoom})
 
       new mapboxgl.Marker(customMarker)
       .setLngLat([ marker.lng, marker.lat ])
@@ -207,8 +208,4 @@ export default class extends Controller {
   //     });
   //   });
   // }
-
-
-
-
 }
