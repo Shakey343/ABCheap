@@ -1,0 +1,17 @@
+{
+  "background_color": "yellow",
+  "description": "ABCheap is a travel comparison site for getting around the UK! Tired of traversing other travel apps to find the best option? ABCheap it!",
+  "display": "fullscreen",
+  "name": "ABCheap",
+  "icons": [
+    <% files = Dir.entries(Rails.root.join("app/assets/images/icons/")).select {|f| !File.directory? f} %>
+    <% files.each_with_index do |file, index| %>
+      <% match = file.match(/.+-(?<size>\d{2,3}x\d{2,3}).png/) %>
+      {
+        "src": "<%= image_path "icons/#{file}" %>",
+        "sizes": "<%= match && match[:size] %>",
+        "type": "image/png"
+      }<%= "," unless (files.size - 1) == index %>
+    <% end %>
+  ]
+}

@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 2022_03_09_225722) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
-    t.boolean "car", default: false
     t.boolean "railcard", default: false
+    t.boolean "car", default: false
     t.string "passengers"
     t.index ["user_id"], name: "index_parameters_on_user_id"
   end

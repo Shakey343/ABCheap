@@ -1,13 +1,13 @@
 <div class="page-container">
-    <div class="title"  style="text-align:center">
-      <div style="width: 100%; height: 300px;"
+  <div class="title"  style="text-align:center">
+      <div id= "map" class="md-trigger" style="width: 100%; height: 260px;"
         data-controller="mapbox"
         data-mapbox-markers-value="<%= @markers.to_json %>"
         data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
       </div>
-    </div>
-    <div class="rounded container abc-form info-box">
-      <%= simple_form_for @parameter do |f| %>
+  </div>
+  <div class="rounded container abc-form info-box">
+    <%= simple_form_for @parameter do |f| %>
       <div class="flex-items">
         <%= f.input :origin, placeholder: 'Origin', input_html: { class: 'orig' }, label: false %>
         <%= f.input :destination, placeholder: 'Destination', input_html: { class: 'dest' }, label: false %>
@@ -44,10 +44,15 @@
               </div>
             </div>
       <div class="form-actions text-center p-3">
-      <%= f.submit class: 'btn btn-block abc-btn shift-up', value: 'Take me there!', data: { disable_with: 'ABCheaping...' } %>
-        <%#= f.button :submit, "Log in", class: 'btn abc-btn' %>
+        <%= f.submit class: 'btn btn-block abc-btn shift-up', value: 'Take me there!', data: { disable_with: 'ABCheaping...' } %>
       </div>
-      <% end %>
+    <% end %>
   </div>
 </div>
 <%= render 'shared/footer_nav' %>
+<script>
+  window.setTimeout(() => {
+      document.querySelector(".mapboxgl-ctrl-geolocate").click();
+
+    }, 200);
+</script>

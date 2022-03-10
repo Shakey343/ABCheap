@@ -5,31 +5,25 @@
   background-size: cover;
   position: relative;
 }
-
 .abc-img {
   height: 250px;
   width: 100%;
   object-fit: cover;
 }
-
 .abc-map {
   width: 100%;
   height: 200px;
 }
-
 .abc-slogan {
   color: $abc-red;
   text-shadow: 5px 5px 10px 0 #000;
 }
-
 .flex-items {
   display: flex;
 }
-
 .rightit {
   margin-left: -5px !important;
 }
-
 input[type=text] {
   box-sizing: border-box;
   border-radius: 12px;
@@ -37,19 +31,16 @@ input[type=text] {
   padding: 14px;
   text-align: center;
 }
-
 input[type=checkbox] {
   margin-top: 5px;
   z-index: 2;
 }
-
 input[type=datetime-local], input[type=email], input[type=password] {
   box-sizing: border-box;
   border-radius: 12px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   padding: 10px;
 }
-
 .abc-form.pt-5 {
   position: absolute;
   bottom: 20px;
@@ -57,25 +48,21 @@ input[type=datetime-local], input[type=email], input[type=password] {
   border-radius: 12px !important;
   padding-top: 1rem !important;
 }
-
 // a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapboxgl-compact {
 //   width: 100px;
 //   height: 100px;
 //   background-color: black;
 // }
-
 .page-container {
   display: flex;
   flex-direction: column;
 }
-
 .info-box {
   flex-grow: 1;
   margin-top: -16px;
   z-index: 2;
   padding-bottom: 100px;
 }
-
 .orig {
   border-radius: 12px 0px 0px 12px !important;
   border: none !important;
@@ -86,7 +73,6 @@ input[type=datetime-local], input[type=email], input[type=password] {
   box-shadow: none !important;
   background-color: white !important;
 }
-
 .dest {
   border-radius: 0px 12px 12px 0px !important;
   border-right: 3.5px solid black !important;
@@ -96,7 +82,6 @@ input[type=datetime-local], input[type=email], input[type=password] {
   background-color: white !important;
   box-shadow: none !important;
 }
-
 .btn-primary {
   color: $abc-red;
   background-color: transparent;
@@ -104,27 +89,23 @@ input[type=datetime-local], input[type=email], input[type=password] {
   text-decoration: underline;
   margin: 0px;
 }
-
 .btn-primary:hover {
   color: $abc-red;
   background-color: transparent;
   border: none;
   text-decoration: underline;
 }
-
 .card-body {
   border-radius: 12px;
   background-color: $abc-yellow;
   border: none;
 }
-
 .datepicker {
   padding-top: 12px !important;
   padding-bottom: 12px !important;
   border: 3.5px solid black;
   text-align: center;
 }
-
 .datepicker.flex-it {
   text-align: center;
   width: 165px;
@@ -132,15 +113,12 @@ input[type=datetime-local], input[type=email], input[type=password] {
   margin-left: 7px;
   margin-right: 7px;
 }
-
 .smaller {
   width: 75px !important;
 }
-
 .title {
   border-bottom: 3.5px solid black;
 }
-
 .shift-up {
   margin: -40px;
 }
@@ -152,6 +130,7 @@ input[type=datetime-local], input[type=email], input[type=password] {
 // input {
 //   // display: none;
 // }
+
 .optional-below {
   font-size: 8px;
   display: flex;

@@ -70,17 +70,23 @@ class ParametersController < ApplicationController
     end
 
     if valid_data.all.count.zero?
-      redirect_to "/500.html"
+      redirect_to '/500.html'
     else
       @fastest = valid_data.min_by(&:duration)
       @cheapest = valid_data.min_by(&:price_cents)
       if valid_data.where(price_cents: @cheapest.price_cents).length >= 1
-        @cheapest = valid_data.find(recommended(valid_data.where(price_cents: @cheapest.price_cents), @parameter.preferred_start).first)
+        @cheapest = valid_data.find(recommended(valid_data.where(price_cents: @cheapest.price_cents), @parameter.preferred_start)[0].first)
       end
       if valid_data.where(duration: @fastest.duration).length >= 1
-        @fastest = valid_data.find(recommended(valid_data.where(duration: @fastest.duration), @parameter.preferred_start).first)
+        @fastest = valid_data.find(recommended(valid_data.where(duration: @fastest.duration), @parameter.preferred_start)[0].first)
       end
-      @recommended = valid_data.find(recommended(valid_data.all, @parameter.preferred_start).first)
+      @recommended = valid_data.find(recommended(valid_data.all, @parameter.preferred_start)[0].first)
+      @other_recommended = []
+      if valid_data.count > 3
+        @other_recommended << valid_data.find(recommended(valid_data.all, @parameter.preferred_start)[1].first)
+        @other_recommended << valid_data.find(recommended(valid_data.all, @parameter.preferred_start)[2].first)
+        @other_recommended << valid_data.find(recommended(valid_data.all, @parameter.preferred_start)[3].first)
+      end
     end
 
 
@@ -115,7 +121,7 @@ class ParametersController < ApplicationController
       deviation = ((trip.start_time.to_time - preferred_start.to_time) / 3600).abs
       total_cost[trip.id] = (trip.price.to_f + ((trip.duration.to_f / 60) * 7) + (deviation * 2))
     end
-    total_cost.min_by { |_, v| v }
+    total_cost.sort_by { |_, v| v }
   end
 
   def new

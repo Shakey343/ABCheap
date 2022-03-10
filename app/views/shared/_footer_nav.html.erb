@@ -2,7 +2,7 @@
   <div class="icons-nav">
     <ul class="icons d-flex flex-row">
       <li>
-        <%= link_to new_parameter_path, :class => 'searchicon' do %>
+        <%= link_to new_parameter_path, :class => 'searchicon', data: {turbolinks: false} do %>
         <span id="searchicon"><i class="fas fa-2x fa-search-location" aria-hidden="true"></i>
         <% end %>
       </li>

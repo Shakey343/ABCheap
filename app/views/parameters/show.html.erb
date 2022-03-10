@@ -83,8 +83,38 @@
         </div>
       </div>
     </div>
+    <% unless @other_recommended.empty? %>
+      <div class="more-options">
+        <button class="btn btn-primary w-100 center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          More Options
+        </button>
+        <div class="collapse" id="collapseExample">
+          <% emoji = ['🥈', '🥉', '🐢'] %>
+          <% @other_recommended.each_with_index do |trip, index| %>
+            <div class="travel-options">
+              <div class="travel-timings">
+                <%= emoji[index] %>
+                <p><%= trip.start_time.strftime("%R") %> - <%=trip.end_time.strftime("%R") %> </p>
+              </div>
+              <div class="travel-info">
+                <p id="travel-info-cost">£<%=trip.price%></p>
+                <i class="fas fa-<%=trip.mode%>"></i>
+                <% if trip.duration > 60 %>
+                  <% hours = (trip.duration / 60).to_i %>
+                  <% mins =  trip.duration - (hours * 60)%>
+                  <p> <%=hours%>hr<%=mins%> </p>
+                <% else %>
+                  <p> <%=trip.duration%>mins </p>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
+
 
 
 <!-- Modals -->

@@ -27,6 +27,7 @@ export default class extends Controller {
 
     if (this.element.id === "map-routes") {
       this.#addMarkersToMap();
+      this.#fitMapToMarkers();
       // this.#addLineToMap();
     }
   }
@@ -48,8 +49,8 @@ export default class extends Controller {
       customMarker.className = "marker"
       customMarker.style.backgroundImage = `url('${marker.image_url}')`
       customMarker.style.backgroundSize = "contain"
-      customMarker.style.width = "50px"
-      customMarker.style.height = "30px"
+      customMarker.style.width = "100px"
+      customMarker.style.height = "50px"
 
       new mapboxgl.Marker(customMarker)
       .setLngLat([ marker.lng, marker.lat ])
@@ -58,97 +59,103 @@ export default class extends Controller {
   }
 
   #addCurrentLocationToMap() {
-    this.map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true,
-        showUserHeading: true
-      })
-    );
+    const geoLocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserHeading: true
+    })
+    this.map.addControl(geoLocate)
+    // console.log(geoLocate)
+  }
+
+  #fitMapToMarkers() {
+    const bounds = new mapboxgl.LngLatBounds()
+    this.markersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
+    this.map.fitBounds(bounds, { padding: 50, speed: 3000, maxZoom: 15, duration: 4000 })
   }
 
 
-  #addLineToMap() {
-    const apiKey = "MAPBOX_API_KEY";
-    const basemapEnum = "ArcGIS:Navigation";
-    const map = new mapboxgl.Map({
-      container: "map-routes", // the id of the div element
-      style: `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${basemapEnum}?type=style&token=${apiKey}`,
-      zoom: 12, // starting zoom
+  // #addLineToMap() {
+  //   const apiKey = "MAPBOX_API_KEY";
+  //   const basemapEnum = "ArcGIS:Navigation";
+  //   const map = new mapboxgl.Map({
+  //     container: "map-routes", // the id of the div element
+  //     style: `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${basemapEnum}?type=style&token=${apiKey}`,
+  //     zoom: 12, // starting zoom
 
-      center: [-4.045050, 54.663169]
+  //     center: [-4.045050, 54.663169]
 
-    });
+  //   });
 
-    function addCircleLayers() {
+  //   function addCircleLayers() {
 
-      map.addSource("start", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: []
-        }
-      });
-      map.addSource("end", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: []
-        }
-      });
-    }
+  //     map.addSource("start", {
+  //       type: "geojson",
+  //       data: {
+  //         type: "FeatureCollection",
+  //         features: []
+  //       }
+  //     });
+  //     map.addSource("end", {
+  //       type: "geojson",
+  //       data: {
+  //         type: "FeatureCollection",
+  //         features: []
+  //       }
+  //     });
+  //   }
 
-    function addRouteLayer() {
+  //   function addRouteLayer() {
 
-      map.addSource("route", {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: []
-        }
-      });
+  //     map.addSource("route", {
+  //       type: "geojson",
+  //       data: {
+  //         type: "FeatureCollection",
+  //         features: []
+  //       }
+  //     });
 
-      map.addLayer({
-        id: "route-line",
-        type: "line",
-        source: "route",
+  //     map.addLayer({
+  //       id: "route-line",
+  //       type: "line",
+  //       source: "route",
 
-        paint: {
-          "line-color": "hsl(205, 100%, 50%)",
-          "line-width": 4,
-          "line-opacity": 0.6
-        }
-      });
+  //       paint: {
+  //         "line-color": "hsl(205, 100%, 50%)",
+  //         "line-width": 4,
+  //         "line-opacity": 0.6
+  //       }
+  //     });
 
-      function updateRoute() {
+  //     function updateRoute() {
 
-        const authentication = new arcgisRest.ApiKey({
-          key: apiKey
-        });
+  //       const authentication = new arcgisRest.ApiKey({
+  //         key: apiKey
+  //       });
 
-        arcgisRest
-          .solveRoute({
-            stops: [startCoords, endCoords],
-            endpoint: "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve",
-            authentication
-          })
+  //       arcgisRest
+  //         .solveRoute({
+  //           stops: [startCoords, endCoords],
+  //           endpoint: "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve",
+  //           authentication
+  //         })
 
-          .then((response) => {
-            map.getSource("route").setData(response.routes.geoJson);
+  //         .then((response) => {
+  //           map.getSource("route").setData(response.routes.geoJson);
 
-          })
+  //         })
 
-          .catch((error) => {
-            console.error(error);
-            alert("There was a problem using the route service. See the console for details.");
-          });
+  //         .catch((error) => {
+  //           console.error(error);
+  //           alert("There was a problem using the route service. See the console for details.");
+  //         });
 
-      }
+  //     }
 
-    }
-  }
+  //   }
+  // }
 
   //"stroke:rgb(255,0,0);stroke-width:2"
 
@@ -199,8 +206,4 @@ export default class extends Controller {
   //     });
   //   });
   // }
-
-
-
-
 }
