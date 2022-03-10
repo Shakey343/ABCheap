@@ -33,6 +33,7 @@ input[type=text] {
 }
 input[type=checkbox] {
   margin-top: 5px;
+  z-index: 2;
 }
 input[type=datetime-local], input[type=email], input[type=password] {
   box-sizing: border-box;

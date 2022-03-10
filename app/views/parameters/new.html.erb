@@ -14,19 +14,23 @@
       </div>
       <%= f.input :preferred_start, label: "Preferred Departure", as: :string, required: false, input_html: {class: "datepicker"}, label_html: {class: "text-center w-100"}, placeholder: 'Preferred Departure' %>
       <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-          <%= f.input :earliest_start, label: "Earliest Departure", as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'Start Date' %>
-          <%= f.input :latest_finish, label: "Latest Arrival", as: :string, required: false, input_html: {class: "datepicker"}, placeholder: 'End Date' %>
+        <div class="text-center d-flex justify-content-center mb-0 pb-0">
+          <%= f.input :earliest_start, label: "Earliest Departure", as: :string, required: false, input_html: {class: "datepicker flex-it"}, placeholder: 'Start Date' %>
+          <%= f.input :latest_finish, label: "Latest Arrival", as: :string, required: false, input_html: {class: "datepicker flex-it"}, placeholder: 'End Date' %>
         </div>
       </div>
       <div class="d-flex justify-content-around p-0 m-0">
-        <fieldset class="form-group boolean optional snippet_archived p-0 m-0">
-          <div class="pl-0 m-0 outer">
-            <%= f.input :car, as: :boolean, id: "car", name: "car", input_html: { class: "toggle left-zero" }, label_html: { class: 'label-move' } %>
-          </div>
-        </fieldset>
-        <button class="btn btn-primary w-25 pt-0 rightit px-3 justify-content-left" style="height: 25px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Flexibility
+        <div class = "d-flex">
+          <button class="btn btn-primary w-25 pt-0 rightit" style="height: 25px; z-index: 2;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+            <fieldset class="form-group boolean optional snippet_archived p-0 m-0">
+              <div class="pl-0 m-0 outer">
+                <%= f.input :car, as: :boolean, id: "car", name: "car", input_html: { class: "toggle left-zero" }, label_html: { class: 'label-move' } %>
+              </div>
+            </fieldset>
+          </button>
+        </div>
+        <button class="btn btn-primary w-25 pt-0 rightit" style="height: 25px; color: black;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Flexibility
         </button>
         <fieldset class="form-group boolean optional snippet_archived p-0 m-0">
           <div class="pl-0 m-0 outer">
@@ -35,13 +39,17 @@
         </fieldset>
       </div>
       <p class = "optional-below">(optional)</p>
+      <div class="collapse" id="collapseExample2">
+        <div class="text-center m-0 pb-0">
+          <%= f.input :passengers, label: "Travelers", :collection => %w[1 2 3 4 5 6 7] %>
+        </div>
+      </div>
       <div class="form-actions text-center p-3">
         <%= f.submit class: 'btn btn-block abc-btn shift-up', value: 'Take me there!', data: { disable_with: 'ABCheaping...' } %>
       </div>
     <% end %>
   </div>
 </div>
-
 <%= render 'shared/footer_nav' %>
 <script>
   window.setTimeout(() => {
