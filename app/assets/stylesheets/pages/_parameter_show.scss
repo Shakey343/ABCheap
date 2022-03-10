@@ -159,10 +159,11 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 }
 
 .travel-timings {
-  padding: 10px 5px;
+  padding: 10px 5px 0px;
   font-size: 18px;
   text-align: end;
   margin: 0px 10px;
+  line-height: 1;
 }
 
 .travel-info {
@@ -171,6 +172,16 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   font-size: 20px;
   margin: 0px 10px;
   font-weight: 700;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+#old-price {
+  text-align: start;
+  font-size: 14px;
+  opacity: 0.5;
+  text-decoration: line-through;
+  margin: 0px;
 }
 
 .travel-info i {
@@ -180,6 +191,7 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
 .travel-info p {
   width: 100px;
   text-align: end;
+  margin-bottom: 0;
 }
 
 #travel-info-cost {
@@ -222,6 +234,8 @@ a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib.mapbox
   font-size: 30px;
   font-weight: 700;
 }
+
+
 
 .modal-travel-timings {
   display: flex;
