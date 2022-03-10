@@ -1,6 +1,6 @@
 FakeData.create!(
   origin: "London Victoria Coach Station",
-  destination: "Leeds Leeds City Bus Station, Stand 1",
+  destination: "Leeds City Bus Station, Stand 1",
   price_cents: 790,
   start_time: DateTime.new(2022,3,18,15,0,0),
   end_time: DateTime.new(2022,3,18,19,45,0),
@@ -11,7 +11,7 @@ puts "data added"
 
 FakeData.create!(
   origin: "London Victoria Coach Station",
-  destination: "Leeds Leeds City Bus Station, Stand 1",
+  destination: "Leeds City Bus Station, Stand 1",
   price_cents: 1090,
   start_time: DateTime.new(2022,3,18,13,10,0),
   end_time: DateTime.new(2022,3,19,18,0,0),
@@ -22,7 +22,7 @@ puts "data added"
 
 FakeData.create!(
   origin: "London Victoria Coach Station",
-  destination: "Leeds Leeds City Bus Station, Stand 1",
+  destination: "Leeds City Bus Station, Stand 1",
   price_cents: 950,
   start_time: DateTime.new(2022,3,18,16,0,0),
   end_time: DateTime.new(2022,3,18,21,0,0),
