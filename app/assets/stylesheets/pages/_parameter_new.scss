@@ -49,10 +49,15 @@
 }
 
 .optional-below {
-  padding-right: 24px;
+  padding-right: 12px;
+  color: $black;
 }
 
 .outer {
   display: flex;
   flex-direction: column;
+}
+
+.label-move {
+  color: $black;
 }
