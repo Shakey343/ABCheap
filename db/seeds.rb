@@ -57,7 +57,7 @@ puts "data added"
 FakeData.create!(
   origin: "London",
   destination: "Leeds",
-  price_cents: 4000,
+  price_cents: 2000,
   start_time: DateTime.new(2022,3,18,14,1,0),
   end_time: DateTime.new(2022,3,18,18,4,0),
   duration: 245,
