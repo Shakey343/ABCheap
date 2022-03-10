@@ -70,7 +70,7 @@ class ParametersController < ApplicationController
     end
 
     if valid_data.all.count.zero?
-      redirect_to errors_no_journeys_error_path
+      redirect_to "/500.html"
     else
       @fastest = valid_data.min_by(&:duration)
       @cheapest = valid_data.min_by(&:price_cents)
@@ -113,7 +113,7 @@ class ParametersController < ApplicationController
     total_cost = {}
     data.each do |trip|
       deviation = ((trip.start_time.to_time - preferred_start.to_time) / 3600).abs
-      total_cost[trip.id] = (trip.price.to_f + ((trip.duration / 60) * 7) + (deviation * 2))
+      total_cost[trip.id] = (trip.price.to_f + ((trip.duration.to_f / 60) * 7) + (deviation * 2))
     end
     total_cost.min_by { |_, v| v }
   end
