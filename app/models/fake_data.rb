@@ -35,14 +35,16 @@ class FakeData < ApplicationRecord
       newcastle: 63,
       nottingham: 68,
       sheffield: 90,
+      sunderland: 96,
       swansea: 97
     }
+
     origin_check = parameter.origin
     if origin_check == "Newcastle upon Tyne"
       origin_check = "Newcastle"
     end
 
-    dest_check = parameter.origin
+    dest_check = parameter.destination
     if dest_check == "Newcastle upon Tyne"
       dest_check = "Newcastle"
     end
@@ -116,6 +118,7 @@ class FakeData < ApplicationRecord
 
       train_cities = {
         birmingham: "Birmingham",
+        bath: "BTH",
         bristol: "Bristol",
         cardiff: "Cardiff",
         coventry: "COV",
@@ -172,6 +175,8 @@ class FakeData < ApplicationRecord
         earliest_start_day = earliest_start_date_train.day.to_s
       end
 
+      arrival_day = departure_day = earliest_start_day
+
       earliest_start_year_train = earliest_start_date_train.year.to_s[2..-1]
 
       earliest_start_date_train_string = "#{earliest_start_day}#{earliest_start_month}#{earliest_start_year_train}"
@@ -215,15 +220,19 @@ class FakeData < ApplicationRecord
 
         break if @departures_train.length.zero?
 
+
         current_journeys = FakeData.where('booked != true')
+
+        departure_day = FakeData.last.start_time.day if current_journeys.count != 0 && current_journeys.last.mode != 'bus'
 
         for i in 1..@departures_train.length
           # earliest_start_day_leave = earliest_start_day_arrive = earliest_start_day
           # earliest_start_day_leave = (earliest_start_day.to_i + 1).to_s if (current_journeys.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < current_journeys.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - current_journeys.last.end_time.hour).abs > 10) && (current_journeys.last.mode != "bus")
           # earliest_start_day_arrive = (earliest_start_day.to_i + 1).to_s if (current_journeys.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < current_journeys.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - current_journeys.last.end_time.hour).abs > 10) && (current_journeys.last.mode != "bus")
-          earliest_start_day = (earliest_start_day.to_i + 1).to_s if (current_journeys.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < current_journeys.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - current_journeys.last.end_time.hour).abs > 10) && (current_journeys.last.mode != "bus")
-
-
+          arrival_day = (earliest_start_day.to_i + 1).to_s if (current_journeys.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < current_journeys.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - current_journeys.last.end_time.hour).abs > 10) && (current_journeys.last.mode != "bus")
+          departure_day = (earliest_start_day.to_i + 1).to_s if (current_journeys.count != 0) && (@departures_train[i-1].split(':')[0].to_i < current_journeys.last.start_time.hour) && ((@departures_train[i-1].split(':')[0].to_i - current_journeys.last.start_time.hour).abs > 10) && (current_journeys.last.mode != "bus")
+          arrival_day = (arrival_day.to_i + 1).to_s if arrival_day.to_i < departure_day.to_i
+          # arrival_day = (arrival_day.to_i - 1).to_s if ((current_journeys.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < current_journeys.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - current_journeys.last.end_time.hour).abs > 10) && (current_journeys.last.mode != "bus")) && (arrivals_train[i-1] > @departures_train[i-1])
           # # earliest_start_day = (earliest_start_day.to_i + 1).to_s if ((current_journeys.count != 0) && (arrivals_train[i-1].split(':')[0].to_i < current_journeys.last.end_time.hour) && ((arrivals_train[i-1].split(':')[0].to_i - current_journeys.last.end_time.hour).abs > 10) && (current_journeys.last.mode != "bus")) || (current_journeys.count.zero? && parameter.preferred_start.hour > arrivals_train[i-1].split(':')[0].to_i)
           # earliest_start_day_leave = earliest_start_day_arrive = earliest_start_day
           # # earliest_start_day_leave = (earliest_start_day.to_i + 1).to_s if ((current_journeys.count != 0) && (@departures_train[i-1].split(':')[0].to_i < current_journeys.last.end_time.hour) && ((@departures_train[i-1].split(':')[0].to_i - current_journeys.last.end_time.hour).abs > 10) && (current_journeys.last.mode != "bus")) || (current_journeys.count.zero? && parameter.preferred_start.hour > @departures_train[i-1].split(':')[0].to_i)
@@ -235,8 +244,8 @@ class FakeData < ApplicationRecord
             origin: origin_stations_train[i - 1],
             destination: destination_stations_train[i - 1],
             price_cents: ((prices_train[i - 1].to_f) * 100).to_i,
-            start_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, @departures_train[i-1].split(':')[0].to_i, @departures_train[i-1].split(':')[1].to_i, 0),
-            end_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, earliest_start_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
+            start_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, departure_day.to_i, @departures_train[i-1].split(':')[0].to_i, @departures_train[i-1].split(':')[1].to_i, 0),
+            end_time: DateTime.new(earliest_start_date_train.year, earliest_start_month.to_i, arrival_day.to_i, arrivals_train[i-1].split(':')[0].to_i, arrivals_train[i-1].split(':')[1].to_i, 0),
             duration: (durations_train[i-1][0..-2].split('h').first.to_i * 60) + (durations_train[i-1][0..-2].split('h').last.to_i),
             mode: "train"
           )
@@ -251,7 +260,8 @@ class FakeData < ApplicationRecord
       break if @departures_train.length.zero?
 
       if parameter.latest_finish.nil?
-        latest_finish_date_train = parameter.preferred_start + (120 * FakeData.last.duration) + 3600
+        first_train_journey = current_journeys.select { |journey| journey[:mode] == 'train' }.first
+        latest_finish_date_train = first_train_journey.start_time + (120 * first_train_journey.duration) + 7200
       else
         latest_finish_date_train = parameter.latest_finish
       end

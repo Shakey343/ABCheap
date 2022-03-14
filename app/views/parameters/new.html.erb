@@ -6,7 +6,7 @@
       data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
   </div>
-  <div class="rounded container abc-form info-box">
+  <div class="rounded container abc-form info-box col-sm-8 col-lg-4">
     <%= simple_form_for @parameter do |f| %>
       <div class="flex-items">
         <%= f.input :origin, placeholder: 'Origin', input_html: { class: 'orig' }, label: false %>
