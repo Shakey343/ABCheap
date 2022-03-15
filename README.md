@@ -13,7 +13,7 @@
 
 ## Description
 
-An inter-city travel app that produces the best options given a window of flexibility with a focus on money saving. The app will search for all travel options from national rail and coach travel within a window which can either be specified by the user or not, in which case the app will apply its default window. Three main options are presented, the fastest, cheapest and recommended. The recommended journey is equated by a value system that adds cost to the jounrey for duration and deviation from the users preffered time. There are then 3 other options offered as a further options feature. The user is then able to book and pay for these journies and keep track of all past and future journies in their account profile.
+An inter-city travel app that produces the best options given a window of flexibility with a focus on money saving. The app will search for all travel options from national rail and coach travel within a window which can either be specified by the user or not, in which case the app will apply its default window. The app also allows the user to include whether they have a railcard and/or access to a car, which will then be factored into the search. Three main options are presented, the fastest, cheapest and recommended. The recommended journey is equated by a value system that adds cost to the jounrey for duration and deviation from the users preferred time. There are then 3 other options offered as a further options feature. The user is then able to book and pay for these journies and keep track of all past and future journies in their account profile.
 
 #### Technologies
 
