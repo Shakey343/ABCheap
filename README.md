@@ -36,7 +36,7 @@ bundle install
 
 To use mapbox & stripe ensure you have included your keys in the `.ENV` file.
 
-To create a `.ENV` file run this command int he main directory of the app.
+To create a `.ENV` file run this command in the main directory of the app.
 
 ```sh
 touch .env
