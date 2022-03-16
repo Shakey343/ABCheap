@@ -17,6 +17,7 @@ An inter-city travel app that produces the best options given a window of flexib
 
 #### Technologies
 
+- Ruby on Rails.
 - Mapbox API - Used for geolocating and mapping out the users journey.
 - Stripe - To process payments.
 - Web Scraping - Currently we are using web scraping to retrieve real time travel information. The hope is to be able to use a more efficient API in future.
