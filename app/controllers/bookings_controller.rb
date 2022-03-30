@@ -2,10 +2,10 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :destroy]
 
   def create
-    trip = FakeData.find(params[:booking][:fake_data_id])
-    @booking = Booking.create!(user: current_user, fake_data: trip, amount: trip.price, state: "pending")
+    trip = Result.find(params[:booking][:result_id])
+    @booking = Booking.create!(user: current_user, result: trip, amount: trip.price, state: "pending")
     # @booking.user = current_user
-    # @booking.fake_data = trip
+    # @booking.result = trip
     # @booking.amount = trip.price
     # @booking.state = 'pending'
 
@@ -29,10 +29,10 @@ class BookingsController < ApplicationController
   def index
     @bookings = current_user.bookings
     @upcoming_bookings = @bookings.select do |booking|
-      booking.fake_data.start_time >= DateTime.now
+      booking.result.start_time >= DateTime.now
     end
     @past_bookings = @bookings.select do |booking|
-      booking.fake_data.start_time < DateTime.now
+      booking.result.start_time < DateTime.now
     end
   end
 
@@ -47,7 +47,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:fake_data_id)
+    params.require(:booking).permit(:result_id)
   end
 
   def set_booking

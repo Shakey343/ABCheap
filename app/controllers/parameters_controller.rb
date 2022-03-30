@@ -3,16 +3,32 @@ class ParametersController < ApplicationController
   before_action :set_params, only: [:create]
 
   def show
-    FakeData.where('booked != true').destroy_all
+    setup
+    max_window_check
+    geocode_route
+
+    Result.generate_results(@parameter)
+
+    car_result
+    default_windows
+    selecting_results
+    ab_map_markers
+  end
+
+  def setup
+    Result.where('booked != true').destroy_all
     Parameter.where('id != ?', params[:id]).destroy_all
-    FakeData.destroy_all
     @booking = Booking.new
     @parameter = Parameter.find(params[:id])
+  end
 
+  def max_window_check
     if @parameter.latest_finish != nil && @parameter.earliest_start != nil && @parameter.latest_finish - @parameter.earliest_start > 86400
       redirect_to '/600.html' and return
     end
+  end
 
+  def geocode_route
     origin_strip = @parameter.origin.strip
     if @parameter.origin.count("0-9") != 0
       origin_strip = @parameter.origin.gsub(/\s+/, "").insert(-4, " ")
@@ -29,9 +45,9 @@ class ParametersController < ApplicationController
       @parameter.update(origin: Geocoder.search(origin_strip).first.data["address"]["city"])
       @parameter.update(destination: Geocoder.search(destination_strip).first.data["address"]["city"])
     end
+  end
 
-    FakeData.generate_results(@parameter)
-
+  def car_result
     if @parameter.car
       lat_diff = (Geocoder.search(@parameter.origin).first.data["lat"].to_f - Geocoder.search(@parameter.destination).first.data["lat"].to_f).abs
       lon_diff = (Geocoder.search(@parameter.origin).first.data["lon"].to_f - Geocoder.search(@parameter.destination).first.data["lon"].to_f).abs
@@ -46,7 +62,7 @@ class ParametersController < ApplicationController
       time = ((distance / 54) * 60).to_i
       price_per_mile = 0.2
       cost = distance * price_per_mile
-      FakeData.create!(
+      Result.create!(
         origin: @parameter.origin,
         destination: @parameter.destination,
         price_cents: ((cost * 100).round(2) / (passengers ** 0.9)),
@@ -56,38 +72,40 @@ class ParametersController < ApplicationController
         mode: "car"
       )
     end
+  end
 
+  def default_windows
     if @parameter.earliest_start.nil?
       if @parameter.preferred_start < DateTime.now
-        earliest_start_date = @parameter.preferred_start
+        @earliest_start_date = @parameter.preferred_start
       elsif @parameter.preferred_start - 14400 < DateTime.now
-        earliest_start_date = DateTime.now
+        @earliest_start_date = DateTime.now
       else
-        earliest_start_date = @parameter.preferred_start - 14400
+        @earliest_start_date = @parameter.preferred_start - 14400
       end
     else
-      earliest_start_date = @parameter.earliest_start
+      @earliest_start_date = @parameter.earliest_start
     end
 
-    current_journeys = FakeData.where('booked != true')
+    current_journeys = Result.where('booked != true')
 
     if @parameter.latest_finish.nil?
-      if FakeData.where('booked != true').count != 0 && FakeData.where('booked != true').last.mode == "train"
+      if current_journeys.count != 0 && current_journeys.last.mode == "train"
         first_train_journey = current_journeys.select { |journey| journey[:mode] == 'train' }.first
-        latest_finish_date = first_train_journey.start_time + (120 * first_train_journey.duration) + 14400
-      elsif FakeData.where('booked != true').count != 0 && FakeData.where('booked != true').last.mode == "bus"
+        @latest_finish_date = first_train_journey.start_time + (120 * first_train_journey.duration) + 14400
+      elsif current_journeys.count != 0 && current_journeys.last.mode == "bus"
         first_bus_journey = current_journeys.select { |journey| journey[:mode] == 'bus' }.first
-        latest_finish_date = first_bus_journey.start_time + (60 * first_bus_journey.duration) + 7200
+        @latest_finish_date = first_bus_journey.start_time + (60 * first_bus_journey.duration) + 7200
       else
-        latest_finish_date = @parameter.preferred_start + 36000
+        @latest_finish_date = @parameter.preferred_start + 36000
       end
     else
-      latest_finish_date = @parameter.latest_finish
+      @latest_finish_date = @parameter.latest_finish
     end
+  end
 
-    # valid_data = FakeData.all # comment this line out to use scrape
-
-    valid_data = FakeData.where("price_cents != 0 AND booked != true AND end_time < ? AND start_time > ?", latest_finish_date, earliest_start_date)
+  def selecting_results
+    valid_data = Result.where("price_cents != 0 AND booked != true AND end_time < ? AND start_time > ?", @latest_finish_date, @earliest_start_date)
 
     if @parameter.railcard
       valid_data.where("mode = 'train'").each do |result|
@@ -122,7 +140,9 @@ class ParametersController < ApplicationController
     end
 
     @car = valid_data.where(mode: 'car').first if @parameter.car == true
+  end
 
+  def ab_map_markers
     @markers = []
 
     origin = { lat: Geocoder.search(@parameter.origin).first.data["lat"], lng: Geocoder.search(@parameter.origin).first.data["lon"],
