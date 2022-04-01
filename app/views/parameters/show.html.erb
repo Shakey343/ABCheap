@@ -102,7 +102,7 @@
         <div class="button-container">
         <% if @recommended.mode != 'car' %>
           <%= simple_form_for @booking do |f|%>
-            <%= f.input_field :fake_data_id, as: :hidden, value: @recommended.id %>
+            <%= f.input_field :result_id, as: :hidden, value: @recommended.id %>
             <%= f.submit "Quick Book", class: "abc-btn" %>
           <% end %>
         <% end %>
@@ -221,7 +221,7 @@
       <div class="modal-footer">
         <% if @fastest.mode != 'car' %>
           <%= simple_form_for @booking do |f|%>
-            <%= f.input_field :fake_data_id, as: :hidden, value: @fastest.id %>
+            <%= f.input_field :result_id, as: :hidden, value: @fastest.id %>
             <%= f.submit "Book" %>
           <% end %>
         <% else %>
@@ -278,7 +278,7 @@
       <div class="modal-footer">
       <% if @cheapest.mode != 'car' %>
         <%= simple_form_for @booking do |f|%>
-          <%= f.input_field :fake_data_id, as: :hidden, value: @cheapest.id %>
+          <%= f.input_field :result_id, as: :hidden, value: @cheapest.id %>
           <%= f.submit "Book" %>
         <% end %>
       <% else %>
@@ -335,7 +335,7 @@
       <div class="modal-footer">
         <% if @recommended.mode != 'car' %>
           <%= simple_form_for @booking do |f|%>
-            <%= f.input_field :fake_data_id, as: :hidden, value: @recommended.id %>
+            <%= f.input_field :result_id, as: :hidden, value: @recommended.id %>
             <%= f.submit "Book" %>
           <% end %>
           <% else %>
@@ -394,7 +394,7 @@
         <div class="modal-footer">
           <% if @other_recommended[0].mode != 'car' %>
             <%= simple_form_for @booking do |f|%>
-              <%= f.input_field :fake_data_id, as: :hidden, value: @fastest.id %>
+              <%= f.input_field :result_id, as: :hidden, value: @fastest.id %>
               <%= f.submit "Book" %>
             <% end %>
           <% else %>
@@ -416,7 +416,7 @@
         <div class="modal-body">
           <div class="travel-mode">
             <i class="fas fa-<%=@other_recommended[1].mode%>"></i>
-            <%=@cheapest.mode.capitalize%>
+            <%=@other_recommended[1].mode.capitalize%>
           </div>
 
           <div class="modal-travel-timings">
@@ -452,7 +452,7 @@
         <div class="modal-footer">
         <% if @other_recommended[1].mode != 'car' %>
           <%= simple_form_for @booking do |f|%>
-            <%= f.input_field :fake_data_id, as: :hidden, value: @other_recommended[1].id %>
+            <%= f.input_field :result_id, as: :hidden, value: @other_recommended[1].id %>
             <%= f.submit "Book" %>
           <% end %>
         <% else %>
@@ -510,7 +510,7 @@
         <div class="modal-footer">
           <% if @other_recommended[2].mode != 'car' %>
             <%= simple_form_for @booking do |f|%>
-              <%= f.input_field :fake_data_id, as: :hidden, value: @other_recommended[2].id %>
+              <%= f.input_field :result_id, as: :hidden, value: @other_recommended[2].id %>
               <%= f.submit "Book" %>
             <% end %>
             <% else %>

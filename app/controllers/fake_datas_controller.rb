@@ -1,2 +1,0 @@
-class FakeDatasController < ApplicationController
-end

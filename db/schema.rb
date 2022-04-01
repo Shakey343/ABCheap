@@ -20,24 +20,11 @@ ActiveRecord::Schema.define(version: 2022_03_09_225722) do
     t.integer "amount_cents", default: 0, null: false
     t.string "checkout_session_id"
     t.bigint "user_id", null: false
-    t.bigint "fake_data_id", null: false
+    t.bigint "result_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["fake_data_id"], name: "index_bookings_on_fake_data_id"
+    t.index ["result_id"], name: "index_bookings_on_result_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
-  end
-
-  create_table "fake_data", force: :cascade do |t|
-    t.string "origin"
-    t.string "destination"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer "duration"
-    t.string "mode"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "booked", default: false
-    t.integer "price_cents", default: 0, null: false
   end
 
   create_table "parameters", force: :cascade do |t|
@@ -57,6 +44,19 @@ ActiveRecord::Schema.define(version: 2022_03_09_225722) do
     t.index ["user_id"], name: "index_parameters_on_user_id"
   end
 
+  create_table "results", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "duration"
+    t.string "mode"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "booked", default: false
+    t.integer "price_cents", default: 0, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_225722) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bookings", "fake_data", column: "fake_data_id"
+  add_foreign_key "bookings", "results"
   add_foreign_key "bookings", "users"
   add_foreign_key "parameters", "users"
 end

@@ -1,6 +1,6 @@
-class CreateFakeData < ActiveRecord::Migration[6.1]
+class CreateResults < ActiveRecord::Migration[6.1]
   def change
-    create_table :fake_data do |t|
+    create_table :results do |t|
       t.string :origin
       t.string :destination
       t.datetime :start_time

@@ -13,11 +13,11 @@
       <% @upcoming_bookings.each do |booking| %>
         <button class="trip-item btn abc-btn-modal" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
           <div class="trip-box">
-            <h6>To:</h6><%=booking.fake_data.destination%>
-            <h6>On:</h6><%=booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %>
+            <h6>To:</h6><%=booking.result.destination%>
+            <h6>On:</h6><%=booking.result.start_time.strftime("%-d %^b")%>  <%= booking.result.start_time.strftime("%R") %>
           </div>
-          <% if (((booking.fake_data.start_time - DateTime.now) / 86400).floor) > 1 %>
-            <h6 class="trip-countdown">Only <%= ((booking.fake_data.start_time - DateTime.now) / 86400).floor%> sleeps!</h6>
+          <% if (((booking.result.start_time - DateTime.now) / 86400).floor) > 1 %>
+            <h6 class="trip-countdown">Only <%= ((booking.result.start_time - DateTime.now) / 86400).floor%> sleeps!</h6>
           <% else %>
             <h6 class="trip-countdown">It's today!</h6>
           <% end %>
@@ -31,8 +31,8 @@
       <% @past_bookings.each do |booking| %>
         <button class="trip-item btn abc-btn-modal" type="button" data-bs-toggle="modal" data-bs-target="#id<%=booking.id%>modal">
           <div class="trip-box">
-            <h6>To:</h6><%=booking.fake_data.destination%>
-            <h6>On:</h6><%=booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %>
+            <h6>To:</h6><%=booking.result.destination%>
+            <h6>On:</h6><%=booking.result.start_time.strftime("%-d %^b")%>  <%= booking.result.start_time.strftime("%R") %>
           </div>
           <h6 class="trip-countdown">That was fun!</h6>
         </button>
@@ -50,34 +50,34 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="travel-mode">
-              <i class="fas fa-<%=booking.fake_data.mode%>"></i>
-              <%=booking.fake_data.mode.capitalize%>
+              <i class="fas fa-<%=booking.result.mode%>"></i>
+              <%=booking.result.mode.capitalize%>
             </div>
             <div class="modal-travel-timings">
               <div class="journey-leg">
                 <p>Departure: </p>
-                <p><%= booking.fake_data.start_time.strftime("%-d %^b")%>  <%= booking.fake_data.start_time.strftime("%R") %></p>
+                <p><%= booking.result.start_time.strftime("%-d %^b")%>  <%= booking.result.start_time.strftime("%R") %></p>
               </div>
-              <p class="origin-destination"><%= booking.fake_data.origin%></p>
+              <p class="origin-destination"><%= booking.result.origin%></p>
               <i class="fas fa-long-arrow-alt-down arrow-down"></i>
               <div class="journey-leg">
                 <p>Arrival: </p>
-                <p><%= booking.fake_data.end_time.strftime("%-d %^b")%>  <%= booking.fake_data.end_time.strftime("%R") %></p>
+                <p><%= booking.result.end_time.strftime("%-d %^b")%>  <%= booking.result.end_time.strftime("%R") %></p>
               </div>
-              <p class="origin-destination"><%= booking.fake_data.destination%></p>
+              <p class="origin-destination"><%= booking.result.destination%></p>
             </div>
             <div class="modal-travel-info">
 
-              <% if booking.fake_data.duration > 60 %>
-                <% hours = (booking.fake_data.duration / 60).to_i %>
-                <% mins =  booking.fake_data.duration - (hours * 60)%>
+              <% if booking.result.duration > 60 %>
+                <% hours = (booking.result.duration / 60).to_i %>
+                <% mins =  booking.result.duration - (hours * 60)%>
                 <p> <%=hours%>hr<%=mins%> </p>
               <% else %>
                 <p> <%=@fastest.duration%>mins </p>
               <% end %>
             </div>
             <div class="travel-cost">
-              <p>£<%=booking.fake_data.price%></p>
+              <p>£<%=booking.result.price%></p>
             </div>
           </div>
         </div>

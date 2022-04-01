@@ -5,7 +5,7 @@ class CreateBookings < ActiveRecord::Migration[6.1]
       t.monetize :amount, currency: { present: false }
       t.string :checkout_session_id
       t.references :user, null: false, foreign_key: true
-      t.references :fake_data, null: false, foreign_key: true
+      t.references :result, null: false, foreign_key: true
 
       t.timestamps
     end
